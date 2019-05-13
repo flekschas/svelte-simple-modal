@@ -1,8 +1,8 @@
 <script>
   import { setContext } from 'svelte';
   import { fade } from 'svelte/transition';
-  import key from './key.js';
 
+  export let key = 'simple-modal';
   export let closeButton = true;
   export let closeOnEsc = true;
   export let closeOnOuterClick = true;
