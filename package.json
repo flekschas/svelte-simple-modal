@@ -1,0 +1,38 @@
+{
+  "name": "svelte-simple-modal",
+  "version": "0.1.0",
+  "description": "A small and simple modal for Svelte",
+  "main": "index.js",
+  "module": "module.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "build": "rollup -c",
+    "prepublish": "npm run lint && npm run build",
+    "prerelease": "rm -f dist.zip; npm run build; zip dist.zip index.js module.js",
+    "lint": "eslint src"
+  },
+  "files": [
+    "index.js",
+    "module.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flekschas/svelte-simple-modal.git"
+  },
+  "keywords": [
+    "svelte",
+    "modal"
+  ],
+  "author": "Fritz Lekschas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flekschas/svelte-simple-modal/issues"
+  },
+  "homepage": "https://github.com/flekschas/svelte-simple-modal#readme",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-plugin-import": "^2.2.0",
+    "rollup": "^1.11.3",
+    "rollup-plugin-buble": "^0.19.6"
+  }
+}

@@ -1,0 +1,38 @@
+language: node_js
+os: osx
+node_js:
+  - "8"
+addons:
+  apt:
+    packages:
+      - xvfb
+branches:
+  only:
+    - master
+    - develop
+    - "/^v.*$/"
+before_script:
+  - "export DISPLAY=:99.0"
+  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+  - npm install
+before_deploy:
+  - npm run prerelease
+deploy:
+  - provider: releases
+    skip_cleanup: true
+    api_key:
+      secure: TGOT+90J8z3yJqJLfm1X3ybjv4GS6Y8vqDouS7ODfUX5ZEiO/3Rryfxs2IVspcBCQ9AVBf2EN50SDa72GeY7wAvtT2DaX4UM0rhd3F8ncR6KI2p4N0OecZP/OETFwbRuP+HrAb1m3mTmu4NO88HO47pwpsM+MHqbdA/5pqZPrDFBEja0+gvEPTbspfuFR/5BmD0oFzzartFiH/mCa322Kage8RXw+qtVWCzrf2sm0LhXdv4vFdZXwHDgzLqOpxps+eV4davOtvjfDNpNpKcjpkZB1I3WideEZUe+VwdD8v8zam0OdrRNKfuRPtRLfqNsw+GJGT49jh79a45rFvxKDCSpCrrMLan4l4TONk4gPSM9WCLwqTvJRJhLnZo2ay0ONKDP6T5IxtYtRexV3fCQuR7YPAxtEirG4ZZuCmhAiJTnMZwwFC2tkIXQAME7tT38og6TTcQOiGqFZYo2HCaKlZClvOJfTMPl0640I2Sw9L5OTmFY8TeslZEPqV5Dujo9zIvJW3UBocWNM0dVMdr9TyEmkkCcGwyJRh0I6GnxvT//3Kvrg2YlPHnyHYPtDSZ7c4I26E1P+Ns1ax6h0GnttONLtB+jisiK/2S1RatE1eajJ+cLpXRHPSWQ1kjv1O1mSTlWOLjqROtMBabniT+zSqAE/80SQWirzxeiQAmSkYU=
+    file: dist.zip
+    on:
+      branch: master
+      tags: true
+      repo: flekschas/svelte-simple-modal
+  - provider: npm
+    skip_cleanup: true
+    email: service@lekschas.de
+    api_key:
+      secure: XF2VsGlS8ykYuUp1z7n+LDhm1PKGEpxDMTquflzFtfwnov/YHOs85aUaoevFqMdYy2knKqQ0EYUMxCTIYeNCaV9+HU5Co+ndqIvQr3zN7LEvJIgp6ipt/NVgpnaQ8KlGyOAVxziLnLZxmK0fG8yjun1qmAJGfnwMJP63ibE+lmoia6QYl8MmXKVI44Xl+KQU+xXUxdk1q4eNukCmOMFsXDCkPbgVlPb/4yYknNq2ZLZvy0WoRnmrMqeD58Xv4vaPjKh7a7+69AjzE/g5D36YdM7jXCqCOdrpkVVqmeIdUIzrKbP+YsnbSWNSZOgfTwMoRD0ZyWaEAo78tQM+tBCKvFVtb1irgrf1G6QgIpMSMU5bJvh8P1MAPCalDVbjgrQsEHgiSStMNfLUZeTPC7NhEGctO9B5w21H3sNfJEsx486Q2XskGcRrfSJsN7aCx1V6LinDvcISTYLy5r95kDT6pT6WYP6q7jEmdDG8q/pWMazdkxhPvkUQwGA+yc+ho0TUktMIIkn+R1EpnlxIqgvpfUa8WzVmLmOOTRUkF3Glyd3N3lDYxCy6180pQ6gOZsOXkuE0GuKqEdMrNk6sarfvxPKuGalD7nHdwbLmvCG+AawPgWDpTrvhF4fGKH7EEPjgv7oEyuvdOOY9oFWJSMc5idaBDhjxMtLhc1vVFBQQDX8=
+    on:
+      branch: master
+      tags: true
+      repo: flekschas/svelte-simple-modal
