@@ -35,9 +35,8 @@ and closing the modal. `open()` expects two arguments: a Svelte `Component` and 
 <script>
   import { getContext } from 'svelte';
   import Surprise from './Surprise.svelte';
-  import { key } from 'svelte-simple-modal';
 
-  const { open } = getContext(key);
+  const { open } = getContext('simple-modal');
 
   const showSurprise = () => {
     open(Surprise, { message: "It's a modal!" });
@@ -60,6 +59,7 @@ and closing the modal. `open()` expects two arguments: a Svelte `Component` and 
 
 ## Parameters
 
+- **key**: The context key that is used to expose `open()` and `close()`. Adjust to avoid clashes with other contexts. (Default: `simple-modal`)
 - **closeButton**: If `true` a button for closing the modal is rendered. (Default: `true`)
 - **closeOnEsc**:  If `true` the modal will close when pressing the escape key. (Default: `true`)
 - **closeOnOuterClick**:  If `true` the modal will close when clicking outside the modal window. (Default: `true`)
