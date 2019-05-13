@@ -10,7 +10,7 @@
     "build": "rollup -c",
     "prepublish": "npm run lint && npm run build",
     "prerelease": "rm -f dist.zip; npm run build; zip dist.zip index.js module.js",
-    "lint": "eslint src"
+    "lint": "eslint src/*"
   },
   "files": [
     "index.js",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "eslint": "^5.16.0",
     "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-svelte3": "^1.1.0",
     "rollup": "^1.11.3",
     "rollup-plugin-commonjs": "^9.3.4",
     "rollup-plugin-node-resolve": "^4.2.4",
