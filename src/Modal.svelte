@@ -1,7 +1,6 @@
 <script>
   import { setContext } from 'svelte';
   import { fade } from 'svelte/transition';
-  import { cubicInOut } from 'svelte/easing';
   import key from './key.js';
 
   export let closeButton = true;
@@ -40,7 +39,7 @@
     props = null;
   };
 
-  const handleKeyup = ({ keyCode, key }) => {
+  const handleKeyup = ({ key }) => {
     if (closeOnEsc && Component && key === 'Escape') {
       event.preventDefault();
       close();
