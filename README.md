@@ -31,7 +31,7 @@ and closing the modal. `open()` expects two arguments: a Svelte `Component` and 
 </Modal>
 
 
-<!-- App.svelte -->
+<!-- Content.svelte -->
 <script>
   import { getContext } from 'svelte';
   import Surprise from './Surprise.svelte';
