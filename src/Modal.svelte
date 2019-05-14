@@ -1,5 +1,5 @@
 <script>
-  import { setContext } from 'svelte';
+  import { setContext as baseSetContext } from 'svelte';
   import { fade } from 'svelte/transition';
 
   export let key = 'simple-modal';
@@ -13,6 +13,7 @@
   export let styleBg = {};
   export let styleWindow = {};
   export let styleContent = {};
+  export let setContext = baseSetContext;
 
   let Component = null;
   let props = null;
