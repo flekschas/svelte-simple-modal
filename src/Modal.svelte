@@ -19,6 +19,7 @@
   let props = null;
 
   let background;
+  let wrap;
 
   const camelCaseToDash = str => str
     .replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
@@ -48,7 +49,11 @@
   };
 
   const handleOuterClick = (event) => {
-    if (closeOnOuterClick && event.target === background) {
+    if (
+      closeOnOuterClick && (
+        event.target === background || event.target === wrap
+      )
+    ) {
       event.preventDefault();
       close();
     }
@@ -102,7 +107,7 @@
       transition:transitionBg={transitionBgProps}
       style={cssBg}
     >
-      <div class="wrap">
+      <div class="wrap" bind:this={wrap}>
         <div
           class="window"
           transition:transitionWindow={transitionWindowProps}
