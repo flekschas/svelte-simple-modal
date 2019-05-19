@@ -63,6 +63,10 @@
 </script>
 
 <style>
+  * {
+    box-sizing: border-box;
+  }
+
   .bg {
     position: fixed;
     z-index: 1000;
@@ -74,27 +78,35 @@
     background: rgba(0, 0, 0, 0.66);
   }
 
-  .wrap {
+  .window-wrap {
     position: relative;
     margin: 2rem;
     max-height: 100%;
-    overflow: auto;
   }
 
   .window {
     position: relative;
     width: 40rem;
     max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    max-height: 100%;
+    margin: 2rem auto;
     color: black;
     border-radius: 0.5rem;
     background: white;
   }
+
+  .content {
+    position: relative;
+    padding: 1rem;
+    max-height: calc(100vh - 4rem);
+    overflow: auto;
+  }
+
   .close {
     display: block;
     box-sizing: border-box;
     position: absolute;
+    z-index: 1000;
     top: 1rem;
     right: 1rem;
     margin: 0;
@@ -160,10 +172,6 @@
   .close:hover, .close:focus, .close:active {
     outline: none;
   }
-
-  .content {
-    padding: 1rem;
-  }
 </style>
 
 <svelte:window on:keyup={handleKeyup}/>
@@ -177,7 +185,7 @@
       transition:transitionBg={transitionBgProps}
       style={cssBg}
     >
-      <div class="wrap" bind:this={wrap}>
+      <div class="window-wrap" bind:this={wrap}>
         <div
           class="window"
           transition:transitionWindow={transitionWindowProps}
@@ -187,9 +195,7 @@
             <button on:click={close} class="close"></button>
           {/if}
           <div class="content" style={cssContent}>
-            {#if Component}
-              <Component {...props}/>
-            {/if}
+            <Component {...props}/>
           </div>
         </div>
       </div>
