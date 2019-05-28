@@ -20,6 +20,9 @@
 
   let background;
   let wrap;
+  let customStyleBg = {};
+  let customStyleWindow = {};
+  let customStyleContent = {};
 
   const camelCaseToDash = str => str
     .replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
@@ -27,18 +30,24 @@
   const toCssString = (props) => Object.keys(props)
     .reduce((str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`, '');
 
-  $: cssBg = toCssString(styleBg);
-  $: cssWindow = toCssString(styleWindow);
-  $: cssContent = toCssString(styleContent);
+  $: cssBg = toCssString(Object.assign({}, styleBg, customStyleBg));
+  $: cssWindow = toCssString(Object.assign({}, styleWindow, customStyleWindow));
+  $: cssContent = toCssString(Object.assign({}, styleContent, customStyleContent));
 
-  const open = (NewComponent, newProps = {}) => {
+  const open = (NewComponent, newProps = {}, style = {bg: {}, window: {}, content: {}}) => {
     Component = NewComponent;
     props = newProps;
+    customStyleBg = style.bg || {};
+    customStyleWindow = style.window || {};
+    customStyleContent = style.content || {};
   };
 
   const close = () => {
     Component = null;
     props = null;
+    customStyleBg = {};
+    customStyleWindow = {};
+    customStyleContent = {};
   };
 
   const handleKeyup = ({ key }) => {
