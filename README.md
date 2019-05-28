@@ -94,6 +94,27 @@ export default {
 - **styleContent**: Style properties of the modal content. (Default `{}`)
 
 
+## Context
+
+You can access the context via `simple-modal` and it exports the following API:
+
+- `open(Component, props, styling)`
+
+   Opens the modal with `<Component {props}>` rendered as the content. `styling` can be used to temporarily adjust the styling of this specific modal, which can be useful for content-aware theming. `styling` needs to be an object of the following form:
+
+   ```
+   {
+     bg: { backgroundImage: 'http://example.com/my-background.jpg' },
+     window: { fontSize: 20em },
+     content: { color: 'yellow' }
+   }
+   ```
+
+- `close()`
+
+   Closes the modal.
+
+
 ## License
 
 [MIT](LICENSE)
