@@ -1,11 +1,13 @@
 # svelte-simple-modal
 
 [![Build Status](https://travis-ci.org/flekschas/svelte-simple-modal.svg?branch=master)](https://travis-ci.org/flekschas/svelte-simple-modal)
-[![Demo](https://img.shields.io/badge/live-demo-ff69b4.svg)](https://svelte.dev/repl/033e824fad0a4e34907666e7196caec4?version=3.4.1)
+[![Demo](https://img.shields.io/badge/live-demo-ff69b4.svg)](https://svelte.dev/repl/033e824fad0a4e34907666e7196caec4?version=3.15.0)
 
 A simple, small, and content-agnostic modal for [Svelte](https://svelte.dev).
 
 ![simple-modal](https://user-images.githubusercontent.com/932103/57642565-9d335d00-7585-11e9-80c6-e4b835f02428.gif)
+
+Tested with Svelte `v3.4` to `v3.15`.
 
 ## Install
 
