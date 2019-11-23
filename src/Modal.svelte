@@ -10,7 +10,7 @@
   export let transitionBgProps = { duration: 250 };
   export let transitionWindow = transitionBg;
   export let transitionWindowProps = transitionBgProps;
-  export let styleBg = {};
+  export let styleBg = {top: 0, left:0};
   export let styleWindow = {};
   export let styleContent = {};
   export let setContext = baseSetContext;
