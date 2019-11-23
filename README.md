@@ -91,7 +91,7 @@ export default {
 - **transitionBgProps**: Properties of the transition function for the background. (Default `{}`)
 - **transitionWindow**: Transition function for the window. (Default `svelte:fade`)
 - **transitionWindowProps**: Properties of the transition function for the window. (Default `{}`)
-- **styleBg**: Style properties of the background. (Default `{}`)
+- **styleBg**: Style properties of the background. (Default `{top: 0, left: 0}`)
 - **styleWindow**: Style properties of the modal window. (Default `{}`)
 - **styleContent**: Style properties of the modal content. (Default `{}`)
 
