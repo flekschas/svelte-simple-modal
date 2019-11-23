@@ -10,6 +10,12 @@
   "plugins": [
     "svelte3"
   ],
+  "overrides": [
+    {
+      "files": ["**/*.svelte"],
+      "processor": "svelte3/svelte3"
+    }
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:import/errors",
