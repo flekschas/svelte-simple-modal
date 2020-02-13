@@ -1,7 +1,7 @@
 language: node_js
 os: osx
 node_js:
-  - "8"
+  - "12"
 addons:
   apt:
     packages:
@@ -19,6 +19,7 @@ before_deploy:
   - npm run prerelease
 deploy:
   - provider: releases
+    edge: true
     skip_cleanup: true
     api_key:
       secure: hRui6rjKyfnlO7FsNxxrOBJQmJ9jO/ofe3FGgnelkDPUpT0i9ifSKVASKDErxfIXyZjKACdK+wqaRvATdvVDv7Bd4p9rZr+7nAnIpzq9QZZTp0NhZiBY4YOfa3evEuJIhJV2QExX+kVW2wGtaAUkVn3cTp2y5F4CRlqdqoLtfuv6Zk+SzfUIi3OlrR2hhioSwbssTrRADICbemtuRFssTyRiqYUldYWQDJxZx5wsrrvXqI3/mvpoxE0mO12KbaYGxIkkqk72VIX9TzH+gxqv1AX0JJNW6SVSrqfh/PmzmeYNLslozsayoQZrFih4TeKPjSNF7w3jjbEv1VAZRKzytRaIgIkxhhYizZdemJ+DA07C/OOv2aLUYL9gliqs9tBAtC8iGRbb/ns6sg35t762dK2riKei1xNbfFQj5cbJhysbwodorVzm10VfHs9cxDEoGBSvIkYVQwU3F2dKIPr781rgLoKXuNEROedPA0TmqNl3r36XRYvz2NUMP4kAaJ52YGx785dbMWMOs9hRxJKzujCpoMooggEClofyQqpOvZ8t7k6Z3CiCZibj7LLpU6PlCLxIiP/xm5XjKINBBMeIGIX7t0xrn9JMV/GKkZWZhYNlQqd+Ls3nEAN6R5eS09lYfp1vQ/i2la33sXQVtxTwv1M8Ftq6PFHsrSh0QHE+WNM=
@@ -28,10 +29,11 @@ deploy:
       tags: true
       repo: flekschas/svelte-simple-modal
   - provider: npm
+    edge: true
     skip_cleanup: true
-    email: service@lekschas.de
+    email: code@lekschas.de
     api_key:
-      secure: aTW+q6Al9i41L7I90f0TCnBWBKZ526IpQIjR4tjzPa1UDCtt5MsA5EXcswO2GtuNHeV8QkC7lSPMWmr7SLNWIBXQQ4wSy49gqpqxH2gQ3uoRYYqU3c9/OnJbKlNoCyJx8KP3FO3+kWL6dsOC3vcMkObhAB6qBbx5GqE+tlq8zhFbDriJ7qrofkWkqanukQORDeHcUPlBcjwfaBDo6EInQ7HLf0b58yRF/zqM8k6D8lmPBsNOywhe2/8Jez6aEsTZ14vQo0PD36omXIaTztqFoEim001PM6dXLm4YF8y9g6Ru+WDk+zppOfVciHZpMBz7ox2gPlKnd/Wkvpn0y54GSpK2HqsCHvN0LuDCWToUw7mi1gO0yncZ+Zu/F9gbqYNMfc29ax3R3UXom0G2t7teQhJYkzbi/atrPe2/MBvEcwJmGGi94Pf0E6R5Virjsz8PnxxMpQspNuxNsb6NOh3QrPKyGELjsP31zlxE2y9b4cW3DZmFqDHojrBwsmTryddy2jlPiwRDwtkFRVWAXoDOqui4r/+PBWVtxZvj69NUZq45XPgKuS/2snDl0deyyNaFDN+JTIoMeUCuy55mZRXRq494omoPq8oBQC/QZ7ZE8U2qxIaR+xzpnFGgi397ANeK2y/rOcspKc6IKbRbvOpN4TZtm9CSDKoYFUNfeKxOcOo=
+      secure: Ortl/2lh1ZDt4/oIIAhEqDt/2RUHJ7bvad+3uo1cc6XhfdxgHgXjXsVqNFduBAL5xVf/NKwBcSgai1yVZEvDhsGifA04qGP1sT3pagtVZx6oYDJbfZXKt8+l8kl+uLQ0ucExQ1eIQxCCLKYm5ZsbQgHy5/OgZyW9a6qjeGJLWXtV9HwKUqASDp+Vm2Qugls77oVuEOcnsxRPOyxIOOvIw8HVGWcAesucUeS9sRtiva6TCVa0CylOtszLuz/og1qXiTRAVP3hBDpeeqfAgzeiW/ACMxj/szfpfeLUZnRatmA+90BB5uM2oi20Lu0Se5qm7Tt/JTVHsl2Fot3ZEu8fmx+eKm9tZ6PkGG4zPFX2/mJ/Kvs8ANWkqcjYgF9APVH+/YeBgeBUwDOUvs406IAyUUT5ggvUQqJvZoK7Hiiz7mIcUwAMwDJhkKa+oYtRlyalzTdvSfnvTzdWYuDHaeP5aJ9VqsB+JMYnAbM41Ldg9zy7he+6FTIFtgIPDJQlUCQndRhDkBJbE+bEnTbVKFK8CEqtUx7ec2Ilv7uV1pl+Ic7N9f33mDEKYD23pMRD4n1exfI7psykPvh+LXNnKg+mBfJr8S/A6OcqmNZJNINR5r6ktcnkTsOEHjFWfOenmzFIRFKAkAkzcT4AcYL0wlaK2z4zMB1W824bMCEkhvY2Xb4=
     on:
       branch: master
       tags: true
