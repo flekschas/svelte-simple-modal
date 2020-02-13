@@ -23,7 +23,9 @@
   },
   "keywords": [
     "svelte",
-    "modal"
+    "modal",
+    "popup",
+    "dialog"
   ],
   "author": "Fritz Lekschas",
   "license": "MIT",
