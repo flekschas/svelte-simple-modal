@@ -98,6 +98,12 @@ export default {
 };
 ```
 
+**FOR SAPPER USERS:** If you're using [Sapper](https://sapper.svelte.dev/) make sure you install _svelte-simple-modal_ as a dev-dependency! If you're curious why please take a look at https://github.com/sveltejs/sapper-template#using-external-components
+
+```
+npm install -D svelte-simple-modal
+```
+
 
 ## Parameters
 
