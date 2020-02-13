@@ -100,17 +100,29 @@ export default {
 
 You can access the context via `simple-modal` and it exports the following API:
 
-- `open(Component, props, styling)`
+- `open(Component, props = {}, options = {})`
 
-   Opens the modal with `<Component {props}>` rendered as the content. `styling` can be used to temporarily adjust the styling of this specific modal, which can be useful for content-aware theming. `styling` needs to be an object of the following form:
+  Opens the modal with `<Component {props}>` rendered as the content. `options` can be used to adjust the modal behavior once for the modal that is about to be opened. The `options` allows to customize all [parameters](#parameters) except `key` and `setContext`:
 
-   ```
-   {
-     bg: { backgroundImage: 'http://example.com/my-background.jpg' },
-     window: { fontSize: 20em },
-     content: { color: 'yellow' }
-   }
-   ```
+  ```javascript
+  {
+    closeButton: false,
+    closeOnEsc: false,
+    closeOnOuterClick: false,
+    transitionBg: fade,
+    transitionBgProps: {
+      duration: 5000
+    },
+    transitionWindow: fly,
+    transitionWindowProps: {
+      y: 100,
+      duration: 250
+    },
+    styleBg: { backgroundImage: 'http://example.com/my-background.jpg' },
+    styleWindow: { fontSize: '20em' },
+    styleContent: { color: 'yellow' }
+  }
+  ```
 
 - `close()`
 

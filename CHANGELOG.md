@@ -1,3 +1,7 @@
+# 0.3.0
+
+- Allow to specify instance-specific options via [`open(Component, componentProps, options)`](#opencomponentpropsoptions))
+
 # 0.2.2
 
 - Update `package-lock.json` file
