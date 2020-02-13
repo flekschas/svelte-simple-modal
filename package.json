@@ -10,7 +10,7 @@
     "build": "rollup -c",
     "prepare": "npm run lint && npm run build",
     "prerelease": "rm -f dist.zip; npm run build; zip dist.zip src/Modal.svelte index.js module.js",
-    "lint": "eslint src/*"
+    "lint": "eslint src/* rollup.config.js"
   },
   "files": [
     "index.js",
@@ -33,14 +33,17 @@
     "url": "https://github.com/flekschas/svelte-simple-modal/issues"
   },
   "homepage": "https://github.com/flekschas/svelte-simple-modal#readme",
+  "peerDependencies": {
+    "svelte": "^3.18.2"
+  },
   "devDependencies": {
-    "eslint": "^6.7.0",
-    "eslint-plugin-import": "^2.18.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-svelte3": "^2.7.3",
-    "rollup": "^1.27.4",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup": "^1.29.0",
     "rollup-plugin-svelte": "^5.1.1",
-    "svelte": "^3.15.0"
+    "rollup-plugin-filesize": "^6.2.1",
+    "svelte": "^3.18.2"
   }
 }

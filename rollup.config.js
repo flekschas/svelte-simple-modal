@@ -1,19 +1,19 @@
+import resolve from '@rollup/plugin-node-resolve';
+import filesize from 'rollup-plugin-filesize';
 import svelte from 'rollup-plugin-svelte';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
 
-const pkg = require('./package.json');
+import { main, module } from './package.json';
 
 export default {
   input: 'src/Modal.svelte',
   output: [
     {
-       file: pkg.main,
+       file: main,
        format: 'cjs',
        exports: 'default'
     },
     {
-      file: pkg.module,
+      file: module,
       format: 'es',
       exports: 'default'
     },
@@ -21,6 +21,7 @@ export default {
   plugins: [
     svelte(),
     resolve(),
-    commonjs(),
+    filesize(),
   ],
+  external: ['svelte']
 };
