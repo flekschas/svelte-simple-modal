@@ -6,23 +6,34 @@
   export let closeButton = true;
   export let closeOnEsc = true;
   export let closeOnOuterClick = true;
-  export let transitionBg = fade;
-  export let transitionBgProps = { duration: 250 };
-  export let transitionWindow = transitionBg;
-  export let transitionWindowProps = transitionBgProps;
   export let styleBg = { top: 0, left: 0 };
   export let styleWindow = {};
   export let styleContent = {};
   export let setContext = baseSetContext;
+  export let transitionBg = fade;
+  export let transitionBgProps = { duration: 250 };
+  export let transitionWindow = transitionBg;
+  export let transitionWindowProps = transitionBgProps;
+
+  const defaultState = {
+    closeButton,
+    closeOnEsc,
+    closeOnOuterClick,
+    styleBg,
+    styleWindow,
+    styleContent,
+    transitionBg,
+    transitionBgProps,
+    transitionWindow,
+    transitionWindowProps,
+  };
+  let state = { ...defaultState };
 
   let Component = null;
   let props = null;
 
   let background;
   let wrap;
-  let customStyleBg = {};
-  let customStyleWindow = {};
-  let customStyleContent = {};
 
   const camelCaseToDash = str => str
     .replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
@@ -30,28 +41,29 @@
   const toCssString = (props) => Object.keys(props)
     .reduce((str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`, '');
 
-  $: cssBg = toCssString(Object.assign({}, styleBg, customStyleBg));
-  $: cssWindow = toCssString(Object.assign({}, styleWindow, customStyleWindow));
-  $: cssContent = toCssString(Object.assign({}, styleContent, customStyleContent));
+  $: cssBg = toCssString(state.styleBg);
+  $: cssWindow = toCssString(state.styleWindow);
+  $: cssContent = toCssString(state.styleContent);
+  $: currentTransitionBg = state.transitionBg;
+  $: currentTransitionWindow = state.transitionWindow;
 
-  const open = (NewComponent, newProps = {}, style = {bg: {}, window: {}, content: {}}) => {
+  const open = (
+    NewComponent,
+    newProps = {},
+    options = {}
+  ) => {
     Component = NewComponent;
     props = newProps;
-    customStyleBg = style.bg || {};
-    customStyleWindow = style.window || {};
-    customStyleContent = style.content || {};
+    state = { ...defaultState, ...options };
   };
 
   const close = () => {
     Component = null;
     props = null;
-    customStyleBg = {};
-    customStyleWindow = {};
-    customStyleContent = {};
   };
 
   const handleKeyup = ({ key }) => {
-    if (closeOnEsc && Component && key === 'Escape') {
+    if (state.closeOnEsc && Component && key === 'Escape') {
       event.preventDefault();
       close();
     }
@@ -59,7 +71,7 @@
 
   const handleOuterClick = (event) => {
     if (
-      closeOnOuterClick && (
+      state.closeOnOuterClick && (
         event.target === background || event.target === wrap
       )
     ) {
@@ -191,16 +203,16 @@
       class="bg"
       on:click={handleOuterClick}
       bind:this={background}
-      transition:transitionBg={transitionBgProps}
+      transition:currentTransitionBg={state.transitionBgProps}
       style={cssBg}
     >
       <div class="window-wrap" bind:this={wrap}>
         <div
           class="window"
-          transition:transitionWindow={transitionWindowProps}
+          transition:currentTransitionWindow={state.transitionWindowProps}
           style={cssWindow}
         >
-          {#if closeButton}
+          {#if state.closeButton}
             <button on:click={close} class="close"></button>
           {/if}
           <div class="content" style={cssContent}>
