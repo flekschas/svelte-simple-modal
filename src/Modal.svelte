@@ -216,7 +216,7 @@
             <button on:click={close} class="close"></button>
           {/if}
           <div class="content" style={cssContent}>
-            <Component {...props}/>
+            <svelte:component this={Component} {...props} />
           </div>
         </div>
       </div>
