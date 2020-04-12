@@ -47,17 +47,30 @@
   $: currentTransitionBg = state.transitionBg;
   $: currentTransitionWindow = state.transitionWindow;
 
+  const toVoid = () => {};
+  let onOpen = toVoid;
+  let onClose = toVoid;
+  let onOpened = toVoid;
+  let onClosed = toVoid;
+
   const open = (
     NewComponent,
     newProps = {},
-    options = {}
+    options = {},
+    callback = {}
   ) => {
     Component = NewComponent;
     props = newProps;
     state = { ...defaultState, ...options };
+    onOpen = callback.onOpen || toVoid;
+    onClose = callback.onClose || toVoid;
+    onOpened = callback.onOpened || toVoid;
+    onClosed = callback.onClosed || toVoid;
   };
 
-  const close = () => {
+  const close = (callback = {}) => {
+    onClose = callback.onClose || onClose;
+    onClosed = callback.onClosed || onClosed;
     Component = null;
     props = null;
   };
@@ -210,6 +223,10 @@
         <div
           class="window"
           transition:currentTransitionWindow={state.transitionWindowProps}
+          on:introstart={onOpen}
+          on:outrostart={onClose}
+          on:introend={onOpened}
+          on:outroend={onClosed}
           style={cssWindow}
         >
           {#if state.closeButton}

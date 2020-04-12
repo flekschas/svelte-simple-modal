@@ -127,7 +127,7 @@ npm install -D svelte-simple-modal
 
 You can access the context via `simple-modal` and it exports the following API:
 
-- `open(Component, props = {}, options = {})`
+- `open(Component, props = {}, options = {}, callbacks = {})`
 
   Opens the modal with `<Component {props}>` rendered as the content. `options` can be used to adjust the modal behavior once for the modal that is about to be opened. The `options` allows to customize all [parameters](#parameters) except `key` and `setContext`:
 
@@ -151,9 +151,27 @@ You can access the context via `simple-modal` and it exports the following API:
   }
   ```
 
-- `close()`
+  Callback are triggered at the beginning and end of the opening and closing transition. The following callbacks are supported:
 
-   Closes the modal.
+  ```javascript
+  {
+    onOpen: () => { /* modal window starts to open */ },
+    onOpened: () => { /* modal window opened */ },
+    onClose: () => { /* modal window starts to close */ },
+    onClosed: () => { /* modal window closed */ },
+  }
+  ```
+
+- `close(callbacks = {})`
+
+  Closes the modal. Similar to `open()`, this method supports adding callbacks for the closing transition:
+
+  ```javascript
+  {
+    onClose: () => { /* modal window starts to close */ },
+    onClosed: () => { /* modal window closed */ },
+  }
+  ```
 
 
 ## License
