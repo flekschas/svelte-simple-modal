@@ -1,3 +1,7 @@
+# 0.3.1
+
+- Fix non-reactive component (#11)
+
 # 0.3.0
 
 - Allow to specify instance-specific options via [`open(Component, componentProps, options)`](#opencomponentpropsoptions))
