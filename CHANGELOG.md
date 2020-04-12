@@ -1,6 +1,6 @@
 # 0.4.0
 
-- Add support for transition event callbacks via [`open(..., ..., ..., { onOpen, onOpened, onClose, onClosed })`](#opencomponentpropsoptions))
+- Add support for transition event callbacks via [`open(..., ..., ..., { onOpen, onOpened, onClose, onClosed })`](README.md#open))
 
 # 0.3.1
 
@@ -8,7 +8,7 @@
 
 # 0.3.0
 
-- Allow to specify instance-specific options via [`open(Component, componentProps, options)`](#opencomponentpropsoptions))
+- Allow to specify instance-specific options via [`open(Component, componentProps, options)`](README.md#open))
 
 # 0.2.2
 

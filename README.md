@@ -123,11 +123,11 @@ npm install -D svelte-simple-modal
 - **styleContent**: Style properties of the modal content. (Default `{}`)
 
 
-## Context
+## Context API
 
 You can access the context via `simple-modal` and it exports the following API:
 
-- `open(Component, props = {}, options = {}, callbacks = {})`
+<a name="open" href="#open">#</a> <b>open</b>(<i>Component</i>, <i>props = {}</i>, <i>options = {}</i>, <i>callbacks = {}</i>)
 
   Opens the modal with `<Component {props}>` rendered as the content. `options` can be used to adjust the modal behavior once for the modal that is about to be opened. The `options` allows to customize all [parameters](#parameters) except `key` and `setContext`:
 
@@ -162,7 +162,7 @@ You can access the context via `simple-modal` and it exports the following API:
   }
   ```
 
-- `close(callbacks = {})`
+<a name="close" href="#close">#</a> <b>close</b>(<i>callbacks = {}</i>)
 
   Closes the modal. Similar to `open()`, this method supports adding callbacks for the closing transition:
 
