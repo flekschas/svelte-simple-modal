@@ -210,34 +210,32 @@
 
 <svelte:window on:keyup={handleKeyup}/>
 
-<div>
-  {#if Component}
-    <div
-      class="bg"
-      on:click={handleOuterClick}
-      bind:this={background}
-      transition:currentTransitionBg={state.transitionBgProps}
-      style={cssBg}
-    >
-      <div class="window-wrap" bind:this={wrap}>
-        <div
-          class="window"
-          transition:currentTransitionWindow={state.transitionWindowProps}
-          on:introstart={onOpen}
-          on:outrostart={onClose}
-          on:introend={onOpened}
-          on:outroend={onClosed}
-          style={cssWindow}
-        >
-          {#if state.closeButton}
-            <button on:click={close} class="close"></button>
-          {/if}
-          <div class="content" style={cssContent}>
-            <svelte:component this={Component} {...props} />
-          </div>
+{#if Component}
+  <div
+    class="bg"
+    on:click={handleOuterClick}
+    bind:this={background}
+    transition:currentTransitionBg={state.transitionBgProps}
+    style={cssBg}
+  >
+    <div class="window-wrap" bind:this={wrap}>
+      <div
+        class="window"
+        transition:currentTransitionWindow={state.transitionWindowProps}
+        on:introstart={onOpen}
+        on:outrostart={onClose}
+        on:introend={onOpened}
+        on:outroend={onClosed}
+        style={cssWindow}
+      >
+        {#if state.closeButton}
+          <button on:click={close} class="close"></button>
+        {/if}
+        <div class="content" style={cssContent}>
+          <svelte:component this={Component} {...props} />
         </div>
       </div>
     </div>
-  {/if}
-  <slot></slot>
-</div>
+  </div>
+{/if}
+<slot></slot>

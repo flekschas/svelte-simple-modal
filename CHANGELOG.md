@@ -1,3 +1,7 @@
+# 0.4.1
+
+- Remove wrapping `div` element as it's not necessary (#12)
+
 # 0.4.0
 
 - Add support for transition event callbacks via [`open(..., ..., ..., { onOpen, onOpened, onClose, onClosed })`](README.md#open))
