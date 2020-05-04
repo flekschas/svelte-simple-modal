@@ -1,3 +1,7 @@
+# 0.4.2
+
+- Explicitly expose the `event` object (#13)
+
 # 0.4.1
 
 - Remove wrapping `div` element as it's not necessary (#12)

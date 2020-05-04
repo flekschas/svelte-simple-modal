@@ -75,8 +75,8 @@
     props = null;
   };
 
-  const handleKeyup = ({ key }) => {
-    if (state.closeOnEsc && Component && key === 'Escape') {
+  const handleKeyup = (event) => {
+    if (state.closeOnEsc && Component && event.key === 'Escape') {
       event.preventDefault();
       close();
     }
