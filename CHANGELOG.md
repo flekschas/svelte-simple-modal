@@ -1,3 +1,8 @@
+# 0.5.0
+
+- Trap focus in modal (#17)
+- Add `aria` information
+
 # 0.4.2
 
 - Explicitly expose the `event` object (#13)
