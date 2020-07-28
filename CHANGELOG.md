@@ -1,3 +1,7 @@
+# 0.6.0
+
+- Allow customizing the close button (#20)
+
 # 0.5.0
 
 - Trap focus in modal (#17)
