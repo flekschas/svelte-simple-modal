@@ -1,5 +1,5 @@
 <script>
-  import { setContext as baseSetContext } from 'svelte';
+  import { setContext as baseSetContext, SvelteComponent } from 'svelte';
   import { fade } from 'svelte/transition';
 
   export let key = 'simple-modal';
@@ -9,6 +9,7 @@
   export let styleBg = { top: 0, left: 0 };
   export let styleWindow = {};
   export let styleContent = {};
+  export let styleCloseButton = {};
   export let setContext = baseSetContext;
   export let transitionBg = fade;
   export let transitionBgProps = { duration: 250 };
@@ -22,6 +23,7 @@
     styleBg,
     styleWindow,
     styleContent,
+    styleCloseButton,
     transitionBg,
     transitionBgProps,
     transitionWindow,
@@ -42,9 +44,12 @@
   const toCssString = (props) => Object.keys(props)
     .reduce((str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`, '');
 
+  const isSvelteComponent = component => SvelteComponent.isPrototypeOf(component);
+
   $: cssBg = toCssString(state.styleBg);
   $: cssWindow = toCssString(state.styleWindow);
   $: cssContent = toCssString(state.styleContent);
+  $: cssCloseButton = toCssString(state.styleCloseButton);
   $: currentTransitionBg = state.transitionBg;
   $: currentTransitionWindow = state.transitionWindow;
 
@@ -248,7 +253,11 @@
         style={cssWindow}
       >
         {#if state.closeButton}
-          <button on:click={close} class="close"></button>
+          {#if isSvelteComponent(state.closeButton)}
+            <svelte:component this={state.closeButton} onClose={close} />
+          {:else}
+            <button on:click={close} class="close" style={cssCloseButton} />
+          {/if}
         {/if}
         <div class="content" style={cssContent}>
           <svelte:component this={Component} {...props} />

@@ -111,7 +111,7 @@ npm install -D svelte-simple-modal
 
 - **key**: The context key that is used to expose `open()` and `close()`. Adjust to avoid clashes with other contexts. (Default: `simple-modal`)
 - **setContext**: You can normally ingore this property when you have [configured your app  bundler](#configure-your-app-bundler) properly. If you want to bundle simple-modal with its own version of Svelte you have to pass `setContext()` from your main app to simple-modal using this parameter. (Default: `setContext()` of the associated `svelte` version.)
-- **closeButton**: If `true` a button for closing the modal is rendered. (Default: `true`)
+- **closeButton**: If `true` a button for closing the modal is rendered. Note, you can also pass in a [custom Svelte component as the close button](#custom-close-button) to have full control over the styling. (Default: `true`)
 - **closeOnEsc**:  If `true` the modal will close when pressing the escape key. (Default: `true`)
 - **closeOnOuterClick**:  If `true` the modal will close when clicking outside the modal window. (Default: `true`)
 - **transitionBg**: Transition function for the background. (Default `svelte:fade`)
@@ -121,6 +121,7 @@ npm install -D svelte-simple-modal
 - **styleBg**: Style properties of the background. (Default `{top: 0, left: 0}`)
 - **styleWindow**: Style properties of the modal window. (Default `{}`)
 - **styleContent**: Style properties of the modal content. (Default `{}`)
+- **styleCloseButton**: Style properties of the built-in close button. (Default `{}`)
 
 
 ## Context API
@@ -148,6 +149,7 @@ You can access the context via `getContext('simple-modal')`. It exposes the foll
     styleBg: { backgroundImage: 'http://example.com/my-background.jpg' },
     styleWindow: { fontSize: '20em' },
     styleContent: { color: 'yellow' }
+    styleCloseButton: { width: '3rem', height: '3rem' }
   }
   ```
 
@@ -161,6 +163,44 @@ You can access the context via `getContext('simple-modal')`. It exposes the foll
     onClosed: () => { /* modal window closed */ },
   }
   ```
+
+#### Custom Close Button
+
+Unfortunately, it's not possible to adjust all styles of the built-in close button via the `styleCloseButton` option. If you need full control you can implement your own Svelte component and use that as the close button. To do so specify your component via the `closeButton` option as follows:
+
+```html
+<!-- CloseButton.svelte -->
+<script>
+  // This property is used by Modal.svelte to pass down the close function
+  export let onClose;
+</script>
+
+<style>
+  /* Customize to your liking */
+  button {
+    position: absolute;
+    top: -3rem;
+    right: 0;
+  }
+</style>
+
+<button on:click={onClose}>Custom Close Button</button>
+
+<!-- Content.svelte -->
+<script>
+  import { getContext } from 'svelte';
+  import Surprise from './Surprise.svelte';
+  import CloseButton from './CloseButton.svelte';
+
+  const { open } = getContext('simple-modal');
+
+  const showSurprise = () => {
+    open(Surprise, { message: "It's a modal!" }, { closeButton: CloseButton });
+  };
+</script>
+
+<p><button on:click={showSurprise}>Show me a surprise!</button></p>
+```
 
 <a name="close" href="#close">#</a> <b>close</b>(<i>callbacks = {}</i>)
 
