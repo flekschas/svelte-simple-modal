@@ -34,6 +34,7 @@
 
   let background;
   let wrap;
+  let modalWindow;
 
   const camelCaseToDash = str => str
     .replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
@@ -75,10 +76,25 @@
     props = null;
   };
 
-  const handleKeyup = (event) => {
+  const handleKeydown = (event) => {
     if (state.closeOnEsc && Component && event.key === 'Escape') {
       event.preventDefault();
       close();
+    }
+
+    if (Component && event.key === 'Tab') {
+      // trap focus
+      const nodes = modalWindow.querySelectorAll('*');
+      const tabbable = Array.from(nodes).filter(node => node.tabIndex >= 0);
+
+      let index = tabbable.indexOf(document.activeElement);
+      if (index === -1 && event.shiftKey) index = 0;
+
+      index += tabbable.length + (event.shiftKey ? -1 : 1);
+      index %= tabbable.length;
+
+      tabbable[index].focus();
+      event.preventDefault();
     }
   };
 
@@ -208,7 +224,7 @@
   }
 </style>
 
-<svelte:window on:keyup={handleKeyup}/>
+<svelte:window on:keydown={handleKeydown}/>
 
 {#if Component}
   <div
@@ -221,6 +237,9 @@
     <div class="window-wrap" bind:this={wrap}>
       <div
         class="window"
+        role="dialog"
+        aria-modal="true"
+        bind:this={modalWindow}
         transition:currentTransitionWindow={state.transitionWindowProps}
         on:introstart={onOpen}
         on:outrostart={onClose}
