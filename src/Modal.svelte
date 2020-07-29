@@ -44,6 +44,7 @@
   const toCssString = (props) => Object.keys(props)
     .reduce((str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`, '');
 
+  // eslint-disable-next-line no-prototype-builtins
   const isSvelteComponent = component => SvelteComponent.isPrototypeOf(component);
 
   $: cssBg = toCssString(state.styleBg);
