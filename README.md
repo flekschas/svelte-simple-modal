@@ -148,7 +148,7 @@ You can access the context via `getContext('simple-modal')`. It exposes the foll
     },
     styleBg: { backgroundImage: 'http://example.com/my-background.jpg' },
     styleWindow: { fontSize: '20em' },
-    styleContent: { color: 'yellow' }
+    styleContent: { color: 'yellow' },
     styleCloseButton: { width: '3rem', height: '3rem' }
   }
   ```
