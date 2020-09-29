@@ -1,6 +1,6 @@
 {
   "name": "svelte-simple-modal",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A small and simple modal for Svelte",
   "main": "index.js",
   "module": "module.js",
