@@ -1,3 +1,7 @@
+# 0.6.1
+
+- Fall back gracefully for older versions of Svelte (`<3.19`) when `SvelteComponent` for the custom close button is not available (#21)
+
 # 0.6.0
 
 - Allow customizing the close button (#20)

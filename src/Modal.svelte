@@ -1,6 +1,9 @@
 <script>
-  import { setContext as baseSetContext, SvelteComponent } from 'svelte';
+  import * as svelte from 'svelte';
   import { fade } from 'svelte/transition';
+
+  const baseSetContext = svelte.setContext;
+  const SvelteComponent = svelte.SvelteComponent;
 
   export let key = 'simple-modal';
   export let closeButton = true;
@@ -44,8 +47,7 @@
   const toCssString = (props) => Object.keys(props)
     .reduce((str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`, '');
 
-  // eslint-disable-next-line no-prototype-builtins
-  const isSvelteComponent = component => SvelteComponent.isPrototypeOf(component);
+  const isSvelteComponent = component => SvelteComponent && SvelteComponent.isPrototypeOf(component);
 
   $: cssBg = toCssString(state.styleBg);
   $: cssWindow = toCssString(state.styleWindow);

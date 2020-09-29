@@ -28,7 +28,7 @@
 
 **Live demo:** https://svelte.dev/repl/033e824fad0a4e34907666e7196caec4?version=3.20.1
 
-**Tested:** Svelte `v3.4` to `v3.20`.
+**Works with:** Svelte `>=v3.4` (Tested until to `v3.20`)
 
 ## Install
 
@@ -165,6 +165,8 @@ You can access the context via `getContext('simple-modal')`. It exposes the foll
   ```
 
 #### Custom Close Button
+
+**This feature requires Svelte >=v3.19!**
 
 Unfortunately, it's not possible to adjust all styles of the built-in close button via the `styleCloseButton` option. If you need full control you can implement your own Svelte component and use that as the close button. To do so specify your component via the `closeButton` option as follows:
 
