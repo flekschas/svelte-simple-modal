@@ -53,7 +53,7 @@
   const isSvelteComponent = component => SvelteComponent && SvelteComponent.isPrototypeOf && SvelteComponent.isPrototypeOf(component);
 
   $: cssBg = toCssString(state.styleBg);
-  $: cssWindowWrap = toCssString(state.styleWindowWrap)
+  $: cssWindowWrap = toCssString(state.styleWindowWrap);
   $: cssWindow = toCssString(state.styleWindow);
   $: cssContent = toCssString(state.styleContent);
   $: cssCloseButton = toCssString(state.styleCloseButton);
