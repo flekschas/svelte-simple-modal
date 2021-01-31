@@ -119,6 +119,7 @@ npm install -D svelte-simple-modal
 - **transitionWindow**: Transition function for the window. (Default `svelte:fade`)
 - **transitionWindowProps**: Properties of the transition function for the window. (Default `{}`)
 - **styleBg**: Style properties of the background. (Default `{top: 0, left: 0}`)
+- **styleWindowWrap**: Style properties of the modal window wrapper element. (Default `{}`)
 - **styleWindow**: Style properties of the modal window. (Default `{}`)
 - **styleContent**: Style properties of the modal content. (Default `{}`)
 - **styleCloseButton**: Style properties of the built-in close button. (Default `{}`)
