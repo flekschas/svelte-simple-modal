@@ -10,6 +10,7 @@
   export let closeOnEsc = true;
   export let closeOnOuterClick = true;
   export let styleBg = { top: 0, left: 0 };
+  export let styleWindowWrap = {};
   export let styleWindow = {};
   export let styleContent = {};
   export let styleCloseButton = {};
@@ -24,6 +25,7 @@
     closeOnEsc,
     closeOnOuterClick,
     styleBg,
+    styleWindowWrap,
     styleWindow,
     styleContent,
     styleCloseButton,
@@ -51,6 +53,7 @@
   const isSvelteComponent = component => SvelteComponent && SvelteComponent.isPrototypeOf && SvelteComponent.isPrototypeOf(component);
 
   $: cssBg = toCssString(state.styleBg);
+  $: cssWindowWrap = toCssString(state.styleWindowWrap);
   $: cssWindow = toCssString(state.styleWindow);
   $: cssContent = toCssString(state.styleContent);
   $: cssCloseButton = toCssString(state.styleCloseButton);
@@ -243,7 +246,7 @@
     transition:currentTransitionBg={state.transitionBgProps}
     style={cssBg}
   >
-    <div class="window-wrap" bind:this={wrap}>
+    <div class="window-wrap" bind:this={wrap} style={cssWindowWrap}>
       <div
         class="window"
         role="dialog"
