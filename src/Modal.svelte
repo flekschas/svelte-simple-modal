@@ -1,6 +1,9 @@
 <script>
   import * as svelte from 'svelte';
   import { fade } from 'svelte/transition';
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
 
   const baseSetContext = svelte.setContext;
   const SvelteComponent = svelte.SvelteComponent;
@@ -74,8 +77,14 @@
     state = { ...defaultState, ...options };
     onOpen = callback.onOpen || toVoid;
     onClose = callback.onClose || toVoid;
-    onOpened = callback.onOpened || toVoid;
-    onClosed = callback.onClosed || toVoid;
+    onOpened = () => {
+      callback.onOpened || toVoid;
+      dispatch('open');
+    };
+    onClosed = () => {
+      callback.onClosed || toVoid;
+      dispatch('close')
+    };
   };
 
   const close = (callback = {}) => {
