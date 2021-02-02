@@ -1,6 +1,9 @@
 <script>
   import * as svelte from 'svelte';
   import { fade } from 'svelte/transition';
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
 
   const baseSetContext = svelte.setContext;
   const SvelteComponent = svelte.SvelteComponent;
@@ -75,10 +78,22 @@
     Component = NewComponent;
     props = newProps;
     state = { ...defaultState, ...options };
-    onOpen = callback.onOpen || toVoid;
-    onClose = callback.onClose || toVoid;
-    onOpened = callback.onOpened || toVoid;
-    onClosed = callback.onClosed || toVoid;
+    onOpen = (event) => {
+      if (callback.onOpen) callback.onOpen(event);
+      dispatch('opening');
+    },
+    onClose = (event) => {
+      if (callback.onClose) callback.onClose(event);
+      dispatch('closing');
+    },
+    onOpened = (event) => {
+      if (callback.onOpened) callback.onOpened(event);
+      dispatch('opened');
+    };
+    onClosed = (event) => {
+      if (callback.onClosed) callback.onClosed(event);
+      dispatch('closed');
+    };
   };
 
   const close = (callback = {}) => {
