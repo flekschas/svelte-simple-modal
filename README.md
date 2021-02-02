@@ -107,9 +107,9 @@ npm install -D svelte-simple-modal
 ```
 
 
-## Parameters
+## Properties
 
-The `<Modal />` component accepts the following parameters:
+The `<Modal />` component accepts the following properties:
 
 - **key**: The context key that is used to expose `open()` and `close()`. Adjust to avoid clashes with other contexts. (Default: `simple-modal`)
 - **setContext**: You can normally ingore this property when you have [configured your app  bundler](#configure-your-app-bundler) properly. If you want to bundle simple-modal with its own version of Svelte you have to pass `setContext()` from your main app to simple-modal using this parameter. (Default: `setContext()` of the associated `svelte` version.)
