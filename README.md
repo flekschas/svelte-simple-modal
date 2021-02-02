@@ -109,6 +109,8 @@ npm install -D svelte-simple-modal
 
 ## Parameters
 
+The `<Modal />` component accepts the following parameters:
+
 - **key**: The context key that is used to expose `open()` and `close()`. Adjust to avoid clashes with other contexts. (Default: `simple-modal`)
 - **setContext**: You can normally ingore this property when you have [configured your app  bundler](#configure-your-app-bundler) properly. If you want to bundle simple-modal with its own version of Svelte you have to pass `setContext()` from your main app to simple-modal using this parameter. (Default: `setContext()` of the associated `svelte` version.)
 - **closeButton**: If `true` a button for closing the modal is rendered. Note, you can also pass in a [custom Svelte component as the close button](#custom-close-button) to have full control over the styling. (Default: `true`)
@@ -123,6 +125,18 @@ npm install -D svelte-simple-modal
 - **styleWindow**: Style properties of the modal window. (Default `{}`)
 - **styleContent**: Style properties of the modal content. (Default `{}`)
 - **styleCloseButton**: Style properties of the built-in close button. (Default `{}`)
+
+
+## Events
+
+The `<Modal />` component dispatches the following events:
+
+- `open`: dispatched when the modal window starts to open.
+- `opened`: dispatched when the modal window opened.
+- `close`: dispatched when the modal window starts to close.
+- `closed`: dispatched when the modal window closed.
+
+Alternatively, you can listen to those events via callbacks passed to [`open()`](#open) and [`close()`](#close).
 
 
 ## Context API
