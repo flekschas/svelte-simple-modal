@@ -1,3 +1,7 @@
+# 0.8.0
+
+- Dispatch open, opened, close, and closed events (#25)
+
 # 0.7.0
 
 - Allow customizing the window wrapper via `styleWindowWrap` (#24)
