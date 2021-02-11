@@ -6,7 +6,6 @@
   const dispatch = createEventDispatcher();
 
   const baseSetContext = svelte.setContext;
-  const SvelteComponent = svelte.SvelteComponent;
 
   export let key = 'simple-modal';
   export let closeButton = true;
@@ -52,8 +51,7 @@
   const toCssString = (props) => Object.keys(props)
     .reduce((str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`, '');
 
-  // eslint-disable-next-line no-prototype-builtins
-  const isSvelteComponent = component => SvelteComponent && SvelteComponent.isPrototypeOf && SvelteComponent.isPrototypeOf(component);
+  const isFunction = f => !!(f && f.constructor && f.call && f.apply);
 
   $: cssBg = toCssString(state.styleBg);
   $: cssWindowWrap = toCssString(state.styleWindowWrap);
@@ -275,7 +273,7 @@
         style={cssWindow}
       >
         {#if state.closeButton}
-          {#if isSvelteComponent(state.closeButton)}
+          {#if isFunction(state.closeButton)}
             <svelte:component this={state.closeButton} onClose={close} />
           {:else}
             <button on:click={close} class="close" style={cssCloseButton} />

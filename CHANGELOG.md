@@ -1,3 +1,7 @@
+# 0.8.1
+
+- Replace too strict `isSvelteComponent` with `isFunction` (#27)
+
 # 0.8.0
 
 - Dispatch open, opened, close, and closed events (#25)
