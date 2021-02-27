@@ -112,7 +112,6 @@
     onClose = callback.onClose || onClose;
     onClosed = callback.onClosed || onClosed;
     Component = null;
-    props = null;
   };
 
   const handleKeydown = (event) => {
