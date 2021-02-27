@@ -10,12 +10,12 @@ export default {
     {
        file: main,
        format: 'cjs',
-       exports: 'default'
+       exports: 'auto'
     },
     {
       file: module,
       format: 'es',
-      exports: 'default'
+      exports: 'auto'
     },
   ],
   plugins: [
