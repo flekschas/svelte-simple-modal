@@ -42,7 +42,7 @@ Import the `Modal` component into your main Svelte component (e.g., `App.svelte`
 The `Modal` is exposing two context functions `open()` and `close()` for opening
 and closing the modal. `open()` expects two arguments: a Svelte `Component` and optionally an object literal with the component's `props`.
 
-```html
+```svelte
 <!-- App.svelte -->
 <script>
   import Content from './Content.svelte';
@@ -111,6 +111,7 @@ npm install -D svelte-simple-modal
 
 The `<Modal />` component accepts the following properties:
 
+- **show**: A Svelte component to show as the modal. See [an alternative to the context API](#context-api-alternative) for details.
 - **key**: The context key that is used to expose `open()` and `close()`. Adjust to avoid clashes with other contexts. (Default: `simple-modal`)
 - **setContext**: You can normally ingore this property when you have [configured your app  bundler](#configure-your-app-bundler) properly. If you want to bundle simple-modal with its own version of Svelte you have to pass `setContext()` from your main app to simple-modal using this parameter. (Default: `setContext()` of the associated `svelte` version.)
 - **closeButton**: If `true` a button for closing the modal is rendered. Note, you can also pass in a [custom Svelte component as the close button](#custom-close-button) to have full control over the styling. (Default: `true`)
@@ -185,7 +186,7 @@ You can access the context via `getContext('simple-modal')`. It exposes the foll
 
 Unfortunately, it's not possible to adjust all styles of the built-in close button via the `styleCloseButton` option. If you need full control you can implement your own Svelte component and use that as the close button. To do so specify your component via the `closeButton` option as follows:
 
-```html
+```svelte
 <!-- CloseButton.svelte -->
 <script>
   // This property is used by Modal.svelte to pass down the close function
@@ -229,6 +230,53 @@ Unfortunately, it's not possible to adjust all styles of the built-in close butt
     onClosed: () => { /* modal window closed */ },
   }
   ```
+
+## Context API Alternative
+
+If you prefer stores over the context API, e.g., to open a modal from a component that is not a child of `<Modal />`, you can use the [`show` property](#properties) of `<Modal />` as follows:
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import { writable } from 'svelte/store';
+  import Content from './Content.svelte';
+  import Popup from './Popup.svelte';
+  export const modal = writable(null);
+
+  function showModal() {
+    modal.set(Popup)
+  }
+</script>
+
+<Content />
+<button on:click={showModal}>Show modal</button>
+
+
+<!-- Content.svelte -->
+<script>
+  import Modal from 'svelte-simple-modal';
+  import SomethingElse from './SomethingElse.svelte';
+  import { modal } from './App.svelte';
+</script>
+
+<Modal show={$modal}>
+  <SomethingElse />
+</Modal>
+```
+
+Since it was not obvious to me how to pre-bind props to a Svelte component, I've added a helper function called `bind` that achieves this.
+
+```svelte
+<script>
+  import { bind } from 'svelte-simple-modal';
+  import Popup from './Popup.svelte';
+  import { modal } from './App.svelte';
+
+  modal.set(bind(Popup, { name: 'custom name' }));
+</script>
+```
+
+If you've worked with React/JSX then think of `const c = bind(Component, props)` as the equivalent of `const c = <Component ...props />`.
 
 ## License
 
