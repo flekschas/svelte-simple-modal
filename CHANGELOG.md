@@ -1,3 +1,7 @@
+# 0.9.0
+
+- Added `<Modal show={PopupComponent} />` as an alternative to other the context API (#22)
+
 # 0.8.1
 
 - Replace too strict `isSvelteComponent` with `isFunction` (#27)

@@ -1,3 +1,17 @@
+<script context="module">
+  export function bind(Component, props = {}) {
+    return function ModalComponent(options) {
+      return new Component({
+        ...options,
+        props: {
+          ...props,
+          ...options.props
+        }
+      });
+    };
+  }
+</script>
+
 <script>
   import * as svelte from 'svelte';
   import { fade } from 'svelte/transition';
@@ -6,6 +20,8 @@
   const dispatch = createEventDispatcher();
 
   const baseSetContext = svelte.setContext;
+
+  export let show = null;
 
   export let key = 'simple-modal';
   export let closeButton = true;
@@ -39,7 +55,6 @@
   let state = { ...defaultState };
 
   let Component = null;
-  let props = null;
 
   let background;
   let wrap;
@@ -73,8 +88,7 @@
     options = {},
     callback = {}
   ) => {
-    Component = NewComponent;
-    props = newProps;
+    Component = bind(NewComponent, newProps);
     state = { ...defaultState, ...options };
     onOpen = (event) => {
       if (callback.onOpen) callback.onOpen(event);
@@ -135,6 +149,14 @@
   };
 
   setContext(key, { open, close });
+
+  $: {
+    if (isFunction(show)) {
+      open(show);
+    } else {
+      close();
+    }
+  }
 </script>
 
 <style>
@@ -280,7 +302,7 @@
           {/if}
         {/if}
         <div class="content" style={cssContent}>
-          <svelte:component this={Component} {...props} />
+          <svelte:component this={Component} />
         </div>
       </div>
     </div>
