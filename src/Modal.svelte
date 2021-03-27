@@ -59,6 +59,7 @@
   let background;
   let wrap;
   let modalWindow;
+  let scrollY;
 
   const camelCaseToDash = str => str
     .replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
@@ -93,6 +94,7 @@
     onOpen = (event) => {
       if (callback.onOpen) callback.onOpen(event);
       dispatch('opening');
+      disableScroll();
     },
     onClose = (event) => {
       if (callback.onClose) callback.onClose(event);
@@ -105,6 +107,7 @@
     onClosed = (event) => {
       if (callback.onClosed) callback.onClosed(event);
       dispatch('closed');
+      enableScroll();
     };
   };
 
@@ -146,6 +149,20 @@
       close();
     }
   };
+
+  const disableScroll = () => {
+    scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.overflow = 'hidden';
+  }
+
+  const enableScroll = () => {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.overflow = '';
+    window.scrollTo(0, scrollY);
+  }
 
   setContext(key, { open, close });
 
