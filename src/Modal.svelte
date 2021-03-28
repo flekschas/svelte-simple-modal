@@ -27,7 +27,7 @@
   export let closeButton = true;
   export let closeOnEsc = true;
   export let closeOnOuterClick = true;
-  export let styleBg = { top: 0, left: 0 };
+  export let styleBg =  {};
   export let styleWindowWrap = {};
   export let styleWindow = {};
   export let styleContent = {};
@@ -183,6 +183,8 @@
   .bg {
     position: fixed;
     z-index: 1000;
+    top: 0;
+    left: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
