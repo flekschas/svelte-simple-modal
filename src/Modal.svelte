@@ -60,28 +60,39 @@
   let wrap;
   let modalWindow;
   let scrollY;
+  let cssBg;
+  let cssWindowWrap;
+  let cssWindow;
+  let cssContent;
+  let cssCloseButton;
+  let currentTransitionBg;
+  let currentTransitionWindow;
+  let prevBodyPosition;
+  let prevBodyOverflow;
 
   const camelCaseToDash = str => str
     .replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
 
-  const toCssString = (props) => Object.keys(props)
+  const toCssString = (props, log) => Object.keys(props)
     .reduce((str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`, '');
 
   const isFunction = f => !!(f && f.constructor && f.call && f.apply);
-
-  $: cssBg = toCssString(state.styleBg);
-  $: cssWindowWrap = toCssString(state.styleWindowWrap);
-  $: cssWindow = toCssString(state.styleWindow);
-  $: cssContent = toCssString(state.styleContent);
-  $: cssCloseButton = toCssString(state.styleCloseButton);
-  $: currentTransitionBg = state.transitionBg;
-  $: currentTransitionWindow = state.transitionWindow;
-
+	
+	const updateStyleTransition = () => {
+  	cssBg = toCssString(state.styleBg);
+  	cssWindowWrap = toCssString(state.styleWindowWrap);
+  	cssWindow = toCssString(state.styleWindow);
+  	cssContent = toCssString(state.styleContent);
+  	cssCloseButton = toCssString(state.styleCloseButton);
+  	currentTransitionBg = state.transitionBg;
+  	currentTransitionWindow = state.transitionWindow;
+	};
+	
   const toVoid = () => {};
   let onOpen = toVoid;
   let onClose = toVoid;
   let onOpened = toVoid;
-  let onClosed = toVoid;
+  let onClosed = toVoid; 
 
   const open = (
     NewComponent,
@@ -91,10 +102,11 @@
   ) => {
     Component = bind(NewComponent, newProps);
     state = { ...defaultState, ...options };
+		updateStyleTransition();
+		disableScroll();
     onOpen = (event) => {
       if (callback.onOpen) callback.onOpen(event);
       dispatch('opening');
-      disableScroll();
     },
     onClose = (event) => {
       if (callback.onClose) callback.onClose(event);
@@ -107,7 +119,6 @@
     onClosed = (event) => {
       if (callback.onClosed) callback.onClosed(event);
       dispatch('closed');
-      enableScroll();
     };
   };
 
@@ -115,6 +126,7 @@
     onClose = callback.onClose || onClose;
     onClosed = callback.onClosed || onClosed;
     Component = null;
+		enableScroll();
   };
 
   const handleKeydown = (event) => {
@@ -152,19 +164,21 @@
 
   const disableScroll = () => {
     scrollY = window.scrollY;
+		prevBodyPosition = document.body.style.position;
+		prevBodyOverflow = document.body.style.overflow;
     document.body.style.position = 'fixed';
     document.body.style.top = `-${scrollY}px`;
     document.body.style.overflow = 'hidden';
   };
 
   const enableScroll = () => {
-    document.body.style.position = '';
+    document.body.style.position = prevBodyPosition || '';
     document.body.style.top = '';
-    document.body.style.overflow = '';
+    document.body.style.overflow = prevBodyOverflow || '';
     window.scrollTo(0, scrollY);
   };
 
-  setContext(key, { open, close });
+  setContext(key, { open, close }); 
 
   $: {
     if (isFunction(show)) {
@@ -173,6 +187,10 @@
       close();
     }
   }
+	
+	svelte.onDestroy(() => {
+		close();
+	});
 </script>
 
 <style>
