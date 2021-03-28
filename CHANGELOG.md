@@ -1,3 +1,8 @@
+# 0.10.0
+
+- Disable body scrolling while modal is open (#31 -> #28)
+- Fixed a visual glitch where previously customized styles were not reset
+
 # 0.9.0
 
 - Added `<Modal show={PopupComponent} />` as an alternative to other the context API (#22)
