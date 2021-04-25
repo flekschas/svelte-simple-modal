@@ -132,9 +132,9 @@ The `<Modal />` component accepts the following properties:
 
 The `<Modal />` component dispatches the following events:
 
-- `open`: dispatched when the modal window starts to open.
+- `opening`: dispatched when the modal window starts to open.
 - `opened`: dispatched when the modal window opened.
-- `close`: dispatched when the modal window starts to close.
+- `closing`: dispatched when the modal window starts to close.
 - `closed`: dispatched when the modal window closed.
 
 Alternatively, you can listen to those events via callbacks passed to [`open()`](#open) and [`close()`](#close).
@@ -173,9 +173,9 @@ You can access the context via `getContext('simple-modal')`. It exposes the foll
 
   ```javascript
   {
-    onOpen: () => { /* modal window starts to open */ },
+    onOpening: () => { /* modal window starts to open */ },
     onOpened: () => { /* modal window opened */ },
-    onClose: () => { /* modal window starts to close */ },
+    onClosing: () => { /* modal window starts to close */ },
     onClosed: () => { /* modal window closed */ },
   }
   ```
