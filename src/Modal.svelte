@@ -168,7 +168,6 @@
     scrollY = window.scrollY;
     prevBodyPosition = document.body.style.position;
     prevBodyOverflow = document.body.style.overflow;
-    document.body.style.position = 'fixed';
     document.body.style.top = `-${scrollY}px`;
     document.body.style.overflow = 'hidden';
   };
