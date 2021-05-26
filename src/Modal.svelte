@@ -155,7 +155,7 @@
 
   const handleOuterClick = (event) => {
     if (
-      state.closeOnOuterClick && (
+      state.closeOnOuterClick && event.button === 0 && (
         event.target === background || event.target === wrap
       )
     ) {
@@ -314,7 +314,7 @@
 {#if Component}
   <div
     class="bg"
-    on:click={handleOuterClick}
+    on:mousedown={handleOuterClick}
     bind:this={background}
     transition:currentTransitionBg={state.transitionBgProps}
     style={cssBg}
