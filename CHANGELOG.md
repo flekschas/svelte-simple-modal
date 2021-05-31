@@ -1,3 +1,7 @@
+# 0.10.2
+
+- Improve outer click handling and avoid accidental closing of the modal (#39)
+
 # 0.10.1
 
 - Harmonize `on:open`/`on:opening` and `on:close`/`on:closing` event (#33 and #34). Note, `on:opening` and `on:closing` are still being dispatched for backward compatibility but they will be remove in future versions so please switch over to `on:open` and `on:close`.
