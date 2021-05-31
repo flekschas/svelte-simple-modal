@@ -69,6 +69,7 @@
   let currentTransitionWindow;
   let prevBodyPosition;
   let prevBodyOverflow;
+  let outerClickTarget;
 
   const camelCaseToDash = str => str
     .replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
@@ -153,11 +154,17 @@
     }
   };
 
-  const handleOuterClick = (event) => {
+  const handleOuterMousedown = (event) => {
     if (
-      state.closeOnOuterClick && event.button === 0 && (
+      state.closeOnOuterClick && (
         event.target === background || event.target === wrap
       )
+    ) outerClickTarget = event.target;
+  };
+
+  const handleOuterMouseup = (event) => {
+    if (
+      state.closeOnOuterClick && event.target === outerClickTarget
     ) {
       event.preventDefault();
       close();
@@ -314,7 +321,8 @@
 {#if Component}
   <div
     class="bg"
-    on:mousedown={handleOuterClick}
+    on:mousedown={handleOuterMousedown}
+    on:mouseup={handleOuterMouseup}
     bind:this={background}
     transition:currentTransitionBg={state.transitionBgProps}
     style={cssBg}
