@@ -81,7 +81,7 @@ and closing the modal. `open()` expects two arguments: a Svelte `Component` and 
 
 #### Configure your app bundler
 
-**IMPORTANT:** In your main application's bundler you need to make sure that the
+In your main application's bundler you need to make sure that the
 `svelte` dependencies are resolved globally, meaning that the main application's
 version of `svelte` is used for bundling.
 
@@ -100,12 +100,24 @@ export default {
 };
 ```
 
-**FOR SAPPER USERS:** If you're using [Sapper](https://sapper.svelte.dev/) make sure you install _svelte-simple-modal_ as a dev-dependency! If you're curious why please take a look at https://github.com/sveltejs/sapper-template#using-external-components
+##### For Sapper Users
+
+If you're using [Sapper](https://sapper.svelte.dev/) make sure you install _svelte-simple-modal_ as a dev-dependency! If you're curious why please take a look at https://github.com/sveltejs/sapper-template#using-external-components
 
 ```
 npm install -D svelte-simple-modal
 ```
 
+Also, if you're using [SSR](https://www.google.com/search?q=server+side+rendering), then make sure to dynamically import svelte-simple-modal in `onMount()` as [objects like `document` are only available in a web context](https://stackoverflow.com/a/63502144/981933).
+
+```js
+import { onMount } from 'svelte';
+
+onMount(async () => {
+  const svelteSimpleModal = await import('svelte-simple-modal');
+  Modal = svelteSimpleModal.default;
+});
+```
 
 ## Properties
 
