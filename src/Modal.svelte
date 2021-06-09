@@ -74,8 +74,10 @@
   const camelCaseToDash = str => str
     .replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
 
-  const toCssString = (props) => Object.keys(props)
-    .reduce((str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`, '');
+  const toCssString = (props) => props
+    ? Object.keys(props)
+      .reduce((str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`, '')
+    : '';
 
   const isFunction = f => !!(f && f.constructor && f.call && f.apply);
 

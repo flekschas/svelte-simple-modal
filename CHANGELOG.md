@@ -1,3 +1,7 @@
+# 0.10.3
+
+- Avoid exception when converting falsy value to CSS (#42)
+
 # 0.10.2
 
 - Improve outer click handling and avoid accidental closing of the modal (#39)
