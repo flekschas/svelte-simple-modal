@@ -209,8 +209,8 @@
       disableScroll();
     } else {
       enableScroll();
-    };
-  })
+    }
+  });
 </script>
 
 <style>
