@@ -15,7 +15,7 @@
 <script>
   import * as svelte from 'svelte';
   import { fade } from 'svelte/transition';
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -82,7 +82,10 @@
   const isFunction = f => !!(f && f.constructor && f.call && f.apply);
 
   const updateStyleTransition = () => {
-    cssBg = toCssString(state.styleBg);
+    cssBg = toCssString(Object.assign({}, {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    }, styleBg));
     cssWindowWrap = toCssString(state.styleWindowWrap);
     cssWindow = toCssString(state.styleWindow);
     cssContent = toCssString(state.styleContent);
@@ -106,7 +109,6 @@
     Component = bind(NewComponent, newProps);
     state = { ...defaultState, ...options };
     updateStyleTransition();
-    disableScroll();
     onOpen = (event) => {
       if (callback.onOpen) callback.onOpen(event);
       dispatch('open');
@@ -131,7 +133,6 @@
     onClose = callback.onClose || onClose;
     onClosed = callback.onClosed || onClosed;
     Component = null;
-    enableScroll();
   };
 
   const handleKeydown = (event) => {
@@ -201,6 +202,14 @@
 
   svelte.onDestroy(() => {
     close();
+  });
+
+  svelte.afterUpdate(() => {
+    if (Component) {
+      disableScroll();
+    } else {
+      enableScroll();
+    }
   });
 </script>
 

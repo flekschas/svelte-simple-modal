@@ -1,3 +1,7 @@
+# 0.10.4
+
+- Default bg width/height to innerWidth/innerHeight (#40)
+
 # 0.10.3
 
 - Avoid exception when converting falsy value to CSS (#42)
