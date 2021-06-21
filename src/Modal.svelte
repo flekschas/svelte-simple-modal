@@ -82,7 +82,10 @@
   const isFunction = f => !!(f && f.constructor && f.call && f.apply);
 
   const updateStyleTransition = () => {
-    cssBg = toCssString(state.styleBg);
+    cssBg = toCssString(Object.assign({}, {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    }, styleBg));
     cssWindowWrap = toCssString(state.styleWindowWrap);
     cssWindow = toCssString(state.styleWindow);
     cssContent = toCssString(state.styleContent);
