@@ -85,7 +85,7 @@
     cssBg = toCssString(Object.assign({}, {
       width: window.innerWidth,
       height: window.innerHeight,
-    }, styleBg));
+    }, state.styleBg));
     cssWindowWrap = toCssString(state.styleWindowWrap);
     cssWindow = toCssString(state.styleWindow);
     cssContent = toCssString(state.styleContent);
