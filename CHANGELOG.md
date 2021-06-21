@@ -1,6 +1,7 @@
 # 0.10.4
 
 - Default bg width/height to innerWidth/innerHeight (#40)
+- Make compatible with svelte kit (#45)
 
 # 0.10.3
 
