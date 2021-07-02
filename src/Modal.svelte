@@ -109,6 +109,7 @@
     Component = bind(NewComponent, newProps);
     state = { ...defaultState, ...options };
     updateStyleTransition();
+    disableScroll();
     onOpen = (event) => {
       if (callback.onOpen) callback.onOpen(event);
       dispatch('open');
@@ -133,6 +134,7 @@
     onClose = callback.onClose || onClose;
     onClosed = callback.onClosed || onClosed;
     Component = null;
+    enableScroll();
   };
 
   const handleKeydown = (event) => {
@@ -192,24 +194,24 @@
 
   setContext(key, { open, close });
 
+  let isMounted = false;
+
   $: {
-    if (isFunction(show)) {
-      open(show);
-    } else {
-      close();
+    if (isMounted) {
+      if (isFunction(show)) {
+        open(show);
+      } else {
+        close();
+      }
     }
   }
 
   svelte.onDestroy(() => {
-    close();
+    if (isMounted) close();
   });
 
-  svelte.afterUpdate(() => {
-    if (Component) {
-      disableScroll();
-    } else {
-      enableScroll();
-    }
+  svelte.onMount(() => {
+    isMounted = true;
   });
 </script>
 
