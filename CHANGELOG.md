@@ -1,3 +1,11 @@
+# 1.0.0
+
+Woohoo 🎉 Thanks everyone who uses and supports this library. This release
+really just introduces a bug fix but given that most (hopefully all 🤞) of the
+features are stable, I decided to finally release v1.
+
+- Fixes a scrolling issue introduced with #45 while still keeping the library compatible with SvelteKit (#47)
+
 # 0.10.4
 
 - Default bg width/height to innerWidth/innerHeight (#40)
