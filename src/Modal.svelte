@@ -194,16 +194,24 @@
 
   setContext(key, { open, close });
 
+  let isMounted = false;
+
   $: {
-    if (isFunction(show)) {
-      open(show);
-    } else {
-      close();
+    if (isMounted) {
+      if (isFunction(show)) {
+        open(show);
+      } else {
+        close();
+      }
     }
   }
 
   svelte.onDestroy(() => {
-    close();
+    if (isMounted) close();
+  });
+
+  svelte.onMount(() => {
+    isMounted = true;
   });
 </script>
 
