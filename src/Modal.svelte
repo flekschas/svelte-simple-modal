@@ -59,7 +59,6 @@
   let background;
   let wrap;
   let modalWindow;
-  let scrollY;
   let cssBg;
   let cssWindowWrap;
   let cssWindow;
@@ -67,7 +66,6 @@
   let cssCloseButton;
   let currentTransitionBg;
   let currentTransitionWindow;
-  let prevBodyPosition;
   let prevBodyOverflow;
   let outerClickTarget;
 
@@ -177,19 +175,12 @@
   };
 
   const disableScroll = () => {
-    scrollY = window.scrollY;
-    prevBodyPosition = document.body.style.position;
     prevBodyOverflow = document.body.style.overflow;
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
     document.body.style.overflow = 'hidden';
   };
 
   const enableScroll = () => {
-    document.body.style.position = prevBodyPosition || '';
-    document.body.style.top = '';
     document.body.style.overflow = prevBodyOverflow || '';
-    window.scrollTo(0, scrollY);
   };
 
   setContext(key, { open, close });

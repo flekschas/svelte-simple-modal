@@ -1,3 +1,7 @@
+# 1.0.1
+
+- Remove `position: fixed` from body on opening a modal as it appears that the fixed positioning is not needed to avoid scrolling (#38)
+
 # 1.0.0
 
 Woohoo 🎉 Thanks everyone who uses and supports this library. This release
