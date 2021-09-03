@@ -1,3 +1,7 @@
+# 1.0.2
+
+- Revert changes from v1.0.1 as it turns out that in certain cases `overflow: hidden` on body is not enough to prevent background scrolling in iOS. For details see https://markus.oberlehner.net/blog/simple-solution-to-prevent-body-scrolling-on-ios/
+
 # 1.0.1
 
 - Remove `position: fixed` from body on opening a modal as it appears that the fixed positioning is not needed to avoid scrolling (#38)
