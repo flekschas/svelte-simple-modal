@@ -23,17 +23,18 @@
   ],
   "settings": {},
   "rules": {
-    "semi": [2, "always"],
+    "arrow-spacing": 2,
     "keyword-spacing": [2, { "before": true, "after": true }],
-    "space-before-blocks": [2, "always"],
-    "space-before-function-paren": [2, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
     "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
-    "object-shorthand":  [2, "always"],
     "no-var": 2,
-    "quote-props": [2, "as-needed"],
+    "object-shorthand":  [2, "always"],
     "one-var": [2, "never"],
     "prefer-arrow-callback": 2,
     "prefer-const": 2,
-    "arrow-spacing": 2
+    "quote-props": [2, "as-needed"],
+    "semi": [2, "always"],
+    "space-before-blocks": [2, "always"],
+    "space-before-function-paren": [2, {"anonymous": "always", "named": "never", "asyncArrow": "always"}]
   }
 }
