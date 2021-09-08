@@ -177,8 +177,6 @@
     }
   };
 
-  console.log('furz');
-
   const disableScroll = () => {
     scrollY = window.scrollY;
     prevBodyPosition = document.body.style.position;
