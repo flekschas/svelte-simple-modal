@@ -5,8 +5,8 @@
         ...options,
         props: {
           ...props,
-          ...options.props
-        }
+          ...options.props,
+        },
       });
     };
   }
@@ -27,7 +27,7 @@
   export let closeButton = true;
   export let closeOnEsc = true;
   export let closeOnOuterClick = true;
-  export let styleBg =  {};
+  export let styleBg = {};
   export let styleWindowWrap = {};
   export let styleWindow = {};
   export let styleContent = {};
@@ -72,21 +72,30 @@
   let prevBodyWidth;
   let outerClickTarget;
 
-  const camelCaseToDash = str => str
-    .replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
+  const camelCaseToDash = (str) =>
+    str.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
 
-  const toCssString = (props) => props
-    ? Object.keys(props)
-      .reduce((str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`, '')
-    : '';
+  const toCssString = (props) =>
+    props
+      ? Object.keys(props).reduce(
+          (str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`,
+          ''
+        )
+      : '';
 
-  const isFunction = f => !!(f && f.constructor && f.call && f.apply);
+  const isFunction = (f) => !!(f && f.constructor && f.call && f.apply);
 
   const updateStyleTransition = () => {
-    cssBg = toCssString(Object.assign({}, {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    }, state.styleBg));
+    cssBg = toCssString(
+      Object.assign(
+        {},
+        {
+          width: window.innerWidth,
+          height: window.innerHeight,
+        },
+        state.styleBg
+      )
+    );
     cssWindowWrap = toCssString(state.styleWindowWrap);
     cssWindow = toCssString(state.styleWindow);
     cssContent = toCssString(state.styleContent);
@@ -101,30 +110,25 @@
   let onOpened = toVoid;
   let onClosed = toVoid;
 
-  const open = (
-    NewComponent,
-    newProps = {},
-    options = {},
-    callback = {}
-  ) => {
+  const open = (NewComponent, newProps = {}, options = {}, callback = {}) => {
     Component = bind(NewComponent, newProps);
     state = { ...defaultState, ...options };
     updateStyleTransition();
     disableScroll();
-    onOpen = (event) => {
+    (onOpen = (event) => {
       if (callback.onOpen) callback.onOpen(event);
       dispatch('open');
       dispatch('opening'); // Deprecated. Do not use!
-    },
-    onClose = (event) => {
-      if (callback.onClose) callback.onClose(event);
-      dispatch('close');
-      dispatch('closing'); // Deprecated. Do not use!
-    },
-    onOpened = (event) => {
-      if (callback.onOpened) callback.onOpened(event);
-      dispatch('opened');
-    };
+    }),
+      (onClose = (event) => {
+        if (callback.onClose) callback.onClose(event);
+        dispatch('close');
+        dispatch('closing'); // Deprecated. Do not use!
+      }),
+      (onOpened = (event) => {
+        if (callback.onOpened) callback.onOpened(event);
+        dispatch('opened');
+      });
     onClosed = (event) => {
       if (callback.onClosed) callback.onClosed(event);
       dispatch('closed');
@@ -132,6 +136,7 @@
   };
 
   const close = (callback = {}) => {
+    if (!Component) return;
     onClose = callback.onClose || onClose;
     onClosed = callback.onClosed || onClosed;
     Component = null;
@@ -147,7 +152,7 @@
     if (Component && event.key === 'Tab') {
       // trap focus
       const nodes = modalWindow.querySelectorAll('*');
-      const tabbable = Array.from(nodes).filter(node => node.tabIndex >= 0);
+      const tabbable = Array.from(nodes).filter((node) => node.tabIndex >= 0);
 
       let index = tabbable.indexOf(document.activeElement);
       if (index === -1 && event.shiftKey) index = 0;
@@ -162,16 +167,14 @@
 
   const handleOuterMousedown = (event) => {
     if (
-      state.closeOnOuterClick && (
-        event.target === background || event.target === wrap
-      )
-    ) outerClickTarget = event.target;
+      state.closeOnOuterClick &&
+      (event.target === background || event.target === wrap)
+    )
+      outerClickTarget = event.target;
   };
 
   const handleOuterMouseup = (event) => {
-    if (
-      state.closeOnOuterClick && event.target === outerClickTarget
-    ) {
+    if (state.closeOnOuterClick && event.target === outerClickTarget) {
       event.preventDefault();
       close();
     }
@@ -218,6 +221,46 @@
     isMounted = true;
   });
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
+
+{#if Component}
+  <div
+    class="bg"
+    on:mousedown={handleOuterMousedown}
+    on:mouseup={handleOuterMouseup}
+    bind:this={background}
+    transition:currentTransitionBg={state.transitionBgProps}
+    style={cssBg}
+  >
+    <div class="window-wrap" bind:this={wrap} style={cssWindowWrap}>
+      <div
+        class="window"
+        role="dialog"
+        aria-modal="true"
+        bind:this={modalWindow}
+        transition:currentTransitionWindow={state.transitionWindowProps}
+        on:introstart={onOpen}
+        on:outrostart={onClose}
+        on:introend={onOpened}
+        on:outroend={onClosed}
+        style={cssWindow}
+      >
+        {#if state.closeButton}
+          {#if isFunction(state.closeButton)}
+            <svelte:component this={state.closeButton} onClose={close} />
+          {:else}
+            <button on:click={close} class="close" style={cssCloseButton} />
+          {/if}
+        {/if}
+        <div class="content" style={cssContent}>
+          <svelte:component this={Component} />
+        </div>
+      </div>
+    </div>
+  </div>
+{/if}
+<slot />
 
 <style>
   * {
@@ -278,11 +321,12 @@
     background: white;
     box-shadow: 0 0 0 1px black;
     transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
-                background 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+      background 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
     -webkit-appearance: none;
   }
 
-  .close:before, .close:after {
+  .close:before,
+  .close:after {
     content: '';
     display: block;
     box-sizing: border-box;
@@ -293,7 +337,7 @@
     background: black;
     transform-origin: center;
     transition: height 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
-                background 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+      background 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
   .close:before {
@@ -314,7 +358,8 @@
     background: black;
   }
 
-  .close:hover:before, .close:hover:after {
+  .close:hover:before,
+  .close:hover:after {
     height: 2px;
     background: white;
   }
@@ -328,47 +373,9 @@
     transform: scale(0.9);
   }
 
-  .close:hover, .close:focus, .close:active {
+  .close:hover,
+  .close:focus,
+  .close:active {
     outline: none;
   }
 </style>
-
-<svelte:window on:keydown={handleKeydown}/>
-
-{#if Component}
-  <div
-    class="bg"
-    on:mousedown={handleOuterMousedown}
-    on:mouseup={handleOuterMouseup}
-    bind:this={background}
-    transition:currentTransitionBg={state.transitionBgProps}
-    style={cssBg}
-  >
-    <div class="window-wrap" bind:this={wrap} style={cssWindowWrap}>
-      <div
-        class="window"
-        role="dialog"
-        aria-modal="true"
-        bind:this={modalWindow}
-        transition:currentTransitionWindow={state.transitionWindowProps}
-        on:introstart={onOpen}
-        on:outrostart={onClose}
-        on:introend={onOpened}
-        on:outroend={onClosed}
-        style={cssWindow}
-      >
-        {#if state.closeButton}
-          {#if isFunction(state.closeButton)}
-            <svelte:component this={state.closeButton} onClose={close} />
-          {:else}
-            <button on:click={close} class="close" style={cssCloseButton} />
-          {/if}
-        {/if}
-        <div class="content" style={cssContent}>
-          <svelte:component this={Component} />
-        </div>
-      </div>
-    </div>
-  </div>
-{/if}
-<slot></slot>
