@@ -1,3 +1,11 @@
+# 1.1.0
+
+- Add `disableFocusTrap` property for disabling the focus trap behavior (#49)
+
+# 1.0.4
+
+- Make sure that the modal only closes when it's open to fix (#53)
+
 # 1.0.3
 
 - Remove accidentally added `console.log` (#50) and forbid `console.log` via linting

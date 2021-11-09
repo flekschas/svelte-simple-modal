@@ -94,9 +94,9 @@ export default {
   plugins: [
     resolve({
       // Below is the important line!
-      dedupe: ['svelte', 'svelte/transition', 'svelte/internal']
+      dedupe: ['svelte', 'svelte/transition', 'svelte/internal'],
     }),
-  ]
+  ],
 };
 ```
 
@@ -125,10 +125,10 @@ The `<Modal />` component accepts the following properties:
 
 - **show**: A Svelte component to show as the modal. See [an alternative to the context API](#context-api-alternative) for details.
 - **key**: The context key that is used to expose `open()` and `close()`. Adjust to avoid clashes with other contexts. (Default: `simple-modal`)
-- **setContext**: You can normally ingore this property when you have [configured your app  bundler](#configure-your-app-bundler) properly. If you want to bundle simple-modal with its own version of Svelte you have to pass `setContext()` from your main app to simple-modal using this parameter. (Default: `setContext()` of the associated `svelte` version.)
+- **setContext**: You can normally ingore this property when you have [configured your app bundler](#configure-your-app-bundler) properly. If you want to bundle simple-modal with its own version of Svelte you have to pass `setContext()` from your main app to simple-modal using this parameter. (Default: `setContext()` of the associated `svelte` version.)
 - **closeButton**: If `true` a button for closing the modal is rendered. Note, you can also pass in a [custom Svelte component as the close button](#custom-close-button) to have full control over the styling. (Default: `true`)
-- **closeOnEsc**:  If `true` the modal will close when pressing the escape key. (Default: `true`)
-- **closeOnOuterClick**:  If `true` the modal will close when clicking outside the modal window. (Default: `true`)
+- **closeOnEsc**: If `true` the modal will close when pressing the escape key. (Default: `true`)
+- **closeOnOuterClick**: If `true` the modal will close when clicking outside the modal window. (Default: `true`)
 - **transitionBg**: Transition function for the background. (Default `svelte:fade`)
 - **transitionBgProps**: Properties of the transition function for the background. (Default `{}`)
 - **transitionWindow**: Transition function for the window. (Default `svelte:fade`)
@@ -138,7 +138,7 @@ The `<Modal />` component accepts the following properties:
 - **styleWindow**: Style properties of the modal window. (Default `{}`)
 - **styleContent**: Style properties of the modal content. (Default `{}`)
 - **styleCloseButton**: Style properties of the built-in close button. (Default `{}`)
-
+- **disableFocusTrap**: If `true` elements outside the modal can be in focus. This can be useful in certain edge cases. (Default: `false`)
 
 ## Events
 
@@ -151,46 +151,46 @@ The `<Modal />` component dispatches the following events:
 
 Alternatively, you can listen to those events via callbacks passed to [`open()`](#open) and [`close()`](#close).
 
-
 ## Context API
 
 You can access the context via `getContext('simple-modal')`. It exposes the following two methods:
 
 <a name="open" href="#open">#</a> <b>open</b>(<i>Component</i>, <i>props = {}</i>, <i>options = {}</i>, <i>callbacks = {}</i>)
 
-  Opens the modal with `<Component {props}>` rendered as the content. `options` can be used to adjust the modal behavior once for the modal that is about to be opened. The `options` allows to customize all [parameters](#parameters) except `key` and `setContext`:
+Opens the modal with `<Component {props}>` rendered as the content. `options` can be used to adjust the modal behavior once for the modal that is about to be opened. The `options` allows to customize all [parameters](#parameters) except `key` and `setContext`:
 
-  ```javascript
-  {
-    closeButton: false,
-    closeOnEsc: false,
-    closeOnOuterClick: false,
-    transitionBg: fade,
-    transitionBgProps: {
-      duration: 5000
-    },
-    transitionWindow: fly,
-    transitionWindowProps: {
-      y: 100,
-      duration: 250
-    },
-    styleBg: { backgroundImage: 'http://example.com/my-background.jpg' },
-    styleWindow: { fontSize: '20em' },
-    styleContent: { color: 'yellow' },
-    styleCloseButton: { width: '3rem', height: '3rem' }
-  }
-  ```
+```javascript
+{
+  closeButton: false,
+  closeOnEsc: false,
+  closeOnOuterClick: false,
+  transitionBg: fade,
+  transitionBgProps: {
+    duration: 5000
+  },
+  transitionWindow: fly,
+  transitionWindowProps: {
+    y: 100,
+    duration: 250
+  },
+  styleBg: { backgroundImage: 'http://example.com/my-background.jpg' },
+  styleWindow: { fontSize: '20em' },
+  styleContent: { color: 'yellow' },
+  styleCloseButton: { width: '3rem', height: '3rem' },
+  disableFocusTrap: true
+}
+```
 
-  Callbacks are triggered at the beginning and end of the opening and closing transition. The following callbacks are supported:
+Callbacks are triggered at the beginning and end of the opening and closing transition. The following callbacks are supported:
 
-  ```javascript
-  {
-    onOpen: () => { /* modal window starts to open */ },
-    onOpened: () => { /* modal window opened */ },
-    onClose: () => { /* modal window starts to close */ },
-    onClosed: () => { /* modal window closed */ },
-  }
-  ```
+```javascript
+{
+  onOpen: () => { /* modal window starts to open */ },
+  onOpened: () => { /* modal window opened */ },
+  onClose: () => { /* modal window starts to close */ },
+  onClosed: () => { /* modal window closed */ },
+}
+```
 
 #### Custom Close Button
 
@@ -234,14 +234,14 @@ Unfortunately, it's not possible to adjust all styles of the built-in close butt
 
 <a name="close" href="#close">#</a> <b>close</b>(<i>callbacks = {}</i>)
 
-  Closes the modal. Similar to `open()`, this method supports adding callbacks for the closing transition:
+Closes the modal. Similar to `open()`, this method supports adding callbacks for the closing transition:
 
-  ```javascript
-  {
-    onClose: () => { /* modal window starts to close */ },
-    onClosed: () => { /* modal window closed */ },
-  }
-  ```
+```javascript
+{
+  onClose: () => { /* modal window starts to close */ },
+  onClosed: () => { /* modal window closed */ },
+}
+```
 
 ## Context API Alternative
 

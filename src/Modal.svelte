@@ -37,6 +37,7 @@
   export let transitionBgProps = { duration: 250 };
   export let transitionWindow = transitionBg;
   export let transitionWindowProps = transitionBgProps;
+  export let disableFocusTrap = false;
 
   const defaultState = {
     closeButton,
@@ -51,6 +52,7 @@
     transitionBgProps,
     transitionWindow,
     transitionWindowProps,
+    disableFocusTrap,
   };
   let state = { ...defaultState };
 
@@ -115,20 +117,20 @@
     state = { ...defaultState, ...options };
     updateStyleTransition();
     disableScroll();
-    (onOpen = (event) => {
+    onOpen = (event) => {
       if (callback.onOpen) callback.onOpen(event);
       dispatch('open');
       dispatch('opening'); // Deprecated. Do not use!
-    }),
-      (onClose = (event) => {
-        if (callback.onClose) callback.onClose(event);
-        dispatch('close');
-        dispatch('closing'); // Deprecated. Do not use!
-      }),
-      (onOpened = (event) => {
-        if (callback.onOpened) callback.onOpened(event);
-        dispatch('opened');
-      });
+    };
+    onClose = (event) => {
+      if (callback.onClose) callback.onClose(event);
+      dispatch('close');
+      dispatch('closing'); // Deprecated. Do not use!
+    };
+    onOpened = (event) => {
+      if (callback.onOpened) callback.onOpened(event);
+      dispatch('opened');
+    };
     onClosed = (event) => {
       if (callback.onClosed) callback.onClosed(event);
       dispatch('closed');
@@ -149,7 +151,7 @@
       close();
     }
 
-    if (Component && event.key === 'Tab') {
+    if (Component && event.key === 'Tab' && !state.disableFocusTrap) {
       // trap focus
       const nodes = modalWindow.querySelectorAll('*');
       const tabbable = Array.from(nodes).filter((node) => node.tabIndex >= 0);
