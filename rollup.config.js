@@ -1,25 +1,20 @@
+/* eslint-env node */
 import svelte from 'rollup-plugin-svelte';
+import sveld from 'sveld';
 
-import { main, module } from './package.json';
+import pkg from './package.json';
+
+const production = !process.env.ROLLUP_WATCH;
 
 export default {
-  input: 'src/Modal.svelte',
-  output: [
-    {
-       file: main,
-       format: 'cjs',
-       exports: 'auto'
-    },
-    {
-      file: module,
-      format: 'es',
-      exports: 'auto'
-    },
-  ],
+  input: pkg.svelte,
+  output: { format: 'es', file: pkg.module },
   plugins: [
     svelte({
-      emitCss: false
+      emitCss: false,
     }),
+    // resolve(),
+    production && sveld(),
   ],
-  external: ['svelte']
+  external: ['svelte', 'svelte/internal', 'svelte/transition'],
 };

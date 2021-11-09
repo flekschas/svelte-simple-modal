@@ -1,3 +1,7 @@
+# 1.1.1
+
+- Add type annotations via JSDocs, Typescript, and Sveld (#52)
+
 # 1.1.0
 
 - Add `disableFocusTrap` property for disabling the focus trap behavior (#49)

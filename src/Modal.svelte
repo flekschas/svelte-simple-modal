@@ -1,4 +1,8 @@
 <script context="module">
+  /**
+   * Svelte component to be shown as the modal
+   * @type {(component: Component, props: Record<string, any>) => Component}
+   */
   export function bind(Component, props = {}) {
     return function ModalComponent(options) {
       return new Component({
@@ -21,22 +25,101 @@
 
   const baseSetContext = svelte.setContext;
 
+  /**
+   * Svelte component to be shown as the modal
+   * @type {Component | null}
+   */
   export let show = null;
 
+  /**
+   * Svelte context key to reference the simple modal context
+   * @type {string}
+   */
   export let key = 'simple-modal';
+
+  /**
+   * Whether to show a close button or not
+   * @type {boolean}
+   */
   export let closeButton = true;
+
+  /**
+   * Whether to close the modal on hitting the escape key or not
+   * @type {boolean}
+   */
   export let closeOnEsc = true;
+
+  /**
+   * Whether to close the modal upon an outside mouse click or not
+   * @type {boolean}
+   */
   export let closeOnOuterClick = true;
+
+  /**
+   * CSS for styling the background element
+   * @type {Record<string, string>}
+   */
   export let styleBg = {};
+
+  /**
+   * CSS for styling the window wrapper element
+   * @type {Record<string, string>}
+   */
   export let styleWindowWrap = {};
+
+  /**
+   * CSS for styling the window element
+   * @type {Record<string, string>}
+   */
   export let styleWindow = {};
+
+  /**
+   * CSS for styling the content element
+   * @type {Record<string, string>}
+   */
   export let styleContent = {};
+
+  /**
+   * CSS for styling the close element
+   * @type {Record<string, string>}
+   */
   export let styleCloseButton = {};
+
+  /**
+   * @type {string | boolean}
+   */
   export let setContext = baseSetContext;
+
+  /**
+   * Transition function for the background element
+   * @see https://svelte.dev/docs#transition_fn
+   * @type {(node: Element, parameters: BlurParams) => TransitionConfig}
+   */
   export let transitionBg = fade;
+
+  /**
+   * Parameters for the background element transition
+   * @type {BlurParams}
+   */
   export let transitionBgProps = { duration: 250 };
+
+  /**
+   * Transition function for the window element
+   * @see https://svelte.dev/docs#transition_fn
+   * @type {(node: Element, parameters: BlurParams) => TransitionConfig}
+   */
   export let transitionWindow = transitionBg;
+
+  /**
+   * Parameters for the window element transition
+   * @type {BlurParams}
+   */
   export let transitionWindowProps = transitionBgProps;
+
+  /**
+   * If `true` elements outside the modal can be focused
+   * @type {boolean}
+   */
   export let disableFocusTrap = false;
 
   const defaultState = {
@@ -119,20 +202,46 @@
     disableScroll();
     onOpen = (event) => {
       if (callback.onOpen) callback.onOpen(event);
+      /**
+       * The open event is fired right before the modal opens
+       * @event {void} open
+       */
       dispatch('open');
+      /**
+       * The opening event is fired right before the modal opens
+       * @event {void} opening
+       * @deprecated Listen to the `open` event instead
+       */
       dispatch('opening'); // Deprecated. Do not use!
     };
     onClose = (event) => {
       if (callback.onClose) callback.onClose(event);
+      /**
+       * The close event is fired right before the modal closes
+       * @event {void} close
+       */
       dispatch('close');
+      /**
+       * The closing event is fired right before the modal closes
+       * @event {void} closing
+       * @deprecated Listen to the `close` event instead
+       */
       dispatch('closing'); // Deprecated. Do not use!
     };
     onOpened = (event) => {
       if (callback.onOpened) callback.onOpened(event);
+      /**
+       * The opened event is fired after the modal's opening transition
+       * @event {void} opened
+       */
       dispatch('opened');
     };
     onClosed = (event) => {
       if (callback.onClosed) callback.onClosed(event);
+      /**
+       * The closed event is fired after the modal's closing transition
+       * @event {void} closed
+       */
       dispatch('closed');
     };
   };
