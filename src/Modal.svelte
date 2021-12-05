@@ -39,7 +39,7 @@
 
   /**
    * Whether to show a close button or not
-   * @type {boolean}
+   * @type {Component | boolean}
    */
   export let closeButton = true;
 
@@ -57,36 +57,36 @@
 
   /**
    * CSS for styling the background element
-   * @type {Record<string, string>}
+   * @type {Record<string, string | number>}
    */
   export let styleBg = {};
 
   /**
    * CSS for styling the window wrapper element
-   * @type {Record<string, string>}
+   * @type {Record<string, string | number>}
    */
   export let styleWindowWrap = {};
 
   /**
    * CSS for styling the window element
-   * @type {Record<string, string>}
+   * @type {Record<string, string | number>}
    */
   export let styleWindow = {};
 
   /**
    * CSS for styling the content element
-   * @type {Record<string, string>}
+   * @type {Record<string, string | number>}
    */
   export let styleContent = {};
 
   /**
    * CSS for styling the close element
-   * @type {Record<string, string>}
+   * @type {Record<string, string | number>}
    */
   export let styleCloseButton = {};
 
   /**
-   * @type {string | boolean}
+   * @type {(key: any, context: any) => void}
    */
   export let setContext = baseSetContext;
 
