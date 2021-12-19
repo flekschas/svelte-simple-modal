@@ -1,5 +1,5 @@
 /// <reference types="svelte" />
-import { SvelteComponentTyped } from 'svelte';
+import { SvelteComponentTyped } from "svelte";
 
 export interface ModalProps {
   /**
@@ -18,7 +18,7 @@ export interface ModalProps {
    * Whether to show a close button or not
    * @default true
    */
-  closeButton?: boolean;
+  closeButton?: Component | boolean;
 
   /**
    * Whether to close the modal on hitting the escape key or not
@@ -36,33 +36,33 @@ export interface ModalProps {
    * CSS for styling the background element
    * @default {}
    */
-  styleBg?: Record<string, string>;
+  styleBg?: Record<string, string | number>;
 
   /**
    * CSS for styling the window wrapper element
    * @default {}
    */
-  styleWindowWrap?: Record<string, string>;
+  styleWindowWrap?: Record<string, string | number>;
 
   /**
    * CSS for styling the window element
    * @default {}
    */
-  styleWindow?: Record<string, string>;
+  styleWindow?: Record<string, string | number>;
 
   /**
    * CSS for styling the content element
    * @default {}
    */
-  styleContent?: Record<string, string>;
+  styleContent?: Record<string, string | number>;
 
   /**
    * CSS for styling the close element
    * @default {}
    */
-  styleCloseButton?: Record<string, string>;
+  styleCloseButton?: Record<string, string | number>;
 
-  setContext?: string | boolean;
+  setContext?: (key: any, context: any) => void;
 
   /**
    * Transition function for the background element
@@ -108,7 +108,7 @@ export default class Modal extends SvelteComponentTyped<
   { default: {} }
 > {
   /**
-   * Svelte component to be shown as the modal
+   * Create a Svelte component with props bound to it.
    */
   bind: (component: Component, props: Record<string, any>) => Component;
 }

@@ -1,3 +1,7 @@
+# 1.1.2
+
+- Properly export `bind()`
+
 # 1.1.1
 
 - Add type annotations via JSDocs, Typescript, and Sveld (#52)
