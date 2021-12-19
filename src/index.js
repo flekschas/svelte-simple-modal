@@ -1,4 +1,1 @@
-import Modal from './Modal.svelte';
-
-export { Modal };
-export default Modal;
+export { default, default as Modal, bind } from './Modal.svelte';
