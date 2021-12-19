@@ -13,7 +13,6 @@ export default {
     svelte({
       emitCss: false,
     }),
-    // resolve(),
     production && sveld(),
   ],
   external: ['svelte', 'svelte/internal', 'svelte/transition'],
