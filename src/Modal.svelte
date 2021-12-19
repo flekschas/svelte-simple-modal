@@ -1,6 +1,6 @@
 <script context="module">
   /**
-   * Svelte component to be shown as the modal
+   * Create a Svelte component with props bound to it.
    * @type {(component: Component, props: Record<string, any>) => Component}
    */
   export function bind(Component, props = {}) {
