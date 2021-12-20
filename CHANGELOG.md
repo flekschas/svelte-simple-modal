@@ -1,6 +1,10 @@
+# 1.1.3
+
+- Add `"type": "module"` in `package.json` (#57)
+
 # 1.1.2
 
-- Properly export `bind()`
+- Properly export `bind()` (#58)
 
 # 1.1.1
 
