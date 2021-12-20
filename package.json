@@ -2,6 +2,7 @@
   "name": "svelte-simple-modal",
   "version": "1.1.2",
   "description": "A small and simple modal for Svelte",
+  "type": "module",
   "svelte": "src/index.js",
   "main": "lib/index.js",
   "module": "lib/index.js",
