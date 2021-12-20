@@ -1,3 +1,8 @@
+# 1.2.0
+
+- Add `ariaLabel` and `ariaLabelledBy` to props/options to support improved accessibility (#37)
+- Add `aria-label="Close modal"` to the default close button component (#37)
+
 # 1.1.3
 
 - Add `"type": "module"` in `package.json` (#57)

@@ -148,6 +148,20 @@ onMount(async () => {
 });
 ```
 
+#### Accessibility
+
+The library applies the following WAI-ARIA guidelines for modal dialogs
+automtically:
+
+- `aria-modal="true"` and `role="dialog"` are applied automatically
+- The tab focus is trapped in the modal
+- The modal is closed on pressing the `esc` key
+
+To further improve the accessibility you'll have to either provide a label via
+[`ariaLabel`](https://www.w3.org/TR/wai-aria-1.1/#aria-label) or reference a
+title element via [`ariaLabelledBy`](https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby).
+The `ariaLabel` is automatically omitted when `ariaLabelledBy` is specified.
+
 ## API
 
 ### Component API
@@ -157,6 +171,8 @@ The `<Modal />` component accepts the following optional properties:
 | Property                  | Type                             | Default             | Description                                                                                                                                                                                                                                                 |
 | ------------------------- | -------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **show**                  | Component \| null                | `null`              | A Svelte component to show as the modal. See [Store API](#store-api) for details.                                                                                                                                                                           |
+| **ariaLabel**             | string \| null                   | `null`              | Accessibility label of the modal. See [W3C WAI-ARIA](https://www.w3.org/TR/wai-aria-1.1/#aria-label) for details.                                                                                                                                           |
+| **ariaLabelledBy**        | string \| null                   | `null`              | Element ID holding the accessibility label of the modal. See [W3C WAI-ARIA](https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby) for details.                                                                                                               |
 | **closeButton**           | Component \| boolean             | `true`              | If `true` a button for closing the modal is rendered. You can also pass in a [custom Svelte component](#custom-close-button) to have full control over the styling.                                                                                         |
 | **closeOnEsc**            | boolean                          | `true`              | If `true` the modal will close when pressing the escape key.                                                                                                                                                                                                |
 | **closeOnOuterClick**     | boolean                          | `true`              | If `true` the modal will close when clicking outside the modal window.                                                                                                                                                                                      |

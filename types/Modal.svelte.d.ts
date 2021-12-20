@@ -1,5 +1,5 @@
 /// <reference types="svelte" />
-import { SvelteComponentTyped } from "svelte";
+import { SvelteComponentTyped } from 'svelte';
 
 export interface ModalProps {
   /**
@@ -13,6 +13,18 @@ export interface ModalProps {
    * @default 'simple-modal'
    */
   key?: string;
+
+  /**
+   * Accessibility label of the modal
+   * @default null
+   */
+  ariaLabel?: string | null;
+
+  /**
+   * Element ID holding the accessibility label of the modal
+   * @default null
+   */
+  ariaLabelledBy?: string | null;
 
   /**
    * Whether to show a close button or not

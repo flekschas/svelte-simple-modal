@@ -38,6 +38,20 @@
   export let key = 'simple-modal';
 
   /**
+   * Accessibility label of the modal
+   * @see https://www.w3.org/TR/wai-aria-1.1/#aria-label
+   * @type {string | null}
+   */
+  export let ariaLabel = null;
+
+  /**
+   * Element ID holding the accessibility label of the modal
+   * @see https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby
+   * @type {string | null}
+   */
+  export let ariaLabelledBy = null;
+
+  /**
    * Whether to show a close button or not
    * @type {Component | boolean}
    */
@@ -123,6 +137,8 @@
   export let disableFocusTrap = false;
 
   const defaultState = {
+    ariaLabel,
+    ariaLabelledBy,
     closeButton,
     closeOnEsc,
     closeOnOuterClick,
@@ -349,6 +365,8 @@
         class="window"
         role="dialog"
         aria-modal="true"
+        aria-label={state.ariaLabelledBy ? null : state.ariaLabel || null}
+        aria-labelledby={state.ariaLabelledBy || null}
         bind:this={modalWindow}
         transition:currentTransitionWindow={state.transitionWindowProps}
         on:introstart={onOpen}
@@ -361,7 +379,12 @@
           {#if isFunction(state.closeButton)}
             <svelte:component this={state.closeButton} onClose={close} />
           {:else}
-            <button on:click={close} class="close" style={cssCloseButton} />
+            <button
+              class="close"
+              aria-label="Close modal"
+              on:click={close}
+              style={cssCloseButton}
+            />
           {/if}
         {/if}
         <div class="content" style={cssContent}>
