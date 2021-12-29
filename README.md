@@ -224,7 +224,11 @@ Alternatively, you can listen to those events via callbacks passed to [`open()`]
 
 ### Context API
 
-You can access the context via `getContext('simple-modal')`. It exposes the following two methods:
+Svelte Simple Modal uses [Svelte's context API](https://svelte.dev/tutorial/context-api) to expose the `open()` and `close()` methods. You can get these methods as follows:
+
+```js
+const { open, close } = getContext('simple-modal');
+```
 
 <a name="open" href="#open">#</a> <b>open</b>(<i>Component</i>, <i>props = {}</i>, <i>options = {}</i>, <i>callbacks = {}</i>)
 
