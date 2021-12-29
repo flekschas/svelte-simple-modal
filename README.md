@@ -36,7 +36,9 @@
   - [Rollup Setup](#rollup-setup)
   - [Sapper Setup](#sapper-setup)
 - [Usage](#usage)
+  - [Svelte Store Example](#usage-with-a-svelte-store)
   - [SSR](#server-side-rendering)
+  - [Accessibility](#accessibility)
 - [API](#api)
   - [Component](#component-api)
   - [Events](#component-events)
@@ -76,12 +78,11 @@ npm install -D svelte-simple-modal
 
 ## Usage
 
-Import the `Modal` component into your main Svelte component (e.g., `App.svelte`).
+Import the `Modal` component into your main app component (e.g., `App.svelte`).
 
-The `Modal` is exposing [two context functions](#context-api) for opening
-and closing the modal. [`open()`](#open) opens a component as a modal and expects two arguments: a Svelte `Component` and optionally an object literal with the component's `props`. [`close()`](#close) simply closes the modal.
-
-Alternatively, you can show a component as a modal by passing it to the `<Modal show={} />` as a [Svelte store](#store-api).
+The modal is exposing [two context functions](#context-api):
+- [`open()`](#open) opens a component as a modal.
+- [`close()`](#close) simply closes the modal.
 
 ```svelte
 <!-- App.svelte -->
@@ -90,37 +91,54 @@ Alternatively, you can show a component as a modal by passing it to the `<Modal 
   import Modal from 'svelte-simple-modal';
 </script>
 
-<Modal>
-  <Content />
-</Modal>
+<Modal><Content /></Modal>
 
 
 <!-- Content.svelte -->
 <script>
   import { getContext } from 'svelte';
-  import Surprise from './Surprise.svelte';
-
+  import Popup from './Popup.svelte';
   const { open } = getContext('simple-modal');
-
-  const showSurprise = () => {
-    open(Surprise, { message: "It's a modal!" });
-  };
+  const showSurprise = () => open(Popup, { message: "It's a modal!" });
 </script>
 
 <p><button on:click={showSurprise}>Show me a surprise!</button></p>
 
 
-<!-- Surprise.svelte -->
+<!-- Popup.svelte -->
 <script>
-  export let message;
+  export let message = 'Hi';
 </script>
 
-<p>
-  🎉 {message} 🍾
-</p>
+<p>🎉 {message} 🍾</p>
 ```
 
-#### Server-Side Rendering
+**Demo:** https://svelte.dev/repl/52e0ade6d42546d8892faf8528c70d30
+
+### Usage With a Svelte Store
+
+Alternatively, you can use a [Svelte store](#store-api) to show/hide a component as a modal.
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import { writable } from 'svelte/store';
+  import Modal, { bind } from 'svelte-simple-modal';
+  import Popup from './Popup.svelte';
+  const modal = writable(null);
+  const showModal = () => modal.set(bind(Popup, { message: "It's a modal!" })));
+</script>
+
+<Modal show={$modal}>
+  <button on:click={showModal}>Show modal</button>
+</Modal>
+```
+
+**Demo:** https://svelte.dev/repl/aec0c7d9f5084e7daa64f6d0c8ef0209
+
+The `<Popup />` component is the same as in the example above.
+
+### Server-Side Rendering
 
 With [SvelteKit](https://kit.svelte.dev/) you can enable [SSR](https://www.google.com/search?q=server+side+rendering) using the `browser` environmental variable as follows:
 
@@ -148,7 +166,7 @@ onMount(async () => {
 });
 ```
 
-#### Accessibility
+### Accessibility
 
 The library applies the following WAI-ARIA guidelines for modal dialogs
 automtically:
@@ -161,6 +179,10 @@ To further improve the accessibility you'll have to either provide a label via
 [`ariaLabel`](https://www.w3.org/TR/wai-aria-1.1/#aria-label) or reference a
 title element via [`ariaLabelledBy`](https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby).
 The `ariaLabel` is automatically omitted when `ariaLabelledBy` is specified.
+
+```svelte
+
+```
 
 ## API
 
@@ -260,30 +282,21 @@ You can also use [Svelte stores](https://svelte.dev/tutorial/writable-stores) to
 <!-- App.svelte -->
 <script>
   import { writable } from 'svelte/store';
-  import Content from './Content.svelte';
-  import Popup from './Popup.svelte';
-  export const modal = writable(null);
-
-  function showModal() {
-    modal.set(Popup)
-  }
-</script>
-
-<Content />
-<button on:click={showModal}>Show modal</button>
-
-
-<!-- Content.svelte -->
-<script>
   import Modal from 'svelte-simple-modal';
-  import SomethingElse from './SomethingElse.svelte';
-  import { modal } from './App.svelte';
+  import Popup from './Popup.svelte';
+  const modal = writable(null);
+  const showModal = () => modal.set(Popup);
 </script>
 
 <Modal show={$modal}>
-  <SomethingElse />
+  <button on:click={showModal}>Show modal</button>
 </Modal>
+
+<!-- Popup.svelte -->
+<p>🎉 Hi 🍾</p>
 ```
+
+**Demo:** https://svelte.dev/repl/6f55b643195646408e780ceeb779ac2a
 
 An added benefit of using stores is that the component opening the modal does not have to be a parent of `<Modal />`. For instance, in the example above, `App.svelte` is toggling `Popup.svelte` as a modal even though `App.svelte` is not a child of `<Modal />`.
 
