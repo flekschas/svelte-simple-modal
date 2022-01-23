@@ -100,6 +100,42 @@
   export let styleCloseButton = {};
 
   /**
+   * Class name for the background element
+   * @type {string | null}
+   */
+  export let classBg = null;
+
+  /**
+   * Class name for window wrapper element
+   * @type {string | null}
+   */
+  export let classWindowWrap = null;
+
+  /**
+   * Class name for window element
+   * @type {string | null}
+   */
+  export let classWindow = null;
+
+  /**
+   * Class name for content element
+   * @type {string | null}
+   */
+  export let classContent = null;
+
+  /**
+   * Class name for close element
+   * @type {string | null}
+   */
+  export let classCloseButton = null;
+
+  /**
+   * Do not apply default styles to the modal
+   * @type {boolean}
+   */
+  export let unstyled = false;
+
+  /**
    * @type {(key: any, context: any) => void}
    */
   export let setContext = baseSetContext;
@@ -147,11 +183,17 @@
     styleWindow,
     styleContent,
     styleCloseButton,
+    classBg,
+    classWindowWrap,
+    classWindow,
+    classContent,
+    classCloseButton,
     transitionBg,
     transitionBgProps,
     transitionWindow,
     transitionWindowProps,
     disableFocusTrap,
+    unstyled,
   };
   let state = { ...defaultState };
 
@@ -353,16 +395,23 @@
 
 {#if Component}
   <div
-    class="bg"
+    class={state.classBg}
+    class:bg={!unstyled}
     on:mousedown={handleOuterMousedown}
     on:mouseup={handleOuterMouseup}
     bind:this={background}
     transition:currentTransitionBg={state.transitionBgProps}
     style={cssBg}
   >
-    <div class="window-wrap" bind:this={wrap} style={cssWindowWrap}>
+    <div
+      class={state.classWindowWrap}
+      class:wrap={!unstyled}
+      bind:this={wrap}
+      style={cssWindowWrap}
+    >
       <div
-        class="window"
+        class={state.classWindow}
+        class:window={!unstyled}
         role="dialog"
         aria-modal="true"
         aria-label={state.ariaLabelledBy ? null : state.ariaLabel || null}
@@ -380,14 +429,19 @@
             <svelte:component this={state.closeButton} onClose={close} />
           {:else}
             <button
-              class="close"
+              class={state.classCloseButton}
+              class:close={!unstyled}
               aria-label="Close modal"
               on:click={close}
               style={cssCloseButton}
             />
           {/if}
         {/if}
-        <div class="content" style={cssContent}>
+        <div
+          class={state.classContent}
+          class:content={!unstyled}
+          style={cssContent}
+        >
           <svelte:component this={Component} />
         </div>
       </div>
@@ -414,7 +468,7 @@
     background: rgba(0, 0, 0, 0.66);
   }
 
-  .window-wrap {
+  .wrap {
     position: relative;
     margin: 2rem;
     max-height: 100%;

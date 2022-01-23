@@ -1,3 +1,8 @@
+# 1.3.0
+
+- Add `classBg`, `classWindow`, `classWindowWrap`, `classContent`, and `classCloseButton` properties to applying custom CSS classes to the modal elements (#62)
+- Add `unstyled` to prevent applying default styles and providing full control over the modal styling
+
 # 1.2.0
 
 - Add `ariaLabel` and `ariaLabelledBy` to props/options to support improved accessibility (#37)
