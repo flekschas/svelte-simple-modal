@@ -220,10 +220,6 @@ To further improve the accessibility you'll have to either provide a label via
 title element via [`ariaLabelledBy`](https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby).
 The `ariaLabel` is automatically omitted when `ariaLabelledBy` is specified.
 
-```svelte
-
-```
-
 ## API
 
 ### Component API
