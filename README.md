@@ -128,7 +128,7 @@ Alternatively, you can use a [Svelte store](#store-api) to show/hide a component
   import Modal, { bind } from 'svelte-simple-modal';
   import Popup from './Popup.svelte';
   const modal = writable(null);
-  const showModal = () => modal.set(bind(Popup, { message: "It's a modal!" })));
+  const showModal = () => modal.set(bind(Popup, { message: "It's a modal!" }));
 </script>
 
 <Modal show={$modal}>
