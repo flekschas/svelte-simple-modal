@@ -1,6 +1,14 @@
 /// <reference types="svelte" />
 import { SvelteComponentTyped } from 'svelte';
 
+/**
+ * Create a Svelte component with props bound to it.
+ */
+export type bind = (
+  component: Component,
+  props: Record<string, any>
+) => Component;
+
 export interface ModalProps {
   /**
    * Svelte component to be shown as the modal
@@ -74,10 +82,51 @@ export interface ModalProps {
    */
   styleCloseButton?: Record<string, string | number>;
 
+  /**
+   * Class name for the background element
+   * @default null
+   */
+  classBg?: string | null;
+
+  /**
+   * Class name for window wrapper element
+   * @default null
+   */
+  classWindowWrap?: string | null;
+
+  /**
+   * Class name for window element
+   * @default null
+   */
+  classWindow?: string | null;
+
+  /**
+   * Class name for content element
+   * @default null
+   */
+  classContent?: string | null;
+
+  /**
+   * Class name for close element
+   * @default null
+   */
+  classCloseButton?: string | null;
+
+  /**
+   * Do not apply default styles to the modal
+   * @default false
+   */
+  unstyled?: boolean;
+
+  /**
+   * The setContext() function associated with this library
+   * @default undefined
+   */
   setContext?: (key: any, context: any) => void;
 
   /**
    * Transition function for the background element
+   * @default undefined
    */
   transitionBg?: (node: Element, parameters: BlurParams) => TransitionConfig;
 
@@ -89,6 +138,7 @@ export interface ModalProps {
 
   /**
    * Transition function for the window element
+   * @default undefined
    */
   transitionWindow?: (
     node: Element,
@@ -97,6 +147,7 @@ export interface ModalProps {
 
   /**
    * Parameters for the window element transition
+   * @default undefined
    */
   transitionWindowProps?: BlurParams;
 
@@ -118,9 +169,4 @@ export default class Modal extends SvelteComponentTyped<
     closed: CustomEvent<void>;
   },
   { default: {} }
-> {
-  /**
-   * Create a Svelte component with props bound to it.
-   */
-  bind: (component: Component, props: Record<string, any>) => Component;
-}
+> {}

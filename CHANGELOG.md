@@ -1,3 +1,7 @@
+# 1.3.1
+
+- Updated `sveld` to fix the type definitions (#58). See https://github.com/carbon-design-system/sveld/issues/56 for context
+
 # 1.3.0
 
 - Add `classBg`, `classWindow`, `classWindowWrap`, `classContent`, and `classCloseButton` properties to applying custom CSS classes to the modal elements (#62)

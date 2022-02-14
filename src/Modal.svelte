@@ -136,6 +136,11 @@
   export let unstyled = false;
 
   /**
+   * The setContext() function associated with this library
+   * @description If you want to bundle simple-modal with its own version of
+   * Svelte you have to pass `setContext()` from your main app to simple-modal
+   * using this parameter
+   * @see https://svelte.dev/docs#run-time-svelte-setcontext
    * @type {(key: any, context: any) => void}
    */
   export let setContext = baseSetContext;
