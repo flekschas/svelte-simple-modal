@@ -140,6 +140,8 @@ Alternatively, you can use a [Svelte store](#store-api) to show/hide a component
 
 The `<Popup />` component is the same as in the example above.
 
+To hide the modal programmatically, simply unset the store. E.g., `modal.set(null)`.
+
 ### Styling
 
 The modal comes pre-styled for convenience but you can easily extent or replace the styling using either custom CSS classes or explicit CSS styles.
