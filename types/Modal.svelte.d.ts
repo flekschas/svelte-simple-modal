@@ -1,14 +1,6 @@
 /// <reference types="svelte" />
 import { SvelteComponentTyped } from 'svelte';
 
-/**
- * Create a Svelte component with props bound to it.
- */
-export type bind = (
-  component: Component,
-  props: Record<string, any>
-) => Component;
-
 export interface ModalProps {
   /**
    * Svelte component to be shown as the modal

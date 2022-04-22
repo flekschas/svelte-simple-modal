@@ -1,25 +1,9 @@
-<script context="module">
-  /**
-   * Create a Svelte component with props bound to it.
-   * @type {(component: Component, props: Record<string, any>) => Component}
-   */
-  export function bind(Component, props = {}) {
-    return function ModalComponent(options) {
-      return new Component({
-        ...options,
-        props: {
-          ...props,
-          ...options.props,
-        },
-      });
-    };
-  }
-</script>
-
 <script>
   import * as svelte from 'svelte';
   import { fade } from 'svelte/transition';
   import { createEventDispatcher } from 'svelte';
+
+  import bind from './bind';
 
   const dispatch = createEventDispatcher();
 
