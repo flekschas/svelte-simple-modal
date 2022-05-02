@@ -1,13 +1,13 @@
 /// <reference types="svelte" />
-import { SvelteComponentTyped } from 'svelte';
+import type { SvelteComponentTyped } from "svelte";
 
 /**
  * Create a Svelte component with props bound to it.
  */
-export type bind = (
+export declare function bind(
   component: Component,
   props: Record<string, any>
-) => Component;
+): Component;
 
 export interface ModalProps {
   /**
