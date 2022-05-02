@@ -1,3 +1,7 @@
+# 1.3.2
+
+- Fix type issue of `bind()` via a new version of `sveld` (#73). See https://github.com/carbon-design-system/sveld/issues/83 for context
+
 # 1.3.1
 
 - Updated `sveld` to fix the type definitions (#58). See https://github.com/carbon-design-system/sveld/issues/56 for context
