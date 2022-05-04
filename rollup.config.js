@@ -9,11 +9,6 @@ const production = !process.env.ROLLUP_WATCH;
 export default {
   input: pkg.svelte,
   output: { format: 'es', file: pkg.module },
-  plugins: [
-    svelte({
-      emitCss: false,
-    }),
-    production && sveld(),
-  ],
+  plugins: [svelte({ emitCss: false }), production && sveld()],
   external: ['svelte', 'svelte/internal', 'svelte/transition'],
 };

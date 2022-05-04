@@ -1,3 +1,7 @@
+# 1.3.3
+
+- Fix accidentally removed global export of `bind()`
+
 # 1.3.2
 
 - Fix type issue of `bind()` via a new version of `sveld` (#73). See https://github.com/carbon-design-system/sveld/issues/83 for context. Also huge shoutout to [Dustin Coffey](https://github.com/dustinc) for [his PR (#75) on this matter](https://github.com/flekschas/svelte-simple-modal/pull/75). 🙏

@@ -9,7 +9,7 @@
   "types": "types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "rm -rf lib && rm -rf types && rollup -c",
+    "build": "rm -rf lib && rm -rf types && rollup -c && sed -i '/from \"\"/d' types/index.d.ts",
     "precommit": "NODE_ENV=production lint-staged; npm run lint",
     "prepare": "npm run lint && npm run build",
     "prerelease": "npm run lint; rm -f dist.zip; npm run build; zip dist.zip lib/* src/* types/*",
