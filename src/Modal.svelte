@@ -326,7 +326,8 @@
     if (Component && event.key === 'Tab' && !state.disableFocusTrap) {
       // trap focus
       const nodes = modalWindow.querySelectorAll('*');
-      const tabbable = Array.from(nodes).filter((node) => node.tabIndex >= 0);
+      const tabbable = Array.from(nodes).filter((node) => node.tabIndex >= 0)
+        .sort((a, b) => a.tabIndex - b.tabIndex);
 
       let index = tabbable.indexOf(document.activeElement);
       if (index === -1 && event.shiftKey) index = 0;
