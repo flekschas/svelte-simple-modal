@@ -1,3 +1,7 @@
+# 1.3.4
+
+- Respect the tab order defined by `tabindex` attributes of elements within a modal ([#80](https://github.com/flekschas/svelte-simple-modal/pull/80))
+
 # 1.3.3
 
 - Fix accidentally removed global export of `bind()`
