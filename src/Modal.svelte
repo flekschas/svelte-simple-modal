@@ -26,6 +26,25 @@
   const baseSetContext = svelte.setContext;
 
   /**
+   * A basic function that checks if a node is tabbale
+   */
+  const baseIsTabbable = (node) =>
+    node.tabIndex >= 0 &&
+    !node.hidden &&
+    !node.disabled &&
+    node.style.display !== 'none' &&
+    node.type !== 'hidden' &&
+    Boolean(
+      node.offsetWidth || node.offsetHeight || node.getClientRects().length
+    );
+
+  /**
+   * A function to determine if an HTML element is tabbable
+   * @type {((node: Element) => boolean)}
+   */
+  export let isTabbable = baseIsTabbable;
+
+  /**
    * Svelte component to be shown as the modal
    * @type {Component | null}
    */
@@ -198,6 +217,7 @@
     transitionWindow,
     transitionWindowProps,
     disableFocusTrap,
+    isTabbable,
     unstyled,
   };
   let state = { ...defaultState };
@@ -326,7 +346,8 @@
     if (Component && event.key === 'Tab' && !state.disableFocusTrap) {
       // trap focus
       const nodes = modalWindow.querySelectorAll('*');
-      const tabbable = Array.from(nodes).filter((node) => node.tabIndex >= 0)
+      const tabbable = Array.from(nodes)
+        .filter(state.isTabbable)
         .sort((a, b) => a.tabIndex - b.tabIndex);
 
       let index = tabbable.indexOf(document.activeElement);

@@ -1,3 +1,8 @@
+# 1.4.0
+
+- Skip untabbable element ([#82](https://github.com/flekschas/svelte-simple-modal/issues/82)) Massive thanks to [@jassenjj](https://github.com/jassenjj) 🙏
+- Added `isTabbable` property to allow users to override the tab-check. E.g., one might want to use a more the [tabbable library](https://github.com/focus-trap/tabbable#istabbable).
+
 # 1.3.4
 
 - Respect the tab order defined by `tabindex` attributes of elements within a modal ([#80](https://github.com/flekschas/svelte-simple-modal/pull/80))
