@@ -461,6 +461,7 @@
               aria-label="Close modal"
               on:click={close}
               style={cssCloseButton}
+              type="button"
             />
           {/if}
         {/if}
