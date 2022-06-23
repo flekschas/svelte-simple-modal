@@ -1,3 +1,7 @@
+# 1.4.1
+
+- Avoid submitting a `<form />` if it wraps `<Modal />` by setting the close button type to `button`. ([#84](https://github.com/flekschas/svelte-simple-modal/pull/84)) Shoutout to [@jnysteen](https://github.com/jnysteen)!
+
 # 1.4.0
 
 - Skip untabbable element ([#82](https://github.com/flekschas/svelte-simple-modal/issues/82)) Massive thanks to [@jassenjj](https://github.com/jassenjj) 🙏
