@@ -196,6 +196,12 @@
    */
   export let disableFocusTrap = false;
 
+  /**
+   * Object with callbacks to be called on transition change
+   * @type { { onOpen?: (event: CustomEvent<null>) => void, onOpened?: (event: CustomEvent<null>) => void, onClose?: (event: CustomEvent<null>) => void, onClosed?: (event: CustomEvent<null>) => void } | null }
+   */
+  export let callbacks = null;
+
   const defaultState = {
     ariaLabel,
     ariaLabelledBy,
@@ -253,6 +259,8 @@
 
   const isFunction = (f) => !!(f && f.constructor && f.call && f.apply);
 
+  const displaying = () => Component || ($$slots.modalContent && show);
+
   const updateStyleTransition = () => {
     cssBg = toCssString(
       Object.assign(
@@ -279,12 +287,13 @@
   let onClosed = toVoid;
 
   const open = (NewComponent, newProps = {}, options = {}, callback = {}) => {
-    Component = bind(NewComponent, newProps);
+    Component = isFunction(NewComponent) && bind(NewComponent, newProps);
     state = { ...defaultState, ...options };
     updateStyleTransition();
     disableScroll();
     onOpen = (event) => {
       if (callback.onOpen) callback.onOpen(event);
+      if (callbacks && callbacks.onOpen) callbacks.onOpen(event);
       /**
        * The open event is fired right before the modal opens
        * @event {void} open
@@ -299,6 +308,7 @@
     };
     onClose = (event) => {
       if (callback.onClose) callback.onClose(event);
+      if (callbacks && callbacks.onClose) callbacks.onClose(event);
       /**
        * The close event is fired right before the modal closes
        * @event {void} close
@@ -313,6 +323,7 @@
     };
     onOpened = (event) => {
       if (callback.onOpened) callback.onOpened(event);
+      if (callbacks && callbacks.onOpened) callbacks.onOpened(event);
       /**
        * The opened event is fired after the modal's opening transition
        * @event {void} opened
@@ -321,6 +332,7 @@
     };
     onClosed = (event) => {
       if (callback.onClosed) callback.onClosed(event);
+      if (callbacks && callbacks.onClosed) callbacks.onClosed(event);
       /**
        * The closed event is fired after the modal's closing transition
        * @event {void} closed
@@ -330,7 +342,10 @@
   };
 
   const close = (callback = {}) => {
-    if (!Component) return;
+    if (!displaying()) return;
+    if ($$slots.modalContent) {
+      show = null;
+    }
     onClose = callback.onClose || onClose;
     onClosed = callback.onClosed || onClosed;
     Component = null;
@@ -338,12 +353,12 @@
   };
 
   const handleKeydown = (event) => {
-    if (state.closeOnEsc && Component && event.key === 'Escape') {
+    if (state.closeOnEsc && displaying() && event.key === 'Escape') {
       event.preventDefault();
       close();
     }
 
-    if (Component && event.key === 'Tab' && !state.disableFocusTrap) {
+    if (displaying() && event.key === 'Tab' && !state.disableFocusTrap) {
       // trap focus
       const nodes = modalWindow.querySelectorAll('*');
       const tabbable = Array.from(nodes)
@@ -401,7 +416,9 @@
 
   $: {
     if (isMounted) {
-      if (isFunction(show)) {
+      if ($$slots.modalContent && show) {
+        open();
+      } else if (isFunction(show)) {
         open(show);
       } else {
         close();
@@ -420,7 +437,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-{#if Component}
+{#if Component || ($$slots.modalContent && show)}
   <div
     class={state.classBg}
     class:bg={!unstyled}
@@ -452,25 +469,29 @@
         style={cssWindow}
       >
         {#if state.closeButton}
-          {#if isFunction(state.closeButton)}
-            <svelte:component this={state.closeButton} onClose={close} />
-          {:else}
-            <button
-              class={state.classCloseButton}
-              class:close={!unstyled}
-              aria-label="Close modal"
-              on:click={close}
-              style={cssCloseButton}
-              type="button"
-            />
-          {/if}
+          <slot name="closeButton">
+            {#if isFunction(state.closeButton)}
+              <svelte:component this={state.closeButton} onClose={close} />
+            {:else}
+              <button
+                class={state.classCloseButton}
+                class:close={!unstyled}
+                aria-label="Close modal"
+                on:click={close}
+                style={cssCloseButton}
+                type="button"
+              />
+            {/if}
+          </slot>
         {/if}
         <div
           class={state.classContent}
           class:content={!unstyled}
           style={cssContent}
         >
-          <svelte:component this={Component} />
+          <slot name="modalContent">
+            <svelte:component this={Component} />
+          </slot>
         </div>
       </div>
     </div>

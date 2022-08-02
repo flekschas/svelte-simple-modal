@@ -1,5 +1,5 @@
 /// <reference types="svelte" />
-import type { SvelteComponentTyped } from "svelte";
+import type { SvelteComponentTyped } from 'svelte';
 
 /**
  * Create a Svelte component with props bound to it.
@@ -10,6 +10,12 @@ export declare function bind(
 ): Component;
 
 export interface ModalProps {
+  /**
+   * A function to determine if an HTML element is tabbable
+   * @default undefined
+   */
+  isTabbable?: (node: Element) => boolean;
+
   /**
    * Svelte component to be shown as the modal
    * @default null
@@ -156,6 +162,17 @@ export interface ModalProps {
    * @default false
    */
   disableFocusTrap?: boolean;
+
+  /**
+   * Object with callbacks to be called on transition change
+   * @default null
+   */
+  callbacks?: {
+    onOpen?: (event: CustomEvent<null>) => void;
+    onOpened?: (event: CustomEvent<null>) => void;
+    onClose?: (event: CustomEvent<null>) => void;
+    onClosed?: (event: CustomEvent<null>) => void;
+  } | null;
 }
 
 export default class Modal extends SvelteComponentTyped<
@@ -168,5 +185,5 @@ export default class Modal extends SvelteComponentTyped<
     opened: CustomEvent<void>;
     closed: CustomEvent<void>;
   },
-  { default: {} }
+  { default: {}; closeButton: {}; modalContent: {} }
 > {}
