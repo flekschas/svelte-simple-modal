@@ -1,5 +1,5 @@
 /// <reference types="svelte" />
-import type { SvelteComponentTyped } from 'svelte';
+import type { SvelteComponentTyped } from "svelte";
 
 /**
  * Create a Svelte component with props bound to it.
