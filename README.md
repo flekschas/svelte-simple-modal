@@ -26,34 +26,41 @@
   
 </div>
 
-**Live demo:** https://svelte.dev/repl/033e824fad0a4e34907666e7196caec4?version=3.20.1
+**Live demo:** [https://svelte.dev/repl/136d296195b543c4a4a6de127ff9e06e?version=3.35.0](https://svelte.dev/repl/136d296195b543c4a4a6de127ff9e06e?version=3.35.0)
 
-**Works with:** Svelte `>=v3.4` (Tested until to `v3.20`)
+**Works with:** Svelte `>=v3.35.0`
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Install](#install)
   - [Rollup Setup](#rollup-setup)
   - [Sapper Setup](#sapper-setup)
 - [Usage](#usage)
-  - [Svelte Store Example](#usage-with-a-svelte-store)
+  - [Usage with context](#usage-with-context)
+  - [Usage With a Svelte Store](#usage-with-a-svelte-store)
+  - [Usage with slots](#usage-with-slots)
   - [Styling](#styling)
-  - [SSR](#server-side-rendering)
+  - [Server-Side Rendering](#server-side-rendering)
   - [Accessibility](#accessibility)
 - [API](#api)
-  - [Component](#component-api)
-  - [Events](#component-events)
+  - [Component API](#component-api)
+  - [Component Events](#component-events)
   - [Context API](#context-api)
   - [Store API](#store-api)
+  - [Slot api](#slot-api)
+    - [Bind Props to a Component Shown as a Modal](#bind-props-to-a-component-shown-as-a-modal)
 - [FAQ](#faq)
+  - [Custom Close Button](#custom-close-button)
+- [License](#license)
 
 ## Install
+
+### Rollup Setup
 
 ```bash
 npm install --save svelte-simple-modal
 ```
-
-#### Rollup Setup
 
 Make sure that the main application's version of `svelte` is used for bundling by setting `rollup-plugin-node-resolve`'s `dedupe` option as follows:
 
@@ -69,7 +76,7 @@ export default {
 };
 ```
 
-#### Sapper Setup
+### Sapper Setup
 
 Make sure you install _svelte-simple-modal_ as a [dev-dependency](https://github.com/sveltejs/sapper-template#using-external-components).
 
@@ -79,9 +86,13 @@ npm install -D svelte-simple-modal
 
 ## Usage
 
+There are three ways to use the modal; with functions retrieved from context, setting modal content in a store or by using slots.
+
+### Usage with context
+
 Import the `Modal` component into your main app component (e.g., `App.svelte`).
 
-The modal is exposing [two context functions](#context-api):
+The modal expose [two context functions](#context-api):
 
 - [`open()`](#open) opens a component as a modal.
 - [`close()`](#close) simply closes the modal.
@@ -115,7 +126,7 @@ The modal is exposing [two context functions](#context-api):
 <p>🎉 {message} 🍾</p>
 ```
 
-**Demo:** https://svelte.dev/repl/52e0ade6d42546d8892faf8528c70d30
+**Demo:** <https://svelte.dev/repl/52e0ade6d42546d8892faf8528c70d30>
 
 ### Usage With a Svelte Store
 
@@ -136,11 +147,35 @@ Alternatively, you can use a [Svelte store](#store-api) to show/hide a component
 </Modal>
 ```
 
-**Demo:** https://svelte.dev/repl/aec0c7d9f5084e7daa64f6d0c8ef0209
+**Demo:** <https://svelte.dev/repl/aec0c7d9f5084e7daa64f6d0c8ef0209>
 
 The `<Popup />` component is the same as in the example above.
 
 To hide the modal programmatically, simply unset the store. E.g., `modal.set(null)`.
+
+### Usage with slots
+
+You can also use slots for both modal content and close buttons. Content not marked with a slot will be placed in the default slot and shown where the modal is placed.
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import Modal from 'svelte-simple-modal';
+  import Popup from './Popup.svelte';
+  let show = false;
+</script>
+
+<Modal bind:show>
+  <button on:click={() => (show = true)}>Show a popup!</button>
+  <Popup slot="modalContent" message="It's a modal!" />
+</Modal>
+```
+
+**Demo:** <https://svelte.dev/repl/2e0d504064934fef8fdad77dd160db70>
+
+The `<Popup />` component is the same as in the examples above.
+
+To hide the modal programmatically, simply set the show variable to a falsy value.
 
 ### Styling
 
@@ -162,7 +197,7 @@ Custom CSS classes can be applied via the `classBg`, `classWindow`, `classWindow
 </Modal>
 ```
 
-**Demo:** https://svelte.dev/repl/f2a988ddbd5644f18d7cd4a4a8277993
+**Demo:** <https://svelte.dev/repl/f2a988ddbd5644f18d7cd4a4a8277993>
 
 > Note: to take full control over the modal styles with CSS classes you have to reset existing styles via `unstyled={true}` as internal CSS classes are always applied last due to Svelte's class scoping.
 
@@ -178,7 +213,7 @@ Alternatively, you can also apply CSS styles directly via the `styleBg`, `styleW
 </Modal>
 ```
 
-**Demo:** https://svelte.dev/repl/50df1c694b3243c1bd524b27f86eec51
+**Demo:** <https://svelte.dev/repl/50df1c694b3243c1bd524b27f86eec51>
 
 ### Server-Side Rendering
 
@@ -228,33 +263,34 @@ The `ariaLabel` is automatically omitted when `ariaLabelledBy` is specified.
 
 The `<Modal />` component accepts the following optional properties:
 
-| Property                  | Type                             | Default             | Description                                                                                                                                                                                                                                                 |
-| ------------------------- | -------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **show**                  | Component \| null                | `null`              | A Svelte component to show as the modal. See [Store API](#store-api) for details.                                                                                                                                                                           |
-| **ariaLabel**             | string \| null                   | `null`              | Accessibility label of the modal. See [W3C WAI-ARIA](https://www.w3.org/TR/wai-aria-1.1/#aria-label) for details.                                                                                                                                           |
-| **ariaLabelledBy**        | string \| null                   | `null`              | Element ID holding the accessibility label of the modal. See [W3C WAI-ARIA](https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby) for details.                                                                                                               |
-| **closeButton**           | Component \| boolean             | `true`              | If `true` a button for closing the modal is rendered. You can also pass in a [custom Svelte component](#custom-close-button) to have full control over the styling.                                                                                         |
-| **closeOnEsc**            | boolean                          | `true`              | If `true` the modal will close when pressing the escape key.                                                                                                                                                                                                |
-| **closeOnOuterClick**     | boolean                          | `true`              | If `true` the modal will close when clicking outside the modal window.                                                                                                                                                                                      |
-| **transitionBg**          | function                         | `svelte.fade`       | Transition function for the background.                                                                                                                                                                                                                     |
-| **transitionBgProps**     | BlurParams                       | `{}`                | Properties of the transition function for the background.                                                                                                                                                                                                   |
-| **transitionWindow**      | function                         | `svelte.fade`       | Transition function for the window.                                                                                                                                                                                                                         |
-| **transitionWindowProps** | BlurParams                       | `{}`                | Properties of the transition function for the window.                                                                                                                                                                                                       |
-| **classBg**               | string \| null                   | `null`              | Class name for the background element.                                                                                                                                                                                                                      |
-| **classWindowWrap**       | string \| null                   | `null`              | Class name for the modal window wrapper element.                                                                                                                                                                                                            |
-| **classWindow**           | string \| null                   | `null`              | Class name for the modal window element.                                                                                                                                                                                                                    |
-| **classContent**          | string \| null                   | `null`              | Class name for the modal content element.                                                                                                                                                                                                                   |
-| **classCloseButton**      | string \| null                   | `null`              | Class name for the built-in close button.                                                                                                                                                                                                                   |
-| **styleBg**               | Record<string, string \| number> | `{}`                | Style properties of the background.                                                                                                                                                                                                                         |
-| **styleWindowWrap**       | Record<string, string \| number> | `{}`                | Style properties of the modal window wrapper element.                                                                                                                                                                                                       |
-| **styleWindow**           | Record<string, string \| number> | `{}`                | Style properties of the modal window.                                                                                                                                                                                                                       |
-| **styleContent**          | Record<string, string \| number> | `{}`                | Style properties of the modal content.                                                                                                                                                                                                                      |
-| **styleCloseButton**      | Record<string, string \| number> | `{}`                | Style properties of the built-in close button.                                                                                                                                                                                                              |
-| **unstyled**              | boolean                          | `false`             | When `true`, the default styles are not applied to the modal elements.                                                                                                                                                                                      |
-| **disableFocusTrap**      | boolean                          | `false`             | If `true` elements outside the modal can be in focus. This can be useful in certain edge cases.                                                                                                                                                             |
-| **isTabbable**            | (node: Element): boolean         | internal function   | A function to determine if an HTML element is tabbable.                                                                                                                                                                                                     |
-| **key**                   | string                           | `"simple-modal"`    | The context key that is used to expose `open()` and `close()`. Adjust to avoid clashes with other contexts.                                                                                                                                                 |
-| **setContext**            | function                         | `svelte.setContent` | You can normally ingore this property when you have [configured Rollup properly](#rollup-setup). If you want to bundle simple-modal with its own version of Svelte you have to pass `setContext()` from your main app to simple-modal using this parameter. |
+| Property                  | Type                                                                                                                                                                                           | Default             | Description                                                                                                                                                                                                                                                 |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **show**                  | Component \| null                                                                                                                                                                              | `null`              | A Svelte component to show as the modal. See [Store API](#store-api) for details.                                                                                                                                                                           |
+| **ariaLabel**             | string \| null                                                                                                                                                                                 | `null`              | Accessibility label of the modal. See [W3C WAI-ARIA](https://www.w3.org/TR/wai-aria-1.1/#aria-label) for details.                                                                                                                                           |
+| **ariaLabelledBy**        | string \| null                                                                                                                                                                                 | `null`              | Element ID holding the accessibility label of the modal. See [W3C WAI-ARIA](https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby) for details.                                                                                                               |
+| **closeButton**           | Component \| boolean                                                                                                                                                                           | `true`              | If `true` a button for closing the modal is rendered. You can also pass in a [custom Svelte component](#custom-close-button) to have full control over the styling.                                                                                         |
+| **closeOnEsc**            | boolean                                                                                                                                                                                        | `true`              | If `true` the modal will close when pressing the escape key.                                                                                                                                                                                                |
+| **closeOnOuterClick**     | boolean                                                                                                                                                                                        | `true`              | If `true` the modal will close when clicking outside the modal window.                                                                                                                                                                                      |
+| **transitionBg**          | function                                                                                                                                                                                       | `svelte.fade`       | Transition function for the background.                                                                                                                                                                                                                     |
+| **transitionBgProps**     | BlurParams                                                                                                                                                                                     | `{}`                | Properties of the transition function for the background.                                                                                                                                                                                                   |
+| **transitionWindow**      | function                                                                                                                                                                                       | `svelte.fade`       | Transition function for the window.                                                                                                                                                                                                                         |
+| **transitionWindowProps** | BlurParams                                                                                                                                                                                     | `{}`                | Properties of the transition function for the window.                                                                                                                                                                                                       |
+| **classBg**               | string \| null                                                                                                                                                                                 | `null`              | Class name for the background element.                                                                                                                                                                                                                      |
+| **classWindowWrap**       | string \| null                                                                                                                                                                                 | `null`              | Class name for the modal window wrapper element.                                                                                                                                                                                                            |
+| **classWindow**           | string \| null                                                                                                                                                                                 | `null`              | Class name for the modal window element.                                                                                                                                                                                                                    |
+| **classContent**          | string \| null                                                                                                                                                                                 | `null`              | Class name for the modal content element.                                                                                                                                                                                                                   |
+| **classCloseButton**      | string \| null                                                                                                                                                                                 | `null`              | Class name for the built-in close button.                                                                                                                                                                                                                   |
+| **styleBg**               | Record<string, string \| number>                                                                                                                                                               | `{}`                | Style properties of the background.                                                                                                                                                                                                                         |
+| **styleWindowWrap**       | Record<string, string \| number>                                                                                                                                                               | `{}`                | Style properties of the modal window wrapper element.                                                                                                                                                                                                       |
+| **styleWindow**           | Record<string, string \| number>                                                                                                                                                               | `{}`                | Style properties of the modal window.                                                                                                                                                                                                                       |
+| **styleContent**          | Record<string, string \| number>                                                                                                                                                               | `{}`                | Style properties of the modal content.                                                                                                                                                                                                                      |
+| **styleCloseButton**      | Record<string, string \| number>                                                                                                                                                               | `{}`                | Style properties of the built-in close button.                                                                                                                                                                                                              |
+| **unstyled**              | boolean                                                                                                                                                                                        | `false`             | When `true`, the default styles are not applied to the modal elements.                                                                                                                                                                                      |
+| **disableFocusTrap**      | boolean                                                                                                                                                                                        | `false`             | If `true` elements outside the modal can be in focus. This can be useful in certain edge cases.                                                                                                                                                             |
+| **isTabbable**            | (node: Element): boolean                                                                                                                                                                       | internal function   | A function to determine if an HTML element is tabbable.                                                                                                                                                                                                     |
+| **key**                   | string                                                                                                                                                                                         | `"simple-modal"`    | The context key that is used to expose `open()` and `close()`. Adjust to avoid clashes with other contexts.                                                                                                                                                 |
+| **setContext**            | function                                                                                                                                                                                       | `svelte.setContent` | You can normally ingore this property when you have [configured Rollup properly](#rollup-setup). If you want to bundle simple-modal with its own version of Svelte you have to pass `setContext()` from your main app to simple-modal using this parameter. |
+| **callbacks**             | {onOpen: (event: CustomEvent<null>) => void, onOpened: (event: CustomEvent<null>) => void, onClose: (event: CustomEvent<null>) => void, onClosed: (event: CustomEvent<null>) => void } \| null | null                | An object with callbacks to be called on opening and closing transitions. Can be used in addition to the callbacks passed to bind, or alone.                                                                                                                |
 
 ### Component Events
 
@@ -345,9 +381,42 @@ You can also use [Svelte stores](https://svelte.dev/tutorial/writable-stores) to
 <p>🎉 Hi 🍾</p>
 ```
 
-**Demo:** https://svelte.dev/repl/6f55b643195646408e780ceeb779ac2a
+**Demo:** <https://svelte.dev/repl/6f55b643195646408e780ceeb779ac2a>
 
 An added benefit of using stores is that the component opening the modal does not have to be a parent of `<Modal />`. For instance, in the example above, `App.svelte` is toggling `Popup.svelte` as a modal even though `App.svelte` is not a child of `<Modal />`.
+
+### Slot api
+
+You can use slots to place the modal content and close button. Content which are not marked with a slot will be placed in the default slot, and shown where the modal is placed. To summarize;
+
+| Slot name        | Example               | Placement                                                        |
+| ---------------- | --------------------- | ---------------------------------------------------------------- |
+| modalContent     | `slot="modalContent"` | Content of the modal                                             |
+| closeButton      | `slot="closeButton"`  | Close button of the modal                                        |
+| modalContent     | `slot="example"`      | Not shown                                                        |
+| no slot provided | empty                 | Where the modal component is placed in the DOM, without wrapping |
+
+```svelte
+<!-- App.svelte -->
+<script>
+  import Modal from 'svelte-simple-modal';
+  import Popup from './Popup.svelte';
+  let show = false;
+</script>
+
+<Modal bind:show>
+  <button on:click={() => (show = true)}>Show a popup!</button>
+  <Popup slot="modalContent" message="It's a modal!" />
+</Modal>
+
+<!-- Popup.svelte -->
+<p>🎉 Hi 🍾</p>
+```
+
+**Demo:** <https://svelte.dev/repl/2e0d504064934fef8fdad77dd160db70>
+
+The benefit of using slots is that you can still send in props as normal, meaning that the component props will be reactive as before.
+It's also easy to hide the modal programatically when some condition are met, e.g. the list triggering the modal is suddenly empty, as you only have to unset the show variable.
 
 #### Bind Props to a Component Shown as a Modal
 
@@ -367,7 +436,7 @@ If you've worked with React/JSX then think of `const c = bind(Component, props)`
 
 ## FAQ
 
-#### Custom Close Button
+### Custom Close Button
 
 **This feature requires Svelte >=v3.19!**
 
