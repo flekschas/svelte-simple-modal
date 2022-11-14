@@ -5,9 +5,65 @@ import type { SvelteComponentTyped } from 'svelte';
  * Create a Svelte component with props bound to it.
  */
 export declare function bind(
-  component: import('svelte').SvelteComponentTyped,
+  component: Component,
   props: Record<string, any>
-): import('svelte').SvelteComponentTyped;
+): Component;
+export type Component = import('svelte').SvelteComponentTyped;
+
+export type BlurParams = import('svelte/types/runtime/transition').BlurParams;
+
+export type TransitionConfig =
+  import('svelte/types/runtime/transition').TransitionConfig;
+
+export type Styles = Record<string, string | number>;
+
+export type TransitionFn = (
+  node: Element,
+  parameters: BlurParams
+) => TransitionConfig;
+
+export interface Options {
+  ariaLabel: string | null;
+  ariaLabelledBy: string | null;
+  closeButton: Component | boolean;
+  closeOnEsc: boolean;
+  closeOnOuterClick: boolean;
+  styleBg: Styles;
+  styleWindowWrap: Styles;
+  styleWindow: Styles;
+  styleContent: Styles;
+  styleCloseButton: Styles;
+  classBg: string | null;
+  classWindowWrap: string | null;
+  classWindow: string | null;
+  classContent: string | null;
+  classCloseButton: string | null;
+  transitionBg: TransitionFn;
+  transitionBgProps: BlurParams;
+  transitionWindow: TransitionFn;
+  transitionWindowProps: BlurParams;
+  disableFocusTrap: boolean;
+  isTabbable: boolean;
+  unstyled: boolean;
+}
+
+export type Callback = () => void;
+
+export interface Callbacks {
+  onOpen: Callback;
+  onOpened: Callback;
+  onClose: Callback;
+  onClosed: Callback;
+}
+
+export type Open = (
+  NewComponent: Component,
+  newProps: Record<string, any>,
+  options: Partial<Options>,
+  callbacks: Partial<Callbacks>
+) => void;
+
+export type Close = (callback: Partial<Callbacks>) => void;
 
 export interface ModalProps {
   /**
@@ -20,7 +76,7 @@ export interface ModalProps {
    * Svelte component to be shown as the modal
    * @default null
    */
-  show?: import('svelte').SvelteComponentTyped | null;
+  show?: Component | null;
 
   /**
    * Svelte context key to reference the simple modal context
@@ -46,7 +102,7 @@ export interface ModalProps {
    * Whether to show a close button or not
    * @default true
    */
-  closeButton?: import('svelte').SvelteComponentTyped | boolean;
+  closeButton?: Component | boolean;
 
   /**
    * Whether to close the modal on hitting the escape key or not
@@ -64,31 +120,31 @@ export interface ModalProps {
    * CSS for styling the background element
    * @default {}
    */
-  styleBg?: Record<string, string | number>;
+  styleBg?: Styles;
 
   /**
    * CSS for styling the window wrapper element
    * @default {}
    */
-  styleWindowWrap?: Record<string, string | number>;
+  styleWindowWrap?: Styles;
 
   /**
    * CSS for styling the window element
    * @default {}
    */
-  styleWindow?: Record<string, string | number>;
+  styleWindow?: Styles;
 
   /**
    * CSS for styling the content element
    * @default {}
    */
-  styleContent?: Record<string, string | number>;
+  styleContent?: Styles;
 
   /**
    * CSS for styling the close element
    * @default {}
    */
-  styleCloseButton?: Record<string, string | number>;
+  styleCloseButton?: Styles;
 
   /**
    * Class name for the background element
@@ -141,32 +197,26 @@ export interface ModalProps {
    * @see https://svelte.dev/docs#transition_fn
    * @default undefined
    */
-  transitionBg?: (
-    node: Element,
-    parameters: import('svelte/types/runtime/transition').BlurParams
-  ) => import('svelte/types/runtime/transition').TransitionConfig;
+  transitionBg?: TransitionFn;
 
   /**
    * Parameters for the background element transition
    * @default { duration: 250 }
    */
-  transitionBgProps?: import('svelte/types/runtime/transition').BlurParams;
+  transitionBgProps?: BlurParams;
 
   /**
    * Transition function for the window element
    * @see https://svelte.dev/docs#transition_fn
    * @default undefined
    */
-  transitionWindow?: (
-    node: Element,
-    parameters: import('svelte/types/runtime/transition').BlurParams
-  ) => import('svelte/types/runtime/transition').TransitionConfig;
+  transitionWindow?: TransitionFn;
 
   /**
    * Parameters for the window element transition
    * @default undefined
    */
-  transitionWindowProps?: import('svelte/types/runtime/transition').BlurParams;
+  transitionWindowProps?: BlurParams;
 
   /**
    * If `true` elements outside the modal can be focused

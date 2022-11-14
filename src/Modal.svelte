@@ -1,7 +1,21 @@
 <script context="module">
   /**
+   * @typedef {import('svelte').SvelteComponentTyped} Component
+   * @typedef {import('svelte/types/runtime/transition').BlurParams} BlurParams
+   * @typedef {import('svelte/types/runtime/transition').TransitionConfig} TransitionConfig
+   * @typedef {Record<string, string | number>} Styles
+   * @typedef {Record<string, string | number>} Styles
+   * @typedef {(node: Element, parameters: BlurParams) => TransitionConfig} TransitionFn
+   * @typedef {{ ariaLabel: string | null, ariaLabelledBy: string | null, closeButton: Component | boolean, closeOnEsc: boolean, closeOnOuterClick: boolean, styleBg: Styles, styleWindowWrap: Styles, styleWindow: Styles, styleContent: Styles, styleCloseButton: Styles, classBg: string | null, classWindowWrap: string | null, classWindow: string | null, classContent: string | null, classCloseButton: string | null, transitionBg: TransitionFn, transitionBgProps: BlurParams, transitionWindow: TransitionFn, transitionWindowProps: BlurParams, disableFocusTrap: boolean, isTabbable: boolean, unstyled: boolean }} Options
+   * @typedef {() => void} Callback
+   * @typedef {{ onOpen: Callback; onOpened: Callback; onClose: Callback; onClosed: Callback }} Callbacks
+   * @typedef {(NewComponent: Component, newProps: Record<string, any>, options: Partial<Options>, callbacks: Partial<Callbacks>) => void} Open
+   * @typedef {(callback: Partial<Callbacks>) => void} Close
+   */
+
+  /**
    * Create a Svelte component with props bound to it.
-   * @type {(component: import('svelte').SvelteComponentTyped, props: Record<string, any>) => import('svelte').SvelteComponentTyped}
+   * @type {(component: Component, props: Record<string, any>) => Component}
    */
   export function bind(Component, props = {}) {
     return function ModalComponent(options) {
@@ -46,7 +60,7 @@
 
   /**
    * Svelte component to be shown as the modal
-   * @type {import('svelte').SvelteComponentTyped | null}
+   * @type {Component | null}
    */
   export let show = null;
 
@@ -72,7 +86,7 @@
 
   /**
    * Whether to show a close button or not
-   * @type {import('svelte').SvelteComponentTyped | boolean}
+   * @type {Component | boolean}
    */
   export let closeButton = true;
 
@@ -90,31 +104,31 @@
 
   /**
    * CSS for styling the background element
-   * @type {Record<string, string | number>}
+   * @type {Styles}
    */
   export let styleBg = {};
 
   /**
    * CSS for styling the window wrapper element
-   * @type {Record<string, string | number>}
+   * @type {Styles}
    */
   export let styleWindowWrap = {};
 
   /**
    * CSS for styling the window element
-   * @type {Record<string, string | number>}
+   * @type {Styles}
    */
   export let styleWindow = {};
 
   /**
    * CSS for styling the content element
-   * @type {Record<string, string | number>}
+   * @type {Styles}
    */
   export let styleContent = {};
 
   /**
    * CSS for styling the close element
-   * @type {Record<string, string | number>}
+   * @type {Styles}
    */
   export let styleCloseButton = {};
 
@@ -167,26 +181,26 @@
   /**
    * Transition function for the background element
    * @see https://svelte.dev/docs#transition_fn
-   * @type {(node: Element, parameters: import('svelte/types/runtime/transition').BlurParams) => import('svelte/types/runtime/transition').TransitionConfig}
+   * @type {TransitionFn}
    */
   export let transitionBg = fade;
 
   /**
    * Parameters for the background element transition
-   * @type {import('svelte/types/runtime/transition').BlurParams}
+   * @type {BlurParams}
    */
   export let transitionBgProps = { duration: 250 };
 
   /**
    * Transition function for the window element
    * @see https://svelte.dev/docs#transition_fn
-   * @type {(node: Element, parameters: import('svelte/types/runtime/transition').BlurParams) => import('svelte/types/runtime/transition').TransitionConfig}
+   * @type {TransitionFn}
    */
   export let transitionWindow = transitionBg;
 
   /**
    * Parameters for the window element transition
-   * @type {import('svelte/types/runtime/transition').BlurParams}
+   * @type {BlurParams}
    */
   export let transitionWindowProps = transitionBgProps;
 
@@ -282,27 +296,15 @@
    * Open a modal.
    * @description Calling this method will close the modal. Additionally, it
    * allows to specify onClose and onClosed event handlers.`
-   * @type {
-   *   (
-   *     NewComponent: Component,
-   *     newProps: Record<string, any>,
-   *     options: any,
-   *     callback: {
-   *       onOpen: () => void,
-   *       onOpened: () => void,
-   *       onClose: () => void,
-   *       onClosed: () => void
-   *     }
-   *   ) => void
-   * }
+   * @type {Open}
    */
-  const open = (NewComponent, newProps = {}, options = {}, callback = {}) => {
+  const open = (NewComponent, newProps = {}, options = {}, callbacks = {}) => {
     Component = bind(NewComponent, newProps);
     state = { ...defaultState, ...options };
     updateStyleTransition();
     disableScroll();
     onOpen = (event) => {
-      if (callback.onOpen) callback.onOpen(event);
+      if (callbacks.onOpen) callbacks.onOpen(event);
       /**
        * The open event is fired right before the modal opens
        * @event {void} open
@@ -316,7 +318,7 @@
       dispatch('opening'); // Deprecated. Do not use!
     };
     onClose = (event) => {
-      if (callback.onClose) callback.onClose(event);
+      if (callbacks.onClose) callbacks.onClose(event);
       /**
        * The close event is fired right before the modal closes
        * @event {void} close
@@ -330,7 +332,7 @@
       dispatch('closing'); // Deprecated. Do not use!
     };
     onOpened = (event) => {
-      if (callback.onOpened) callback.onOpened(event);
+      if (callbacks.onOpened) callbacks.onOpened(event);
       /**
        * The opened event is fired after the modal's opening transition
        * @event {void} opened
@@ -338,7 +340,7 @@
       dispatch('opened');
     };
     onClosed = (event) => {
-      if (callback.onClosed) callback.onClosed(event);
+      if (callbacks.onClosed) callbacks.onClosed(event);
       /**
        * The closed event is fired after the modal's closing transition
        * @event {void} closed
@@ -351,12 +353,12 @@
    * Close the modal.
    * @description Calling this method will close the modal. Additionally, it
    * allows to specify onClose and onClosed event handlers.`
-   * @type {(callback: { onClose: () => void, onClosed: () => void }) => void}
+   * @type {Close}
    */
-  const close = (callback = {}) => {
+  const close = (callbacks = {}) => {
     if (!Component) return;
-    onClose = callback.onClose || onClose;
-    onClosed = callback.onClosed || onClosed;
+    onClose = callbacks.onClose || onClose;
+    onClosed = callbacks.onClosed || onClosed;
     Component = null;
     enableScroll();
   };
