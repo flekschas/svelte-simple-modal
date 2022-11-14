@@ -11,6 +11,7 @@
    * @typedef {{ onOpen: Callback; onOpened: Callback; onClose: Callback; onClosed: Callback }} Callbacks
    * @typedef {(NewComponent: Component, newProps: Record<string, any>, options: Partial<Options>, callbacks: Partial<Callbacks>) => void} Open
    * @typedef {(callback: Partial<Callbacks>) => void} Close
+   * @typedef {{ open: Open, close: Close }} Context
    */
 
   /**
@@ -421,7 +422,13 @@
     window.scrollTo(0, scrollY);
   };
 
-  setContext(key, { open, close });
+  /**
+   * The exposed context methods: open() and close()
+   * @type {Context}
+   */
+  const context = { open, close };
+
+  setContext(key, context);
 
   let isMounted = false;
 

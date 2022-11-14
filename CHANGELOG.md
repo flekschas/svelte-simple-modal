@@ -1,3 +1,7 @@
+# 1.4.4
+
+- One more type definition improvement
+
 # 1.4.3
 
 - Further improve type definitions

@@ -65,6 +65,11 @@ export type Open = (
 
 export type Close = (callback: Partial<Callbacks>) => void;
 
+export interface Context {
+  open: Open;
+  close: Close;
+}
+
 export interface ModalProps {
   /**
    * A function to determine if an HTML element is tabbable
