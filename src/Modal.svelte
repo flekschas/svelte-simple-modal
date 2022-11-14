@@ -1,7 +1,7 @@
 <script context="module">
   /**
    * Create a Svelte component with props bound to it.
-   * @type {(component: Component, props: Record<string, any>) => Component}
+   * @type {(component: import('svelte').SvelteComponentTyped, props: Record<string, any>) => import('svelte').SvelteComponentTyped}
    */
   export function bind(Component, props = {}) {
     return function ModalComponent(options) {
@@ -46,7 +46,7 @@
 
   /**
    * Svelte component to be shown as the modal
-   * @type {Component | null}
+   * @type {import('svelte').SvelteComponentTyped | null}
    */
   export let show = null;
 
@@ -72,7 +72,7 @@
 
   /**
    * Whether to show a close button or not
-   * @type {Component | boolean}
+   * @type {import('svelte').SvelteComponentTyped | boolean}
    */
   export let closeButton = true;
 
@@ -160,33 +160,33 @@
    * Svelte you have to pass `setContext()` from your main app to simple-modal
    * using this parameter
    * @see https://svelte.dev/docs#run-time-svelte-setcontext
-   * @type {(key: any, context: any) => void}
+   * @type {<T>(key: any, context: T) => T}
    */
   export let setContext = baseSetContext;
 
   /**
    * Transition function for the background element
    * @see https://svelte.dev/docs#transition_fn
-   * @type {(node: Element, parameters: BlurParams) => TransitionConfig}
+   * @type {(node: Element, parameters: import('svelte/types/runtime/transition').BlurParams) => import('svelte/types/runtime/transition').TransitionConfig}
    */
   export let transitionBg = fade;
 
   /**
    * Parameters for the background element transition
-   * @type {BlurParams}
+   * @type {import('svelte/types/runtime/transition').BlurParams}
    */
   export let transitionBgProps = { duration: 250 };
 
   /**
    * Transition function for the window element
    * @see https://svelte.dev/docs#transition_fn
-   * @type {(node: Element, parameters: BlurParams) => TransitionConfig}
+   * @type {(node: Element, parameters: import('svelte/types/runtime/transition').BlurParams) => import('svelte/types/runtime/transition').TransitionConfig}
    */
   export let transitionWindow = transitionBg;
 
   /**
    * Parameters for the window element transition
-   * @type {BlurParams}
+   * @type {import('svelte/types/runtime/transition').BlurParams}
    */
   export let transitionWindowProps = transitionBgProps;
 
@@ -278,6 +278,24 @@
   let onOpened = toVoid;
   let onClosed = toVoid;
 
+  /**
+   * Open a modal.
+   * @description Calling this method will close the modal. Additionally, it
+   * allows to specify onClose and onClosed event handlers.`
+   * @type {
+   *   (
+   *     NewComponent: Component,
+   *     newProps: Record<string, any>,
+   *     options: any,
+   *     callback: {
+   *       onOpen: () => void,
+   *       onOpened: () => void,
+   *       onClose: () => void,
+   *       onClosed: () => void
+   *     }
+   *   ) => void
+   * }
+   */
   const open = (NewComponent, newProps = {}, options = {}, callback = {}) => {
     Component = bind(NewComponent, newProps);
     state = { ...defaultState, ...options };
@@ -329,6 +347,12 @@
     };
   };
 
+  /**
+   * Close the modal.
+   * @description Calling this method will close the modal. Additionally, it
+   * allows to specify onClose and onClosed event handlers.`
+   * @type {(callback: { onClose: () => void, onClosed: () => void }) => void}
+   */
   const close = (callback = {}) => {
     if (!Component) return;
     onClose = callback.onClose || onClose;

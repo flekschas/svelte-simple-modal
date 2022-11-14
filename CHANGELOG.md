@@ -1,3 +1,7 @@
+# 1.4.2
+
+- Improve type definitions
+
 # 1.4.1
 
 - Avoid submitting a `<form />` if it wraps `<Modal />` by setting the close button type to `button`. ([#84](https://github.com/flekschas/svelte-simple-modal/pull/84)) Shoutout to [@jnysteen](https://github.com/jnysteen)!
