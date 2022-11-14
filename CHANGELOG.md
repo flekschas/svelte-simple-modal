@@ -1,3 +1,7 @@
+# 1.4.5
+
+- Fix min-height issue with Safari iOS 15 ([#64](https://github.com/flekschas/svelte-simple-modal/issues/64))
+
 # 1.4.4
 
 - One more type definition improvement

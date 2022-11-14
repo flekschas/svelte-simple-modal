@@ -529,6 +529,13 @@
     background: rgba(0, 0, 0, 0.66);
   }
 
+  @supports (-webkit-touch-callout: none) {
+    body {
+      /* The hack for Safari iOS */
+      height: -webkit-fill-available;
+    }
+  }
+
   .wrap {
     position: relative;
     margin: 2rem;
