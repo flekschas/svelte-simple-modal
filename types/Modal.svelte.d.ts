@@ -11,6 +11,9 @@ export declare function bind(
 export type Component = import('svelte').SvelteComponentTyped;
 
 export type BlurParams = import('svelte/types/runtime/transition').BlurParams;
+export type FadeParams = import('svelte/types/runtime/transition').FadeParams;
+export type FlyParams = import('svelte/types/runtime/transition').FlyParams;
+export type SlideParams = import('svelte/types/runtime/transition').SlideParams;
 
 export type TransitionConfig =
   import('svelte/types/runtime/transition').TransitionConfig;
@@ -19,7 +22,7 @@ export type Styles = Record<string, string | number>;
 
 export type TransitionFn = (
   node: Element,
-  parameters: BlurParams
+  parameters: BlurParams | FadeParams | FlyParams | SlideParams
 ) => TransitionConfig;
 
 export interface Options {
@@ -39,9 +42,9 @@ export interface Options {
   classContent: string | null;
   classCloseButton: string | null;
   transitionBg: TransitionFn;
-  transitionBgProps: BlurParams;
+  transitionBgProps: BlurParams | FadeParams | FlyParams | SlideParams;
   transitionWindow: TransitionFn;
-  transitionWindowProps: BlurParams;
+  transitionWindowProps: BlurParams | FadeParams | FlyParams | SlideParams;
   disableFocusTrap: boolean;
   isTabbable: boolean;
   unstyled: boolean;
@@ -208,7 +211,7 @@ export interface ModalProps {
    * Parameters for the background element transition
    * @default { duration: 250 }
    */
-  transitionBgProps?: BlurParams;
+  transitionBgProps?: BlurParams | FadeParams | FlyParams | SlideParams;
 
   /**
    * Transition function for the window element
@@ -221,7 +224,7 @@ export interface ModalProps {
    * Parameters for the window element transition
    * @default undefined
    */
-  transitionWindowProps?: BlurParams;
+  transitionWindowProps?: BlurParams | FadeParams | FlyParams | SlideParams;
 
   /**
    * If `true` elements outside the modal can be focused
