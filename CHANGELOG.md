@@ -1,3 +1,7 @@
+# 1.4.6
+
+- Improve type definition ([#94(https://github.com/flekschas/svelte-simple-modal/pull/94))
+
 # 1.4.5
 
 - Fix min-height issue with Safari iOS 15 ([#64](https://github.com/flekschas/svelte-simple-modal/issues/64))
