@@ -26,6 +26,7 @@ export type TransitionFn = (
 ) => TransitionConfig;
 
 export interface Options {
+  id: string | null;
   ariaLabel: string | null;
   ariaLabelledBy: string | null;
   closeButton: Component | boolean;
@@ -85,6 +86,12 @@ export interface ModalProps {
    * @default null
    */
   show?: Component | null;
+
+  /**
+   * ID to reference the modal in JavaScript/CSS
+   * @default null
+   */
+  id?: string | null;
 
   /**
    * Svelte context key to reference the simple modal context

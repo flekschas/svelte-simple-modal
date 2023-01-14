@@ -6,7 +6,7 @@
    * @typedef {Record<string, string | number>} Styles
    * @typedef {Record<string, string | number>} Styles
    * @typedef {(node: Element, parameters: BlurParams) => TransitionConfig} TransitionFn
-   * @typedef {{ ariaLabel: string | null, ariaLabelledBy: string | null, closeButton: Component | boolean, closeOnEsc: boolean, closeOnOuterClick: boolean, styleBg: Styles, styleWindowWrap: Styles, styleWindow: Styles, styleContent: Styles, styleCloseButton: Styles, classBg: string | null, classWindowWrap: string | null, classWindow: string | null, classContent: string | null, classCloseButton: string | null, transitionBg: TransitionFn, transitionBgProps: BlurParams, transitionWindow: TransitionFn, transitionWindowProps: BlurParams, disableFocusTrap: boolean, isTabbable: boolean, unstyled: boolean }} Options
+   * @typedef {{ id: string | null, ariaLabel: string | null, ariaLabelledBy: string | null, closeButton: Component | boolean, closeOnEsc: boolean, closeOnOuterClick: boolean, styleBg: Styles, styleWindowWrap: Styles, styleWindow: Styles, styleContent: Styles, styleCloseButton: Styles, classBg: string | null, classWindowWrap: string | null, classWindow: string | null, classContent: string | null, classCloseButton: string | null, transitionBg: TransitionFn, transitionBgProps: BlurParams, transitionWindow: TransitionFn, transitionWindowProps: BlurParams, disableFocusTrap: boolean, isTabbable: boolean, unstyled: boolean }} Options
    * @typedef {() => void} Callback
    * @typedef {{ onOpen: Callback; onOpened: Callback; onClose: Callback; onClosed: Callback }} Callbacks
    * @typedef {(NewComponent: Component, newProps: Record<string, any>, options: Partial<Options>, callbacks: Partial<Callbacks>) => void} Open
@@ -64,6 +64,12 @@
    * @type {Component | null}
    */
   export let show = null;
+
+  /**
+   * ID to reference the modal in JavaScript/CSS
+   * @type {string | null}
+   */
+  export let id = null;
 
   /**
    * Svelte context key to reference the simple modal context
@@ -212,6 +218,7 @@
   export let disableFocusTrap = false;
 
   const defaultState = {
+    id,
     ariaLabel,
     ariaLabelledBy,
     closeButton,
@@ -470,6 +477,7 @@
       style={cssWindowWrap}
     >
       <div
+        id={state.id}
         class={state.classWindow}
         class:window={!unstyled}
         role="dialog"
