@@ -3,27 +3,27 @@
 </h1>
 
 <div align="center">
-
-**A simple, small, and content-agnostic modal for [Svelte](https://svelte.dev).**
-
+  
+  **A simple, small, and content-agnostic modal for [Svelte](https://svelte.dev).**
+  
 </div>
 
 <br/>
 
 <div align="center">
-
-[![NPM Version](https://img.shields.io/npm/v/svelte-simple-modal.svg?style=flat-square&color=7f99ff)](https://npmjs.org/package/svelte-simple-modal)
-[![Build Status](https://img.shields.io/github/workflow/status/flekschas/svelte-simple-modal/build?color=a17fff&style=flat-square)](https://github.com/flekschas/svelte-simple-modal/actions?query=workflow%3Abuild)
-[![File Size](http://img.badgesize.io/https://unpkg.com/svelte-simple-modal/src/Modal.svelte?compression=gzip&style=flat-square&color=e17fff)](https://bundlephobia.com/result?p=svelte-simple-modal)
-[![Code Style Prettier](https://img.shields.io/badge/code%20style-prettier-ff7fe1.svg?style=flat-square)](https://github.com/prettier/prettier#readme)
-[![Demo](https://img.shields.io/badge/demo-👍-ff7fa5.svg?style=flat-square)](https://svelte.dev/repl/033e824fad0a4e34907666e7196caec4?version=3.18.2)
-
+  
+  [![NPM Version](https://img.shields.io/npm/v/svelte-simple-modal.svg?style=flat-square&color=7f99ff)](https://npmjs.org/package/svelte-simple-modal)
+  [![Build Status](https://img.shields.io/github/workflow/status/flekschas/svelte-simple-modal/build?color=a17fff&style=flat-square)](https://github.com/flekschas/svelte-simple-modal/actions?query=workflow%3Abuild)
+  [![File Size](http://img.badgesize.io/https://unpkg.com/svelte-simple-modal/src/Modal.svelte?compression=gzip&style=flat-square&color=e17fff)](https://bundlephobia.com/result?p=svelte-simple-modal)
+  [![Code Style Prettier](https://img.shields.io/badge/code%20style-prettier-ff7fe1.svg?style=flat-square)](https://github.com/prettier/prettier#readme)
+  [![Demo](https://img.shields.io/badge/demo-👍-ff7fa5.svg?style=flat-square)](https://svelte.dev/repl/033e824fad0a4e34907666e7196caec4?version=3.18.2)
+  
 </div>
 
 <div id="teaser-matrices" align="center">
-
-![simple-modal](https://user-images.githubusercontent.com/932103/57642565-9d335d00-7585-11e9-80c6-e4b835f02428.gif)
-
+  
+  ![simple-modal](https://user-images.githubusercontent.com/932103/57642565-9d335d00-7585-11e9-80c6-e4b835f02428.gif)
+  
 </div>
 
 **Live demo:** https://svelte.dev/repl/033e824fad0a4e34907666e7196caec4?version=3.20.1
@@ -231,7 +231,7 @@ The `<Modal />` component accepts the following optional properties:
 | Property                  | Type                                                 | Default             | Description                                                                                                                                                                                                                                                 |
 | ------------------------- | ---------------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **show**                  | Component \| null                                    | `null`              | A Svelte component to show as the modal. See [Store API](#store-api) for details.                                                                                                                                                                           |
-| **id**                    | string \| null                                       | `null`              | Element ID to be applied to the modal. Useful for interfacing with the modal from JavaScript or CSS.                                                                                                                                                        |
+| **id**                    | string \| null                                       | `null`              | Element ID to be assigned to the modal's root DOM element.                                                                                                                                                                                                  |
 | **ariaLabel**             | string \| null                                       | `null`              | Accessibility label of the modal. See [W3C WAI-ARIA](https://www.w3.org/TR/wai-aria-1.1/#aria-label) for details.                                                                                                                                           |
 | **ariaLabelledBy**        | string \| null                                       | `null`              | Element ID holding the accessibility label of the modal. See [W3C WAI-ARIA](https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby) for details.                                                                                                               |
 | **closeButton**           | Component \| boolean                                 | `true`              | If `true` a button for closing the modal is rendered. You can also pass in a [custom Svelte component](#custom-close-button) to have full control over the styling.                                                                                         |

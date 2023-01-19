@@ -66,7 +66,7 @@
   export let show = null;
 
   /**
-   * ID to reference the modal in JavaScript/CSS
+   * Element ID assigned to the modal's root DOM element
    * @type {string | null}
    */
   export let id = null;
@@ -462,6 +462,7 @@
 
 {#if Component}
   <div
+    id={state.id}
     class={state.classBg}
     class:bg={!unstyled}
     on:mousedown={handleOuterMousedown}
@@ -477,7 +478,6 @@
       style={cssWindowWrap}
     >
       <div
-        id={state.id}
         class={state.classWindow}
         class:window={!unstyled}
         role="dialog"

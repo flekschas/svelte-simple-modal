@@ -1,5 +1,5 @@
 /// <reference types="svelte" />
-import type { SvelteComponentTyped } from "svelte";
+import type { SvelteComponentTyped } from 'svelte';
 
 /**
  * Create a Svelte component with props bound to it.
@@ -8,12 +8,12 @@ export declare function bind(
   component: Component,
   props: Record<string, any>
 ): Component;
-export type Component = import("svelte").SvelteComponentTyped;
+export type Component = import('svelte').SvelteComponentTyped;
 
-export type BlurParams = import("svelte/types/runtime/transition").BlurParams;
+export type BlurParams = import('svelte/types/runtime/transition').BlurParams;
 
 export type TransitionConfig =
-  import("svelte/types/runtime/transition").TransitionConfig;
+  import('svelte/types/runtime/transition').TransitionConfig;
 
 export type Styles = Record<string, string | number>;
 
@@ -85,7 +85,7 @@ export interface ModalProps {
   show?: Component | null;
 
   /**
-   * ID to reference the modal in JavaScript/CSS
+   * Element ID assigned to the modal's root DOM element
    * @default null
    */
   id?: string | null;
