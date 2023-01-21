@@ -1,3 +1,7 @@
+# 1.5.0
+
+- Add property to assign an ID to the modal's root element ([#98(https://github.com/flekschas/svelte-simple-modal/pull/98))
+
 # 1.4.6
 
 - Improve type definition ([#94(https://github.com/flekschas/svelte-simple-modal/pull/94))
