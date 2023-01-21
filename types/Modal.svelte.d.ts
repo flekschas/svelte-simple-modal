@@ -11,9 +11,6 @@ export declare function bind(
 export type Component = import('svelte').SvelteComponentTyped;
 
 export type BlurParams = import('svelte/types/runtime/transition').BlurParams;
-export type FadeParams = import('svelte/types/runtime/transition').FadeParams;
-export type FlyParams = import('svelte/types/runtime/transition').FlyParams;
-export type SlideParams = import('svelte/types/runtime/transition').SlideParams;
 
 export type TransitionConfig =
   import('svelte/types/runtime/transition').TransitionConfig;
@@ -22,10 +19,11 @@ export type Styles = Record<string, string | number>;
 
 export type TransitionFn = (
   node: Element,
-  parameters: BlurParams | FadeParams | FlyParams | SlideParams
+  parameters: BlurParams
 ) => TransitionConfig;
 
 export interface Options {
+  id: string | null;
   ariaLabel: string | null;
   ariaLabelledBy: string | null;
   closeButton: Component | boolean;
@@ -42,9 +40,9 @@ export interface Options {
   classContent: string | null;
   classCloseButton: string | null;
   transitionBg: TransitionFn;
-  transitionBgProps: BlurParams | FadeParams | FlyParams | SlideParams;
+  transitionBgProps: BlurParams;
   transitionWindow: TransitionFn;
-  transitionWindowProps: BlurParams | FadeParams | FlyParams | SlideParams;
+  transitionWindowProps: BlurParams;
   disableFocusTrap: boolean;
   isTabbable: boolean;
   unstyled: boolean;
@@ -85,6 +83,12 @@ export interface ModalProps {
    * @default null
    */
   show?: Component | null;
+
+  /**
+   * Element ID assigned to the modal's root DOM element
+   * @default null
+   */
+  id?: string | null;
 
   /**
    * Svelte context key to reference the simple modal context
@@ -211,7 +215,7 @@ export interface ModalProps {
    * Parameters for the background element transition
    * @default { duration: 250 }
    */
-  transitionBgProps?: BlurParams | FadeParams | FlyParams | SlideParams;
+  transitionBgProps?: BlurParams;
 
   /**
    * Transition function for the window element
@@ -224,7 +228,7 @@ export interface ModalProps {
    * Parameters for the window element transition
    * @default undefined
    */
-  transitionWindowProps?: BlurParams | FadeParams | FlyParams | SlideParams;
+  transitionWindowProps?: BlurParams;
 
   /**
    * If `true` elements outside the modal can be focused
