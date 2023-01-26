@@ -108,9 +108,9 @@
 
   /**
    * Scrolling behaviour after modal closes
-   * @type {"instant" | "smooth"}
+   * @type {'instant' | 'smooth' | 'auto'}
    */
-  export let scrollBehaviour = undefined;
+  export let scrollBehaviour = 'auto';
 
   /**
    * Whether to close the modal upon an outside mouse click or not
