@@ -129,6 +129,12 @@ export interface ModalProps {
   closeOnEsc?: boolean;
 
   /**
+   * Scrolling behaviour after modal closes
+   * @default undefined
+   */
+  scrollBehaviour?: 'instant' | 'smooth';
+
+  /**
    * Whether to close the modal upon an outside mouse click or not
    * @default true
    */

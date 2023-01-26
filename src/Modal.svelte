@@ -107,6 +107,12 @@
   export let closeOnEsc = true;
 
   /**
+   * Scrolling behaviour after modal closes
+   * @type {"instant" | "smooth"}
+   */
+  export let scrollBehaviour = undefined;
+
+  /**
    * Whether to close the modal upon an outside mouse click or not
    * @type {boolean}
    */
@@ -429,7 +435,11 @@
     document.body.style.top = '';
     document.body.style.overflow = prevBodyOverflow || '';
     document.body.style.width = prevBodyWidth || '';
-    window.scrollTo(0, scrollY);
+    window.scrollTo({
+      top: scrollY,
+      left: 0,
+      behavior: scrollBehaviour,
+    });
   };
 
   /**
