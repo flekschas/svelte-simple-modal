@@ -432,7 +432,7 @@
     window.scrollTo({
       top: scrollY,
       left: 0,
-      behavior: "instant",
+      behavior: 'instant',
     });
   };
 

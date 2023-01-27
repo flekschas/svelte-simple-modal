@@ -1,3 +1,7 @@
+# 1.5.1
+
+- Fix the scroll reset behavior to `instant` to avoid seeing a smooth scrolling when closing the modal in cases where the default scroll behavior was changed ([#97(https://github.com/flekschas/svelte-simple-modal/pull/97))
+
 # 1.5.0
 
 - Add property to assign an ID to the modal's root element ([#98(https://github.com/flekschas/svelte-simple-modal/pull/98))
