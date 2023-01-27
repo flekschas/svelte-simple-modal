@@ -429,7 +429,11 @@
     document.body.style.top = '';
     document.body.style.overflow = prevBodyOverflow || '';
     document.body.style.width = prevBodyWidth || '';
-    window.scrollTo(0, scrollY);
+    window.scrollTo({
+      top: scrollY,
+      left: 0,
+      behavior: "instant",
+    });
   };
 
   /**
