@@ -7,7 +7,6 @@
    * @typedef {import('svelte/types/runtime/transition').SlideParams} SlideParams
    * @typedef {import('svelte/types/runtime/transition').TransitionConfig} TransitionConfig
    * @typedef {Record<string, string | number>} Styles
-   * @typedef {Record<string, string | number>} Styles
    * @typedef {(node: Element, parameters: BlurParams | FadeParams | FlyParams | SlideParams) => TransitionConfig} TransitionFn
    * @typedef {{ id: string | null, ariaLabel: string | null, ariaLabelledBy: string | null, closeButton: Component | boolean, closeOnEsc: boolean, closeOnOuterClick: boolean, styleBg: Styles, styleWindowWrap: Styles, styleWindow: Styles, styleContent: Styles, styleCloseButton: Styles, classBg: string | null, classWindowWrap: string | null, classWindow: string | null, classContent: string | null, classCloseButton: string | null, transitionBg: TransitionFn, transitionBgProps: BlurParams, transitionWindow: TransitionFn, transitionWindowProps: BlurParams, disableFocusTrap: boolean, isTabbable: boolean, unstyled: boolean }} Options
    * @typedef {() => void} Callback
