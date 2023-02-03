@@ -8,7 +8,7 @@ export declare function bind(
   component: Component,
   props: Record<string, any>
 ): Component;
-export type Component = import('svelte').SvelteComponentTyped;
+export type Component = typeof import('svelte').SvelteComponent;
 
 export type BlurParams = import('svelte/types/runtime/transition').BlurParams;
 
@@ -65,12 +65,12 @@ export interface Callbacks {
 
 export type Open = (
   NewComponent: Component,
-  newProps: Record<string, any>,
-  options: Partial<Options>,
-  callbacks: Partial<Callbacks>
+  newProps?: Record<string, any>,
+  options?: Partial<Options>,
+  callbacks?: Partial<Callbacks>
 ) => void;
 
-export type Close = (callback: Partial<Callbacks>) => void;
+export type Close = (callback?: Partial<Callbacks>) => void;
 
 export interface Context {
   open: Open;

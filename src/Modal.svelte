@@ -1,6 +1,6 @@
 <script context="module">
   /**
-   * @typedef {import('svelte').SvelteComponentTyped} Component
+   * @typedef {typeof import('svelte').SvelteComponent} Component
    * @typedef {import('svelte/types/runtime/transition').BlurParams} BlurParams
    * @typedef {import('svelte/types/runtime/transition').FadeParams} FadeParams
    * @typedef {import('svelte/types/runtime/transition').FlyParams} FlyParams
@@ -11,8 +11,8 @@
    * @typedef {{ id: string | null, ariaLabel: string | null, ariaLabelledBy: string | null, closeButton: Component | boolean, closeOnEsc: boolean, closeOnOuterClick: boolean, styleBg: Styles, styleWindowWrap: Styles, styleWindow: Styles, styleContent: Styles, styleCloseButton: Styles, classBg: string | null, classWindowWrap: string | null, classWindow: string | null, classContent: string | null, classCloseButton: string | null, transitionBg: TransitionFn, transitionBgProps: BlurParams, transitionWindow: TransitionFn, transitionWindowProps: BlurParams, disableFocusTrap: boolean, isTabbable: boolean, unstyled: boolean }} Options
    * @typedef {() => void} Callback
    * @typedef {{ onOpen: Callback; onOpened: Callback; onClose: Callback; onClosed: Callback }} Callbacks
-   * @typedef {(NewComponent: Component, newProps: Record<string, any>, options: Partial<Options>, callbacks: Partial<Callbacks>) => void} Open
-   * @typedef {(callback: Partial<Callbacks>) => void} Close
+   * @typedef {(NewComponent: Component, newProps?: Record<string, any>, options?: Partial<Options>, callbacks?: Partial<Callbacks>) => void} Open
+   * @typedef {(callback?: Partial<Callbacks>) => void} Close
    * @typedef {{ open: Open, close: Close }} Context
    */
 

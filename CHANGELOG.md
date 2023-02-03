@@ -1,3 +1,13 @@
+# 1.5.2
+
+- Fix and expose context types. This is useful as an interim solution for ([#88(https://github.com/flekschas/svelte-simple-modal/pull/88)). E.g.:
+
+  ```ts
+  import { getContext } from 'svelte';
+  import type { Context } from 'svelte-simple-modal';
+  const { open, close } = getContext('simple-modal') as Context;
+  ```
+
 # 1.5.1
 
 - Fix the scroll reset behavior to `instant` to avoid seeing a smooth scrolling when closing the modal in cases where the default scroll behavior was changed ([#97(https://github.com/flekschas/svelte-simple-modal/pull/97))
