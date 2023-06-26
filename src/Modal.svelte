@@ -468,6 +468,7 @@
 
 {#if Component}
   <div
+    aria-hidden="true"
     id={state.id}
     class={state.classBg}
     class:bg={!unstyled}

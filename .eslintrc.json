@@ -1,26 +1,19 @@
 {
   "parserOptions": {
-    "ecmaVersion": 2019,
+    "ecmaVersion": 2021,
     "sourceType": "module"
   },
   "env": {
     "es6": true,
     "browser": true
   },
-  "plugins": [
-    "svelte3"
-  ],
   "overrides": [
     {
-      "files": ["**/*.svelte"],
-      "processor": "svelte3/svelte3"
+      "files": ["*.svelte"],
+      "parser": "svelte-eslint-parser"
     }
   ],
-  "extends": [
-    "eslint:recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings"
-  ],
+  "extends": ["eslint:recommended", "plugin:svelte/recommended"],
   "settings": {},
   "rules": {
     "arrow-spacing": 2,
@@ -28,13 +21,16 @@
     "no-console": ["error", { "allow": ["warn", "error"] }],
     "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
     "no-var": 2,
-    "object-shorthand":  [2, "always"],
+    "object-shorthand": [2, "always"],
     "one-var": [2, "never"],
     "prefer-arrow-callback": 2,
     "prefer-const": 2,
     "quote-props": [2, "as-needed"],
     "semi": [2, "always"],
     "space-before-blocks": [2, "always"],
-    "space-before-function-paren": [2, {"anonymous": "always", "named": "never", "asyncArrow": "always"}]
+    "space-before-function-paren": [
+      2,
+      { "anonymous": "always", "named": "never", "asyncArrow": "always" }
+    ]
   }
 }

@@ -1,3 +1,8 @@
+# 1.6.0
+
+- Enable usage with Svelte v4 (the library remains compatible with v3)
+- Update third-party libs
+
 # 1.5.2
 
 - Fix and expose context types. This is useful as an interim solution for ([#88(https://github.com/flekschas/svelte-simple-modal/pull/88)). E.g.:

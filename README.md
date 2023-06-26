@@ -28,7 +28,7 @@
 
 **Live demo:** https://svelte.dev/repl/033e824fad0a4e34907666e7196caec4?version=3.20.1
 
-**Works with:** Svelte `>=v3.4` (Tested until to `v3.20`)
+**Works with:** Svelte `>=v3.30` and `v4`!
 
 ## Table of Contents
 
