@@ -1,5 +1,5 @@
 /// <reference types="svelte" />
-import type { SvelteComponentTyped } from 'svelte';
+import type { SvelteComponent } from 'svelte';
 
 /**
  * Create a Svelte component with props bound to it.
@@ -8,7 +8,9 @@ export declare function bind(
   component: Component,
   props: Record<string, any>
 ): Component;
-export type Component = typeof import('svelte').SvelteComponent;
+export type Component =
+  | typeof import('svelte').SvelteComponent
+  | typeof import('svelte').SvelteComponent<any>;
 
 export type BlurParams = import('svelte/types/runtime/transition').BlurParams;
 
@@ -243,7 +245,7 @@ export interface ModalProps {
   disableFocusTrap?: boolean;
 }
 
-export default class Modal extends SvelteComponentTyped<
+export default class Modal extends SvelteComponent<
   ModalProps,
   {
     open: CustomEvent<void>;
