@@ -1,5 +1,5 @@
 /// <reference types="svelte" />
-import type { SvelteComponent } from "svelte";
+import type { SvelteComponent } from 'svelte';
 
 /**
  * Create a Svelte component with props bound to it.
@@ -8,18 +8,20 @@ export declare function bind(
   component: Component,
   props: Record<string, any>
 ): Component;
-export type Component = typeof import("svelte").SvelteComponent;
+export type Component =
+  | typeof import('svelte').SvelteComponent
+  | typeof import('svelte').SvelteComponent<any>;
 
-export type BlurParams = import("svelte/types/runtime/transition").BlurParams;
+export type BlurParams = import('svelte/types/runtime/transition').BlurParams;
 
-export type FadeParams = import("svelte/types/runtime/transition").FadeParams;
+export type FadeParams = import('svelte/types/runtime/transition').FadeParams;
 
-export type FlyParams = import("svelte/types/runtime/transition").FlyParams;
+export type FlyParams = import('svelte/types/runtime/transition').FlyParams;
 
-export type SlideParams = import("svelte/types/runtime/transition").SlideParams;
+export type SlideParams = import('svelte/types/runtime/transition').SlideParams;
 
 export type TransitionConfig =
-  import("svelte/types/runtime/transition").TransitionConfig;
+  import('svelte/types/runtime/transition').TransitionConfig;
 
 export type Styles = Record<string, string | number>;
 

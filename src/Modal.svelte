@@ -1,6 +1,6 @@
 <script context="module">
   /**
-   * @typedef {typeof import('svelte').SvelteComponent} Component
+   * @typedef {typeof import('svelte').SvelteComponent | typeof import('svelte').SvelteComponent<any>} Component
    * @typedef {import('svelte/types/runtime/transition').BlurParams} BlurParams
    * @typedef {import('svelte/types/runtime/transition').FadeParams} FadeParams
    * @typedef {import('svelte/types/runtime/transition').FlyParams} FlyParams
