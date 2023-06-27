@@ -1,5 +1,5 @@
 /// <reference types="svelte" />
-import type { SvelteComponentTyped } from "svelte";
+import type { SvelteComponent } from "svelte";
 
 /**
  * Create a Svelte component with props bound to it.
@@ -243,7 +243,7 @@ export interface ModalProps {
   disableFocusTrap?: boolean;
 }
 
-export default class Modal extends SvelteComponentTyped<
+export default class Modal extends SvelteComponent<
   ModalProps,
   {
     open: CustomEvent<void>;

@@ -9,7 +9,7 @@
   "types": "types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "rm -rf lib && rm -rf types && rollup -c --bundleConfigAsCjs && sed -i '/from \"\"/d' types/index.d.ts && echo 'export { Context, Open, Close } from \"./Modal.svelte\";' >> types/index.d.ts",
+    "build": "rm -rf lib && rm -rf types && rollup -c --bundleConfigAsCjs && sed -i '/from \"\"/d' types/index.d.ts && echo 'export { Context, Open, Close } from \"./Modal.svelte\";' >> types/index.d.ts && sed -i 's/SvelteComponentTyped/SvelteComponent/g' types/Modal.svelte.d.ts",
     "precommit": "NODE_ENV=production lint-staged; npm run lint",
     "prepare": "npm run lint && npm run build",
     "prerelease": "npm run lint; rm -f dist.zip; npm run build; zip dist.zip lib/* src/* types/*",
