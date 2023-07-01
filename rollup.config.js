@@ -13,7 +13,11 @@ export default {
   output: { format: 'es', file: pkg.module },
   plugins: [
     svelte({ emitCss: false }),
-    node({ exportConditions: ['svelte'] }),
+    node({
+      browser: true,
+      exportConditions: ['svelte'],
+      extensions: ['.svelte'],
+    }),
     production && sveld(),
   ],
   external: ['svelte', 'svelte/internal', 'svelte/transition'],
