@@ -33,9 +33,8 @@
 ## Table of Contents
 
 - [Install](#install)
-  - [Rollup Setup](#rollup-setup)
-  - [Sapper Setup](#sapper-setup)
 - [Usage](#usage)
+  - [TypeScript Example](#usage-with-typescript) 
   - [Svelte Store Example](#usage-with-a-svelte-store)
   - [Styling](#styling)
   - [SSR](#server-side-rendering)
@@ -48,34 +47,6 @@
 - [FAQ](#faq)
 
 ## Install
-
-```bash
-npm install --save svelte-simple-modal
-```
-
-#### Rollup Setup
-
-Make sure that the main application's version of `svelte` is used for bundling by setting `rollup-plugin-node-resolve`'s `dedupe` option as follows:
-
-```js
-import resolve from 'rollup-plugin-node-resolve';
-
-export default {
-  plugins: [
-    resolve({
-      dedupe: ['svelte', 'svelte/transition', 'svelte/internal'], // important!
-    }),
-  ],
-};
-```
-
-#### Sapper Setup
-
-Make sure you install _svelte-simple-modal_ as a [dev-dependency](https://github.com/sveltejs/sapper-template#using-external-components).
-
-```bash
-npm install -D svelte-simple-modal
-```
 
 ## Usage
 
@@ -116,6 +87,16 @@ The modal is exposing [two context functions](#context-api):
 ```
 
 **Demo:** https://svelte.dev/repl/52e0ade6d42546d8892faf8528c70d30
+
+### Usage with TypeScript
+
+You can use the `Context` type exported by the package to validate the `getContext` function:
+
+```ts
+import type { Context } from 'svelte-simple-modal';
+const { open } = getContext<Context>('simple-modal');
+// ...
+```
 
 ### Usage With a Svelte Store
 
