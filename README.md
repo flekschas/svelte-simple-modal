@@ -48,6 +48,10 @@
 
 ## Install
 
+```bash
+npm install --save svelte-simple-modal
+```
+
 ## Usage
 
 Import the `Modal` component into your main app component (e.g., `App.svelte`).
