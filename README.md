@@ -33,6 +33,7 @@
 ## Table of Contents
 
 - [Install](#install)
+  - [Rollup Setup](#rollup-setup)
 - [Usage](#usage)
   - [TypeScript Example](#usage-with-typescript) 
   - [Svelte Store Example](#usage-with-a-svelte-store)
@@ -50,6 +51,22 @@
 
 ```bash
 npm install --save svelte-simple-modal
+```
+
+#### Rollup Setup
+
+Make sure that the main application's version of `svelte` is used for bundling by setting `rollup-plugin-node-resolve`'s `dedupe` option as follows:
+
+```js
+import resolve from 'rollup-plugin-node-resolve';
+
+export default {
+  plugins: [
+    resolve({
+      dedupe: ['svelte', 'svelte/transition', 'svelte/internal'], // important!
+    }),
+  ],
+};
 ```
 
 ## Usage
