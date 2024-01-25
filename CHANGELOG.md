@@ -1,3 +1,7 @@
+# 1.6.2
+
+- Fix Svelte type resolve issue ([#107](https://github.com/flekschas/svelte-simple-modal/issues/107))
+
 # 1.6.1
 
 - Fix Svelte resolve warning ([#103](https://github.com/flekschas/svelte-simple-modal/issues/103))
