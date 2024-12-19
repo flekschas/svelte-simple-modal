@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/flekschas/svelte-simple-modal#readme",
   "peerDependencies": {
-    "svelte": "^3.30.0 || ^4.0.0"
+    "svelte": "^5.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.1.0",
