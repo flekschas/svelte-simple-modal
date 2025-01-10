@@ -12,11 +12,11 @@
 
 <div align="center">
   
-  [![NPM Version](https://img.shields.io/npm/v/svelte-simple-modal.svg?style=flat-square&color=7f99ff)](https://npmjs.org/package/svelte-simple-modal)
+  [![NPM Version](https://img.shields.io/github/package-json/v/flekschas/svelte-simple-modal/v1?style=flat-square&label=npm&color=7f99ff)](https://npmjs.org/package/svelte-simple-modal)
   [![Build Status](https://img.shields.io/github/actions/workflow/status/flekschas/svelte-simple-modal/build.yml?branch=master&color=a17fff&style=flat-square)](https://github.com/flekschas/svelte-simple-modal/actions?query=workflow%3Abuild)
   [![File Size](http://img.badgesize.io/https://unpkg.com/svelte-simple-modal/src/Modal.svelte?compression=gzip&style=flat-square&color=e17fff)](https://bundlephobia.com/result?p=svelte-simple-modal)
   [![Code Style Prettier](https://img.shields.io/badge/code%20style-prettier-ff7fe1.svg?style=flat-square)](https://github.com/prettier/prettier#readme)
-  [![Demo](https://img.shields.io/badge/demo-👍-ff7fa5.svg?style=flat-square)](https://svelte.dev/repl/033e824fad0a4e34907666e7196caec4?version=3.18.2)
+  [![Demo](https://img.shields.io/badge/demo-👍-ff7fa5.svg?style=flat-square)](https://svelte.dev/playground/033e824fad0a4e34907666e7196caec4?version=4)
   
 </div>
 
@@ -27,9 +27,9 @@
 </div>
 
 > [!IMPORTANT]  
-> You are currently browsing Svelte Simple Modal **v1**, which works with Svelte versions **3** and **4**.
+> You are currently browsing Svelte Simple Modal **v1**, which works with Svelte versions **3** and **4**. For support with the lastest version of Svelte, check out the [main branch](https://github.com/flekschas/svelte-simple-modal).
 
-**Live demo:** https://svelte.dev/repl/033e824fad0a4e34907666e7196caec4?version=3.20.1
+**Live demo:** https://svelte.dev/playground/033e824fad0a4e34907666e7196caec4?version=4
 
 **Works with:** Svelte `>=v3.30` and `v4`!
 
