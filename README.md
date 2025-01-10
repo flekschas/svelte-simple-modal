@@ -1,5 +1,5 @@
 <h1 align="center">
-  svelte-simple-modal
+  Svelte Simple Modal
 </h1>
 
 <div align="center">
@@ -26,16 +26,19 @@
   
 </div>
 
-**Live demo:** https://svelte.dev/repl/033e824fad0a4e34907666e7196caec4?version=3.20.1
+**Live demo:** https://svelte.dev/playground/b95ce66b0ef34064a34afc5c0249f313?version=5.17.3
 
-**Works with:** Svelte `>=v3.30` and `v4`!
+**Works with:** Svelte `>=v5`!
+
+> [!NOTE]  
+> If you want to use Svelte Simple Modal with Svelte v3 or v4, check out [version 1](https://github.com/flekschas/svelte-simple-modal/tree/v1).
 
 ## Table of Contents
 
 - [Install](#install)
   - [Rollup Setup](#rollup-setup)
 - [Usage](#usage)
-  - [TypeScript Example](#usage-with-typescript) 
+  - [TypeScript Example](#usage-with-typescript)
   - [Svelte Store Example](#usage-with-a-svelte-store)
   - [Styling](#styling)
   - [SSR](#server-side-rendering)
