@@ -1,5 +1,5 @@
 <h1 align="center">
-  svelte-simple-modal
+  Svelte Simple Modal (v1)
 </h1>
 
 <div align="center">
@@ -25,6 +25,9 @@
   ![simple-modal](https://user-images.githubusercontent.com/932103/57642565-9d335d00-7585-11e9-80c6-e4b835f02428.gif)
   
 </div>
+
+> [!IMPORTANT]  
+> You are currently browsing Svelte Simple Modal **v1**, which works with Svelte versions **3** and **4**.
 
 **Live demo:** https://svelte.dev/repl/033e824fad0a4e34907666e7196caec4?version=3.20.1
 
