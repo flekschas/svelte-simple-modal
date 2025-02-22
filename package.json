@@ -1,7 +1,7 @@
 {
   "name": "svelte-simple-modal",
-  "version": "2.0.0",
-  "description": "A small and simple modal for Svelte",
+  "version": "2.0.1",
+  "description": "A small and simple modal for Svelte5 Only Rune Mode",
   "type": "module",
   "svelte": "src/index.js",
   "main": "lib/index.js",
