@@ -58,10 +58,10 @@ npm install --save svelte-simple-modal
 
 #### Rollup Setup
 
-Make sure that the main application's version of `svelte` is used for bundling by setting `rollup-plugin-node-resolve`'s `dedupe` option as follows:
+Make sure that the main application's version of `svelte` is used for bundling by setting `@rollup/plugin-node-resolve`'s `dedupe` option as follows:
 
 ```js
-import resolve from 'rollup-plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve';
 
 export default {
   plugins: [
