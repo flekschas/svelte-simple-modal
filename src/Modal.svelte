@@ -1,6 +1,4 @@
-<script context="module">
-  import { mount } from 'svelte';
-
+<script module>
   /**
    * @typedef {typeof import('svelte').SvelteComponent | typeof import('svelte').SvelteComponent<any>} Component
    * @typedef {import('svelte/types/runtime/transition').BlurParams} BlurParams
@@ -22,26 +20,22 @@
    * Create a Svelte component with props bound to it.
    * @type {(component: Component, props: Record<string, any>) => Component}
    */
-  export function bind(Component, props = {}) {
-    return function ModalComponent(options) {
-      return mount(Component, {
-        ...options,
-        props: {
-          ...props,
-          ...options.props,
-        },
-        target: options.parentNode,
-      });
-    };
+   export function bind(Component, props = {}) {
+    return function ModalComponent(anchor, propsCmpt) {
+     return Component(
+             anchor,
+             {
+                 ...props,
+                 ...propsCmpt,
+             }
+    );
+    }; 
   }
 </script>
 
 <script>
   import * as svelte from 'svelte';
   import { fade } from 'svelte/transition';
-  import { createEventDispatcher } from 'svelte';
-
-  const dispatch = createEventDispatcher();
 
   const baseSetContext = svelte.setContext;
 
@@ -58,169 +52,152 @@
       node.offsetWidth || node.offsetHeight || node.getClientRects().length
     );
 
-  /**
-   * A function to determine if an HTML element is tabbable
-   * @type {((node: Element) => boolean)}
-   */
-  export let isTabbable = baseIsTabbable;
-
-  /**
-   * Svelte component to be shown as the modal
-   * @type {Component | null}
-   */
-  export let show = null;
-
-  /**
-   * Element ID assigned to the modal's root DOM element
-   * @type {string | null}
-   */
-  export let id = null;
-
-  /**
-   * Svelte context key to reference the simple modal context
-   * @type {string}
-   */
-  export let key = 'simple-modal';
-
-  /**
-   * Accessibility label of the modal
-   * @see https://www.w3.org/TR/wai-aria-1.1/#aria-label
-   * @type {string | null}
-   */
-  export let ariaLabel = null;
-
-  /**
-   * Element ID holding the accessibility label of the modal
-   * @see https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby
-   * @type {string | null}
-   */
-  export let ariaLabelledBy = null;
-
-  /**
-   * Whether to show a close button or not
-   * @type {Component | boolean}
-   */
-  export let closeButton = true;
-
-  /**
-   * Whether to close the modal on hitting the escape key or not
-   * @type {boolean}
-   */
-  export let closeOnEsc = true;
-
-  /**
-   * Whether to close the modal upon an outside mouse click or not
-   * @type {boolean}
-   */
-  export let closeOnOuterClick = true;
-
-  /**
-   * CSS for styling the background element
-   * @type {Styles}
-   */
-  export let styleBg = {};
-
-  /**
-   * CSS for styling the window wrapper element
-   * @type {Styles}
-   */
-  export let styleWindowWrap = {};
-
-  /**
-   * CSS for styling the window element
-   * @type {Styles}
-   */
-  export let styleWindow = {};
-
-  /**
-   * CSS for styling the content element
-   * @type {Styles}
-   */
-  export let styleContent = {};
-
-  /**
-   * CSS for styling the close element
-   * @type {Styles}
-   */
-  export let styleCloseButton = {};
-
-  /**
-   * Class name for the background element
-   * @type {string | null}
-   */
-  export let classBg = null;
-
-  /**
-   * Class name for window wrapper element
-   * @type {string | null}
-   */
-  export let classWindowWrap = null;
-
-  /**
-   * Class name for window element
-   * @type {string | null}
-   */
-  export let classWindow = null;
-
-  /**
-   * Class name for content element
-   * @type {string | null}
-   */
-  export let classContent = null;
-
-  /**
-   * Class name for close element
-   * @type {string | null}
-   */
-  export let classCloseButton = null;
-
-  /**
-   * Do not apply default styles to the modal
-   * @type {boolean}
-   */
-  export let unstyled = false;
-
-  /**
-   * The setContext() function associated with this library
-   * @description If you want to bundle simple-modal with its own version of
-   * Svelte you have to pass `setContext()` from your main app to simple-modal
-   * using this parameter
-   * @see https://svelte.dev/docs#run-time-svelte-setcontext
-   * @type {<T>(key: any, context: T) => T}
-   */
-  export let setContext = baseSetContext;
-
-  /**
-   * Transition function for the background element
-   * @see https://svelte.dev/docs#transition_fn
-   * @type {TransitionFn}
-   */
-  export let transitionBg = fade;
-
-  /**
-   * Parameters for the background element transition
-   * @type {BlurParams | FadeParams | FlyParams | SlideParams}
-   */
-  export let transitionBgProps = { duration: 250 };
-
-  /**
-   * Transition function for the window element
-   * @see https://svelte.dev/docs#transition_fn
-   * @type {TransitionFn}
-   */
-  export let transitionWindow = transitionBg;
-
-  /**
-   * Parameters for the window element transition
-   * @type {BlurParams | FadeParams | FlyParams | SlideParams}
-   */
-  export let transitionWindowProps = transitionBgProps;
-
-  /**
-   * If `true` elements outside the modal can be focused
-   * @type {boolean}
-   */
-  export let disableFocusTrap = false;
+    let {
+      /**
+       * The content of the Svelte5 component (children).
+       * In Svelte 5, content can be passed to components in the form of snippets and rendered using render tags. [https://svelte.dev/docs/svelte/legacy-slots]
+       * @type {any}
+       */
+      children,
+      /**
+       * Determines whether the modal is displayed. If `null`, it is hidden.
+       * @type {Component | null}
+       */
+      show = null,
+      /**
+       * The ID to be assigned to the modal's root DOM element.
+       * @type {string | null}
+       */
+      id = null,
+      /**
+       * The Svelte context key to reference the simple modal context.
+       * @type {string}
+       */
+      key = 'simple-modal',
+      /**
+      * A function to determine if an HTML element is tabbable
+      * @type {((node: Element) => boolean)}
+      */
+      isTabbable = baseIsTabbable,
+      /**
+       * The accessibility label of the modal.
+       * @see https://www.w3.org/TR/wai-aria-1.1/#aria-label
+       * @type {string | null}
+       */
+      ariaLabel = null,
+      /**
+       * The element ID holding the accessibility label of the modal.
+       * @see https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby
+       * @type {string | null}
+       */
+      ariaLabelledBy = null,
+      /**
+       * Whether to show a close button or not.
+       * @type {boolean}
+       */
+      closeButton = true,
+      /**
+       * Whether to close the modal when the Esc key is pressed.
+       * @type {boolean}
+       */
+      closeOnEsc = true,
+      /**
+       * Whether to close the modal on an outside mouse click.
+       * @type {boolean}
+       */
+      closeOnOuterClick = true,
+      /**
+       * Styles for the background element.
+       * @type {Styles}
+       */
+      styleBg = {},
+      /**
+       * Styles for the window element.
+       * @type {Styles}
+       */
+      styleWindow = {},
+      /**
+       * Styles for the content element.
+       * @type {Styles}
+       */
+      styleContent = {},
+      /**
+       * Styles for the close button element.
+       * @type {Styles}
+       */
+      styleCloseButton = {},
+       /**
+       * Styles for the window wrapper element.
+       * @type {Styles}
+       */
+      styleWindowWrap = {},
+      /**
+       * Class name for the background element.
+       * @type {string | null}
+       */
+      classBg = null,
+      /**
+       * Class name for the window wrapper element.
+       * @type {string | null}
+       */
+      classWindowWrap = null,
+      /**
+       * Class name for the window element.
+       * @type {string | null}
+       */
+      classWindow = null,
+      /**
+       * Class name for the content element.
+       * @type {string | null}
+       */
+      classContent = null,
+      /**
+       * Class name for the close button element.
+       * @type {string | null}
+       */
+      classCloseButton = null,
+      /**
+       * Do not apply default styles to the modal.
+       * @type {boolean}
+       */
+      unstyled = false,
+      /**
+       * The setContext() function associated with this library.
+       * @description If you want to bundle simple-modal with its own version of
+       * Svelte you have to pass `setContext()` from your main app to simple-modal
+       * using this parameter.
+       * @see https://svelte.dev/docs#run-time-svelte-setcontext
+       * @type {<T>(key: any, context: T) => T}
+       */
+      setContext = baseSetContext,
+      /**
+       * Transition function for the background element.
+       * @see https://svelte.dev/docs#transition_fn
+       * @type {TransitionFn}
+       */
+      transitionBg = fade,
+      /**
+       * Parameters for the background element transition.
+       * @type {BlurParams | FadeParams | FlyParams | SlideParams}
+       */
+      transitionBgProps = { duration: 200 },
+      /**
+       * Transition function for the window element.
+       * @see https://svelte.dev/docs#transition_fn
+       * @type {TransitionFn}
+       */
+      transitionWindow = transitionBg,
+      /**
+       * Parameters for the window element transition.
+       * @type {BlurParams | FadeParams | FlyParams | SlideParams}
+       */
+      transitionWindowProps = transitionBgProps,
+      /**
+       * If `true`, elements outside the modal can be focused.
+       * @type {boolean}
+       */
+      disableFocusTrap = false
+  } = $props(); 
 
   const defaultState = {
     id,
@@ -247,25 +224,24 @@
     isTabbable,
     unstyled,
   };
-  let state = { ...defaultState };
-
-  let Component = null;
-
-  let background;
-  let wrap;
-  let modalWindow;
-  let scrollY;
-  let cssBg;
-  let cssWindowWrap;
-  let cssWindow;
-  let cssContent;
-  let cssCloseButton;
-  let currentTransitionBg;
-  let currentTransitionWindow;
-  let prevBodyPosition;
-  let prevBodyOverflow;
-  let prevBodyWidth;
-  let outerClickTarget;
+  
+  let state = $state(defaultState);
+  let Component = $state(null);
+  let background = $state(null);
+  let wrap  = $state(null);
+  let modalWindow = $state(null);
+  let scrollY = $state(null);
+  let cssBg = $state(null);
+  let cssWindowWrap = $state(null);
+  let cssWindow = $state(null);
+  let cssContent = $state(null);
+  let cssCloseButton = $state(null);
+  let currentTransitionBg = $state(null);
+  let currentTransitionWindow = $state(null);
+  let prevBodyPosition = $state(null);
+  let prevBodyOverflow = $state(null);
+  let prevBodyWidth = $state(null);
+  let outerClickTarget = $state(null);
 
   const camelCaseToDash = (str) =>
     str.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
@@ -300,10 +276,10 @@
   };
 
   const toVoid = () => {};
-  let onOpen = toVoid;
-  let onClose = toVoid;
-  let onOpened = toVoid;
-  let onClosed = toVoid;
+  let onOpen = $state(toVoid);
+  let onClose = $state(toVoid);
+  let onOpened = $state(toVoid);
+  let onClosed = $state(toVoid);
 
   /**
    * Open a modal.
@@ -318,48 +294,34 @@
     disableScroll();
     onOpen = (event) => {
       if (callbacks.onOpen) callbacks.onOpen(event);
-      /**
-       * The open event is fired right before the modal opens
-       * @event {void} open
-       */
-      dispatch('open');
-      /**
-       * The opening event is fired right before the modal opens
-       * @event {void} opening
-       * @deprecated Listen to the `open` event instead
-       */
-      dispatch('opening'); // Deprecated. Do not use!
     };
     onClose = (event) => {
       if (callbacks.onClose) callbacks.onClose(event);
-      /**
-       * The close event is fired right before the modal closes
-       * @event {void} close
-       */
-      dispatch('close');
-      /**
-       * The closing event is fired right before the modal closes
-       * @event {void} closing
-       * @deprecated Listen to the `close` event instead
-       */
-      dispatch('closing'); // Deprecated. Do not use!
     };
     onOpened = (event) => {
       if (callbacks.onOpened) callbacks.onOpened(event);
-      /**
-       * The opened event is fired after the modal's opening transition
-       * @event {void} opened
-       */
-      dispatch('opened');
     };
     onClosed = (event) => {
       if (callbacks.onClosed) callbacks.onClosed(event);
-      /**
-       * The closed event is fired after the modal's closing transition
-       * @event {void} closed
-       */
-      dispatch('closed');
     };
+  };
+
+  /**
+   * For ContentOutside Mode
+   * @param NewComponent
+   * @param newProps
+   * @param options
+   * @param callbacks
+   */
+  const openOutside = (NewComponent, newProps = {}, options = {}, callbacks = {}) => {
+    Component = NewComponent;
+    
+    //Maximum update depth exceeded. This can happen when a reactive block or effect repeatedly sets a new value. Svelte limits the number of nested updates to prevent infinite loops
+    //https://svelte.dev/e/effect_update_depth_exceeded
+    //state = { ...defaultState, ...options };
+    
+    updateStyleTransition();
+    disableScroll();
   };
 
   /**
@@ -373,6 +335,7 @@
     onClose = callbacks.onClose || onClose;
     onClosed = callbacks.onClosed || onClosed;
     Component = null;
+    show = null;
     enableScroll();
   };
 
@@ -395,7 +358,7 @@
       index += tabbable.length + (event.shiftKey ? -1 : 1);
       index %= tabbable.length;
 
-      tabbable[index].focus();
+      tabbable[index]?.focus();
       event.preventDefault();
     }
   };
@@ -446,24 +409,56 @@
 
   setContext(key, context);
 
-  let isMounted = false;
+  let isMounted = $state(false);
 
-  $: {
-    if (isMounted) {
-      if (isFunction(show)) {
-        open(show);
-      } else {
+  const fnOutSideOpen = () => {
+    if (isFunction(show)) {
+        console.log("OPEN")
+        openOutside(show);
+      }else{
+        console.log("CLOSE")
         close();
       }
-    }
   }
 
-  svelte.onDestroy(() => {
-    if (isMounted) close();
+
+  //Only Use OutSide Modal
+  $effect(() => {
+      if (show && isMounted) {
+        fnOutSideOpen()
+      }
   });
+
+  //autofocus modal contents
+  $effect(()=>{
+    if (Component && modalWindow) {
+      if(isMounted){
+        const nodes = modalWindow.querySelectorAll('*');
+
+        const tabbable = Array.from(nodes)
+        .filter(state.isTabbable)
+        .sort((a, b) => a.tabIndex - b.tabIndex);
+
+        // first input tag find
+        const inputElement = Array.from(nodes).find(node => node.tagName === 'INPUT');
+
+        if (inputElement) {
+          inputElement.focus();
+        } else if (tabbable.length > 0) {
+          tabbable[0]?.focus();
+        }
+      }
+    } 
+  })
 
   svelte.onMount(() => {
     isMounted = true;
+  });
+    
+  svelte.onDestroy(() => {
+      if (isMounted) close();
+
+      Component = null;
   });
 </script>
 
@@ -475,8 +470,8 @@
     id={state.id}
     class={state.classBg}
     class:bg={!unstyled}
-    on:mousedown={handleOuterMousedown}
-    on:mouseup={handleOuterMouseup}
+    onmousedown={handleOuterMousedown}
+    onmouseup={handleOuterMouseup}
     bind:this={background}
     transition:currentTransitionBg={state.transitionBgProps}
     style={cssBg}
@@ -496,21 +491,22 @@
         aria-labelledby={state.ariaLabelledBy || null}
         bind:this={modalWindow}
         transition:currentTransitionWindow={state.transitionWindowProps}
-        on:introstart={onOpen}
-        on:outrostart={onClose}
-        on:introend={onOpened}
-        on:outroend={onClosed}
+        onintrostart={onOpen}
+        onoutrostart={onClose}
+        onintroend={onOpened}
+        onoutroend={onClosed}
         style={cssWindow}
       >
         {#if state.closeButton}
           {#if isFunction(state.closeButton)}
-            <svelte:component this={state.closeButton} onClose={close} />
+            {@const CloseComponent = state.closeButton}
+            <CloseComponent onClose={close} />
           {:else}
             <button
               class={state.classCloseButton}
               class:close={!unstyled}
               aria-label="Close modal"
-              on:click={close}
+              onclick={close}
               style={cssCloseButton}
               type="button"
             />
@@ -521,13 +517,13 @@
           class:content={!unstyled}
           style={cssContent}
         >
-          <svelte:component this={Component} />
+          <Component />
         </div>
       </div>
     </div>
   </div>
 {/if}
-<slot />
+{@render children?.()}
 
 <style>
   * {

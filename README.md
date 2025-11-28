@@ -26,7 +26,7 @@
   
 </div>
 
-**Live demo:** https://svelte.dev/playground/b95ce66b0ef34064a34afc5c0249f313?version=5.17.3
+**Live demo:** [https://svelte.dev/playground/009204f807754e34814393b5355b0aa0?version=5.25.8](https://svelte.dev/playground/009204f807754e34814393b5355b0aa0?version=5.25.8)
 
 **Works with:** Svelte `>=v5`!
 
